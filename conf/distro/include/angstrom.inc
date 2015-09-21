@@ -175,7 +175,7 @@ DISTRO_FEATURES += "pulseaudio"
 DISTRO_FEATURES += "opengl"
 
 # Enable wayland
-DISTRO_FEATURES += "wayland"
+#DISTRO_FEATURES += "wayland"
 
 
 # Inherit the default LIBC features superset from OE-core
