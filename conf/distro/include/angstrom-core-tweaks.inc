@@ -56,9 +56,6 @@ TOOLCHAIN_SYSPATH ?= "${TOOLCHAIN_PATH}/${TARGET_SYS}"
 
 # Image.bbclass stuff:
 
-# Override default fs-perms.txt that messes with our /var setup:
-FILESYSTEM_PERMS_TABLES = "fs-perms-angstrom.txt"
- 
 #
 # udev, devfsd, busybox-mdev (from busybox) or none
 #
