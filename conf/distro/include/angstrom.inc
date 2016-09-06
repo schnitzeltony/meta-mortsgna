@@ -176,6 +176,8 @@ DISTRO_FEATURES += "opengl"
 
 # Enable wayland
 DISTRO_FEATURES += "wayland"
+# Not for imx6
+DISTRO_FEATURES_remove_mx6 = "wayland"
 
 
 # Inherit the default LIBC features superset from OE-core
