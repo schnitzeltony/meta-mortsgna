@@ -49,6 +49,9 @@ PREFERRED_PROVIDER_virtual/libx11 = "libx11"
 PREFERRED_PROVIDER_virtual/xserver-xf86 = "xserver-xorg"
 PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
 
+# We assume float acceleration (e.g neon)
+PREFERRED_PROVIDER_virtual/fftw = "fftwf"
+
 # bitbake.conf stuff:
 
 TOOLCHAIN_PATH ?= "${STAGING_DIR_NATIVE}${prefix_native}/bin/${TUNE_PKGARCH}${HOST_VENDOR}-${HOST_OS}"
