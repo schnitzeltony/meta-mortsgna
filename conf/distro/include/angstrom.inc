@@ -27,7 +27,7 @@ FEED_ARCH_bfin          = "blackfin"
 
 # Add FEED_ARCH to machine overrides so we get access to e.g. 'armv7a' and 'sh4'
 # Hopefully we'll never see a machine or arch with 'all' as substring
-MACHINEOVERRIDES .= ":${@bb.data.getVar('FEED_ARCH', d,1).replace('all','noarch')}"
+MACHINEOVERRIDES .= ":${@d.getVar('FEED_ARCH', d,1).replace('all','noarch')}"
 
 # Put links to sources in deploy/sources to make it easier for people to be GPL compliant
 #INHERIT += "src_distribute_local"
@@ -151,7 +151,7 @@ DEPLOY_DIR_IMAGE = "${DEPLOY_DIR}/images/${MACHINE}"
 SDIMG_ROOTFS_TYPE = "ext4"
 
 # Angstrom *always* has some form of release config, so error out if someone thinks he knows better 
-DISTRO_CHECK := "${@bb.data.getVar("DISTRO_VERSION",d,1) or bb.fatal('Remove this line or set a dummy DISTRO_VERSION if you really want to build an unversioned distro')}"
+DISTRO_CHECK := "${@d.getVar("DISTRO_VERSION",d,1) or bb.fatal('Remove this line or set a dummy DISTRO_VERSION if you really want to build an unversioned distro')}"
 
 # We want images supporting the following features (for packagegroup(-core)-base)
 DISTRO_FEATURES = "alsa argp bluetooth ext2 ipv4 ipv6 irda largefile nfs pam pci pcmcia ppp smbfs systemd usbgadget usbhost vfat wifi xattr zeroconf gobject-introspection-data"
