@@ -16,7 +16,7 @@ IMAGE_INSTALL += " \
 	${ROOTFS_PKGMANAGE_PKGS} \
 	update-alternatives-opkg \
 	systemd-analyze \
-	cpufreq-tweaks \
+    cpufrequtils \
         fixmac \
 "
 
