@@ -170,6 +170,7 @@ DISTRO_FEATURES += "tk"
 DISTRO_FEATURES += "x11"
 DISTRO_FEATURES += "3g"
 DISTRO_FEATURES += "pulseaudio"
+DISTRO_FEATURES += "ldconfig"
 
 # OpenGL support
 DISTRO_FEATURES += "opengl"
