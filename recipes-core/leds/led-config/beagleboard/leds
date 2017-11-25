@@ -1,3 +1,0 @@
-#file format: name trigger
-beagleboard::usr0 heartbeat
-beagleboard::usr1 mmc0

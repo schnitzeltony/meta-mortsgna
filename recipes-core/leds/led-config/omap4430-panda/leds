@@ -1,3 +1,0 @@
-#file format: name trigger
-pandaboard::status1 heartbeat
-pandaboard::status2 mmc0

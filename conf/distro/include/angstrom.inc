@@ -44,10 +44,6 @@ PREFERRED_PROVIDER_linux-libc-headers-nativesdk = "linux-libc-headers-nativesdk"
 
 require conf/distro/include/angstrom-${TCLIBC}.inc
 
-# Set some java bits
-require conf/distro/include/angstrom-java.inc
-require conf/distro/include/angstrom-jalimo.conf
-
 # ARM920T and up can use thumb mode to decrease binary size at the expense of speed
 # (the complete story is a bit more nuanced due to cache starvation)
 # Angstrom turns on thumb for armv4t machine according to this RFC:
@@ -89,9 +85,6 @@ INHERIT += "blacklist"
 #make devshell available as task
 INHERIT += "devshell" 
 
-#use angstrom source mirrors to combat 404s
-INHERIT += "angstrom-mirrors" 
-
 #run QA tests on builds and packages and log them  
 INHERIT += "insane"
 QA_LOG = "1"
@@ -108,7 +101,6 @@ BUILDHISTORY_COMMIT = "1"
 INHERIT += "sstate"
 
 ANGSTROM_PKG_FORMAT ?= "ipk"
-require conf/distro/include/angstrom-package-${ANGSTROM_PKG_FORMAT}.inc
 
 # MACHINE_KERNEL_PR if not defined can cause parsing failures
 # since MACHINE_KERNEL_PR is used in PR assignments in some recipes
