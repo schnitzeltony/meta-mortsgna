@@ -9,6 +9,7 @@ TERM="xterm-256color"
 
 # Set the prompt for bash and ash (no other shells known to be in use here)
 PS1='\u@\h:\W\$ '
+PROMPT_COMMAND='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"'
 
 if [ -d /etc/profile.d ]; then
 	for i in /etc/profile.d/*.sh; do
