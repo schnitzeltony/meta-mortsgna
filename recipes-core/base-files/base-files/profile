@@ -29,6 +29,6 @@ if command -v resize >/dev/null && command -v tty >/dev/null; then
 	esac
 fi
 
-export PATH PS1 OPIEDIR QPEDIR QTDIR EDITOR TERM
+export PATH PS1 OPIEDIR QPEDIR QTDIR EDITOR TERM PROMPT_COMMAND
 
 umask 022
