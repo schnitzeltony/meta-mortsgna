@@ -10,4 +10,4 @@ URI: git://git.openembedded.org/meta-openembedded
 branch: master
 revision: HEAD
 
-This layer contains my working branches. I those many recipes, appends and packagefeed support was removed. Although not recommended feel free to use but please don't ask questions at particularly not at angstrom mailing list
+This layer contains my working branches. In them many recipes, appends and packagefeed support was removed. Although not recommended feel free to use but please don't ask questions at particularly not at angstrom mailing list
