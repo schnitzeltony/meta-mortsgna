@@ -4,11 +4,11 @@ URI: git://git.openembedded.org/openembedded-core
 branch: master
 revision: HEAD
 
-And the layers found in the meta-openembedded repo. At least 'meta-oe' and 'meta-systemd' are needed. The instructions below will take care of everything automagically.
+And the layers found in the meta-openembedded repo. At least 'meta-oe' is needed.
 
 URI: git://git.openembedded.org/meta-openembedded
 branch: master
 revision: HEAD
 
-This layer contains my working branches. In them many recipes, appends and packagefeed support was removed. Although not recommended feel free to use but please don't ask questions at particularly not at angstrom mailing list
+This layer contains my working branches. In them many recipes, appends and packagefeed support were removed. Although not recommended, feel free to use but please don't ask questions particularly not at angstrom mailing list.
 
