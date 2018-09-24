@@ -121,10 +121,9 @@ run_root() {
     ln -sf $KernelWithAbiName /tmp/tmp_mount$$/boot/$KernelImageType
 
 	# rootfs/lib/modules
-	echo "Writing modules to rootfs"
+	echo "Writing modules to rootfs..."
     kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}'::g'`
 
-    rm -rf /tmp/tmp_mount$$/lib/modules/$kernel_abi_ver
 	for modules in `find ${IMAGEDIR} -name "modules-${MACHINE}.tgz"`; do
 		tar xvzf ${modules} -C /tmp/tmp_mount$$/
 	done
