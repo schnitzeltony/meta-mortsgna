@@ -1,0 +1,1 @@
+PACKAGECONFIG = "startup-notification gladeui"
