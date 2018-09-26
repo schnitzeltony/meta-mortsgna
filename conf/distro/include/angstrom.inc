@@ -102,25 +102,7 @@ INHERIT += "sstate"
 
 ANGSTROM_PKG_FORMAT ?= "ipk"
 
-# MACHINE_KERNEL_PR if not defined can cause parsing failures
-# since MACHINE_KERNEL_PR is used in PR assignments in some recipes
-# (meta-ti comes to mind) which means when creating FILESPATH
-# it will try to evaluate it and if its undefined then python
-# will except
-#
-# so for machines which do not define it lets define it to be empty
-
-MACHINE_KERNEL_PR ??= "r0"
-
-# We don't want to keep OABI compat
-ARM_KEEP_OABI = "0"
-# Do keep OABI compat for om-gta01 to keep the gllin binary working
-ARM_KEEP_OABI_pn-linux-openmoko-2.6.24_om-gta01 = "1"
-ARM_KEEP_OABI_pn-linux-openmoko-2.6.28_om-gta01 = "1"
-
-
 #Generate locales on the buildsystem instead of on the target. Speeds up first boot, set to "1" to enable
-PREFERRED_PROVIDER_qemu-native = "qemu-native"
 ENABLE_BINARY_LOCALE_GENERATION ?= "1"
 
 # We only want to build UTF8 locales
@@ -154,9 +136,6 @@ VIRTUAL-RUNTIME_init_manager = "systemd"
 # Uncomment to completely disable support for sysv scripts:
 #PACKAGECONFIG_pn-systemd = "xz"
 
-# Enable systemd support in kernels
-KERNEL_ENABLE_CGROUPS = "1"
-
 # USE-flag like features
 DISTRO_FEATURES += "tk"
 DISTRO_FEATURES += "x11"
@@ -181,9 +160,6 @@ DISTRO_FEATURES += "${DISTRO_WAYLAND}"
 
 # Inherit the default LIBC features superset from OE-core
 DISTRO_FEATURES += "${DISTRO_FEATURES_LIBC}"
-
-# EFL tweaks
-include conf/distro/include/efl-from-svn.inc
 
 # Yocto tweaks
 require conf/distro/include/angstrom-core-tweaks.inc
