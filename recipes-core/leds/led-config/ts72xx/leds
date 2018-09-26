@@ -1,3 +1,0 @@
-#file format: name trigger
-platform:grled nand-disk
-platform:rdled heartbeat

@@ -35,8 +35,7 @@ MACHINEOVERRIDES[vardepsexclude] += "SOC_FAMILY"
 # Providers
 
 # opkg
-PREFERRED_PROVIDER_opkg-collateral = "angstrom-feed-configs"
-EXTRA_IMAGE_FEATURES ?= "package-management"
+EXTRA_IMAGE_FEATURES ?= "package-management empty-root-password"
 
 PREFERRED_PROVIDER_os-release = "angstrom-version"
 
@@ -54,15 +53,8 @@ PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
 TOOLCHAIN_PATH ?= "${STAGING_DIR_NATIVE}${prefix_native}/bin/${TUNE_PKGARCH}${HOST_VENDOR}-${HOST_OS}"
 TOOLCHAIN_SYSPATH ?= "${TOOLCHAIN_PATH}/${TARGET_SYS}"
 
-# Package manager selection, angstrom uses ANGSTROM_PKG_FORMAT
-
-PACKAGE_CLASSES = "package_ipk"
-
 # Image.bbclass stuff:
 
-# Override default fs-perms.txt that messes with our /var setup:
-FILESYSTEM_PERMS_TABLES = "fs-perms-angstrom.txt"
- 
 #
 # udev, devfsd, busybox-mdev (from busybox) or none
 #

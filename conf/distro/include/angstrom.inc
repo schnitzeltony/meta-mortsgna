@@ -27,7 +27,7 @@ FEED_ARCH_bfin          = "blackfin"
 
 # Add FEED_ARCH to machine overrides so we get access to e.g. 'armv7a' and 'sh4'
 # Hopefully we'll never see a machine or arch with 'all' as substring
-MACHINEOVERRIDES .= ":${@bb.data.getVar('FEED_ARCH', d,1).replace('all','noarch')}"
+MACHINEOVERRIDES .= ":${@d.getVar('FEED_ARCH', d,1).replace('all','noarch')}"
 
 # Put links to sources in deploy/sources to make it easier for people to be GPL compliant
 #INHERIT += "src_distribute_local"
@@ -43,10 +43,6 @@ PREFERRED_PROVIDER_virtual/gettext ??= "gettext"
 PREFERRED_PROVIDER_linux-libc-headers-nativesdk = "linux-libc-headers-nativesdk"
 
 require conf/distro/include/angstrom-${TCLIBC}.inc
-
-# Set some java bits
-require conf/distro/include/angstrom-java.inc
-require conf/distro/include/angstrom-jalimo.conf
 
 # ARM920T and up can use thumb mode to decrease binary size at the expense of speed
 # (the complete story is a bit more nuanced due to cache starvation)
@@ -89,9 +85,6 @@ INHERIT += "blacklist"
 #make devshell available as task
 INHERIT += "devshell" 
 
-#use angstrom source mirrors to combat 404s
-INHERIT += "angstrom-mirrors" 
-
 #run QA tests on builds and packages and log them  
 INHERIT += "insane"
 QA_LOG = "1"
@@ -108,7 +101,6 @@ BUILDHISTORY_COMMIT = "1"
 INHERIT += "sstate"
 
 ANGSTROM_PKG_FORMAT ?= "ipk"
-require conf/distro/include/angstrom-package-${ANGSTROM_PKG_FORMAT}.inc
 
 # MACHINE_KERNEL_PR if not defined can cause parsing failures
 # since MACHINE_KERNEL_PR is used in PR assignments in some recipes
@@ -147,11 +139,14 @@ INHERIT += "image-prelink"
 IMAGE_NAME = "${DISTRO_NAME}-${IMAGE_BASENAME}-${TCLIBC}-${ANGSTROM_PKG_FORMAT}-${DISTRO_VERSION}-${MACHINE}"
 DEPLOY_DIR_IMAGE = "${DEPLOY_DIR}/images/${MACHINE}"
 
+# Prefer ext4 images where possible
+SDIMG_ROOTFS_TYPE = "ext4"
+
 # Angstrom *always* has some form of release config, so error out if someone thinks he knows better 
-DISTRO_CHECK := "${@bb.data.getVar("DISTRO_VERSION",d,1) or bb.fatal('Remove this line or set a dummy DISTRO_VERSION if you really want to build an unversioned distro')}"
+DISTRO_CHECK := "${@d.getVar("DISTRO_VERSION",d,1) or bb.fatal('Remove this line or set a dummy DISTRO_VERSION if you really want to build an unversioned distro')}"
 
 # We want images supporting the following features (for packagegroup(-core)-base)
-DISTRO_FEATURES = "alsa argp bluetooth ext2 ipv4 ipv6 irda largefile nfs pam pci pcmcia ppp smbfs systemd usbgadget usbhost vfat wifi xattr zeroconf"
+DISTRO_FEATURES = "alsa argp bluetooth ext2 ipv4 ipv6 irda largefile nfs pam pci pcmcia ppp smbfs systemd usbgadget usbhost vfat wifi xattr zeroconf gobject-introspection-data"
 
 # Disable sysvinit for recipes with systemd support
 DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
@@ -159,14 +154,30 @@ VIRTUAL-RUNTIME_init_manager = "systemd"
 # Uncomment to completely disable support for sysv scripts:
 #PACKAGECONFIG_pn-systemd = "xz"
 
+# Enable systemd support in kernels
+KERNEL_ENABLE_CGROUPS = "1"
+
 # USE-flag like features
 DISTRO_FEATURES += "tk"
 DISTRO_FEATURES += "x11"
 DISTRO_FEATURES += "3g"
 DISTRO_FEATURES += "pulseaudio"
+DISTRO_FEATURES += "ldconfig"
 
 # OpenGL support
 DISTRO_FEATURES += "opengl"
+
+# wayland...
+DISTRO_WAYLAND = "wayland"
+
+# No wayland for vivante blobs
+DISTRO_WAYLAND_mx6 = ""
+DISTRO_WAYLAND_mx7 = ""
+DISTRO_WAYLAND_mx8 = ""
+DISTRO_WAYLAND_use-mainline-bsp = "wayland"
+
+DISTRO_FEATURES += "${DISTRO_WAYLAND}"
+
 
 # Inherit the default LIBC features superset from OE-core
 DISTRO_FEATURES += "${DISTRO_FEATURES_LIBC}"
