@@ -17,14 +17,15 @@
 #
 # to debug by remote do:
 #
-# on target:
-# * install gdbserver (added it many of my images
+# ON TARGET:
+# * install gdbserver (done automatically on images if this class enabled - see
+#   IMAGE_INSTALL below)
 # * open a shell and enter 'gdbserver :<IP-Port> <full path of executable with optional args>' e.g
 #   'gdbserver :5000 /usr/bin/thunar'
 #
-# on build host (suggested IDE: QtCreator)
-# * build gdb-cross-<TARGET_ARCH> - or better add to you image:
-#   'DEPENDS += "gdb-cross-${TARGET_ARCH}"'
+# ON BUILD HOST (suggested IDE: QtCreator)
+# * build gdb-cross-<TARGET_ARCH> (done automatically on images if this class
+#   enabled - see EXTRA_IMAGEDEPENDS below)
 # * in QtCreator select Menu Debug/Start Debugging/Attach to Running Debug Server
 #   -> Dialog 'Start Debugger' opens
 # * At the first session a so called 'Kit' has to be set up (1st line -> 'Manage').
@@ -52,6 +53,12 @@
 # * Class does not work properly when package data is taken from sstate cache
 #   -> Help appreciated
 #------------------------------------------------------------------------------
+
+# ensure gdb-cross-<TARGET_ARCH> is build
+EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH}"
+
+# have gdbserver in image created
+IMAGE_INSTALL += "gdbserver"
 
 
 # This is where instant sysroot is installed into
