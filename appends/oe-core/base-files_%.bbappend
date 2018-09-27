@@ -6,7 +6,7 @@ do_install_angstromissue () {
     echo ${MACHINE} > ${D}${sysconfdir}/hostname
 
     install -m 644 ${WORKDIR}/issue*  ${D}${sysconfdir}
-        if [ -n "${DISTRO_NAME}" ]; then
+    if [ -n "${DISTRO_NAME}" ]; then
         echo -n "${DISTRO_NAME} " >> ${D}${sysconfdir}/issue
         echo -n "${DISTRO_NAME} " >> ${D}${sysconfdir}/issue.net
         if [ -n "${DISTRO_VERSION}" ]; then
