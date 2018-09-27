@@ -18,8 +18,8 @@
 # to debug by remote do:
 #
 # ON TARGET:
-# * install gdbserver (done automatically on images if this class enabled - see
-#   IMAGE_INSTALL below)
+# * install gdbserver (build automatically for images if this class enabled - see
+#   EXTRA_IMAGEDEPENDS below)
 # * open a shell and enter 'gdbserver :<IP-Port> <full path of executable with optional args>' e.g
 #   'gdbserver :5000 /usr/bin/thunar'
 #
@@ -54,12 +54,8 @@
 #   -> Help appreciated
 #------------------------------------------------------------------------------
 
-# ensure gdb-cross-<TARGET_ARCH> is build
-EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH}"
-
-# have gdbserver in image created
-IMAGE_INSTALL += "gdbserver"
-
+# ensure necessary gdb recipes are build
+EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"
 
 # This is where instant sysroot is installed into
 INSTANT_REMOTE_PATH ??= "${TMPDIR}/sysroot-instant-remote"
