@@ -15,3 +15,5 @@ IMAGE_INSTALL += " \
     orage \
     xfce4-orageclock-plugin \
 "
+
+IMAGE_LINGUAS = "${IMAGE_LINGUAS_FULL}"

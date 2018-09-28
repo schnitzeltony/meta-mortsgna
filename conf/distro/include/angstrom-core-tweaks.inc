@@ -60,7 +60,39 @@ IMAGE_BOOT ?= "${IMAGE_INITSCRIPTS} \
                ${IMAGE_LOGIN_MANAGER}"
 
 # some default locales
-IMAGE_LINGUAS ?= "de-de fr-fr en-gb"
+IMAGE_LINGUAS ?= "de-de fr-fr en-gb it-it"
+
+# there are important missing I bet
+IMAGE_LINGUAS_FULL ?= " \
+    af-za \
+    ar-sa \
+    da-dk \
+    de-de \
+    el-gr \
+    en-gb \
+    en-us \
+    es-es \
+    fi-fi \
+    fr-fr \
+    he-il \
+    hi-in \
+    hu-hu \
+    it-it \
+    ja-jp \
+    ko-kr \
+    nn-no \
+    ku-tr \
+    pl-pl \
+    pt-pt \
+    ru-ru \
+    sv-se \
+    vi-vn \
+    zh-cn \
+"
+# broken?
+#    tr-tr 
+
+
 
 IMAGE_INSTALL += "${IMAGE_BOOT}"
 

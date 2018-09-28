@@ -6,3 +6,5 @@ IMAGE_INSTALL += " \
     kde-world \
     packagegroup-image-full \
 " 
+
+IMAGE_LINGUAS = "${IMAGE_LINGUAS_FULL}"
