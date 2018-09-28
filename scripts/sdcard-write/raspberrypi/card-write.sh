@@ -85,7 +85,7 @@ run_root() {
 	# check if the card is currently mounted
 	MOUNTSTR=$(mount | grep $DevicePath)
 	if [ -n "$MOUNTSTR" ] ; then
-	    echo -e "\n$DevicePath is currenly mounted. Needs unmounting..."
+	    echo -e "\n$DevicePath is mounted. Unmounting..."
 	    umount -f ${DevicePath}?*
 	fi
 
