@@ -103,6 +103,11 @@ run_root() {
 . `dirname $0`/machine.inc
 . `dirname $0`/../tools.inc
 
+CheckPrerequisite "dd"
+CheckPrerequisite "time"
+CheckPrerequisite "parted"
+CheckPrerequisite "resize2fs"
+
 if [ -z $MACHINE ]; then
 	MACHINE=$DEFAULT_MACHINE
 fi

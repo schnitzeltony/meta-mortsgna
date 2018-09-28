@@ -8,6 +8,15 @@
 # scripts
 
 
+CheckPrerequisite() {
+    if [ "x`which $1`" = "x" ] ; then
+        echo
+        echo "You need to install $1 first!"
+        echo
+        exit -1
+    fi
+}
+
 # SelectCardDevice() creates a dialog to select one of all available removable
 # devices. The path to the selected device is stored in the variale DevicePath.
 SelectCardDevice() {
@@ -96,4 +105,7 @@ chk_root() {
 				# unless something goes wrong.
 	fi
 }
+
+# common prerequisites
+CheckPrerequisite "dialog"
 
