@@ -114,6 +114,9 @@ ENABLE_BINARY_LOCALE_GENERATION_ep9312 = "0"
 #qemu has taken a dislike to armeb as well
 ENABLE_BINARY_LOCALE_GENERATION_armeb = "0"
 
+# drop buildinfo to /etc/build
+INHERIT += "image-buildinfo"
+
 # Prelink images
 INHERIT += "image-prelink"
 

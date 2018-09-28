@@ -28,8 +28,6 @@ MACHINEOVERRIDES[vardepsexclude] += "SOC_FAMILY"
 # opkg
 EXTRA_IMAGE_FEATURES ?= "package-management empty-root-password"
 
-PREFERRED_PROVIDER_os-release = "angstrom-version"
-
 # Prefer libjpeg-turbo
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
