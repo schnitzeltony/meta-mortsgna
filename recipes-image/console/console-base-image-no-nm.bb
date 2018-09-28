@@ -15,8 +15,6 @@ IMAGE_INSTALL += " \
     cpufrequtils \
     fixmac \
     glibc-utils \
-    evtest \
-    strace \
     nano \
 "
 
