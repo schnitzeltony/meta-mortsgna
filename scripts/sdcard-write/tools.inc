@@ -20,7 +20,6 @@ CheckPrerequisite() {
 # SelectCardDevice() creates a dialog to select one of all available removable
 # devices. The path to the selected device is stored in the variale DevicePath.
 SelectCardDevice() {
-	strSelection=""
 	iCount=0
 	for dev in /dev/sd[a-z] ; do
 		DeviceFile=`basename $dev`
@@ -28,7 +27,34 @@ SelectCardDevice() {
 		if [ `cat  /sys/block/$DeviceFile/removable` = '1' ] && [ `cat  /sys/block/$DeviceFile/size` -gt "0" ]; then
 			iCount=`expr $iCount + 1`
 			DevicePathArr[${iCount}]=$dev
-			strSelection="$strSelection $iCount $dev"
+            # pretify display
+            secondline=
+            display=
+            IFS=$'\n'
+            for line in `lsblk --raw --noheadings --output NAME,LABEL,MODEL $dev` ; do
+                # a bug in lsblk?
+                line=`echo $line | sed 's:\\\x20: :g'`
+                if [ "x$secondline" = "x" ]; then
+                    # first line - it is for device
+                    secondline="1"
+                    display="$line"
+                else
+                    if [ "x$secondline" = "x1" ]; then
+                        secondline="2"
+                        # second line - header + partition
+                        display="$display / partitions: $line"
+                    else
+                        # second line - separator + partition
+                        display="$display + $line"
+                    fi
+                fi
+            done
+            display=`echo $display | sed 's:  : :g'`
+            display=`echo $display | sed 's:  : :g'`
+            display=`echo $display | sed 's:  : :g'`
+            
+            unset IFS
+            menuitems+=( "$iCount" "$display" )
 		fi
 	done
 	
@@ -39,7 +65,7 @@ SelectCardDevice() {
 
 	dialog --title 'Select card device'\
 	--menu 'Move using [UP] [DOWN],[Enter] to select' 10 100 $iCount\
-	${strSelection}\
+	"${menuitems[@]}"\
 	2>/tmp/menuitem.$$
 
 	# get OK/Cancel
@@ -108,4 +134,5 @@ chk_root() {
 
 # common prerequisites
 CheckPrerequisite "dialog"
+CheckPrerequisite "lsblk"
 
