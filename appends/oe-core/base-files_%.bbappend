@@ -1,8 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-BASEFILESISSUEINSTALL = "do_install_angstromissue"
+BASEFILESISSUEINSTALL = "do_install_mortsgnaissue"
 
-do_install_angstromissue () {
+do_install_mortsgnaissue () {
     echo ${MACHINE} > ${D}${sysconfdir}/hostname
 
     install -m 644 ${WORKDIR}/issue*  ${D}${sysconfdir}
