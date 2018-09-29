@@ -12,7 +12,7 @@ RDEPENDS_${PN} = " \
     source-han-sans-jp-fonts \
     source-han-sans-tw-fonts \
     \
-    operator-user \
+    ${DISTRO_GUI_USER} \
     \
     gedit gtksourceview-classic-light \
     xarchiver \
