@@ -6,7 +6,6 @@ IMAGE_INSTALL += " \
     packagegroup-image-full \
     kde-world \
     \
-    gnome-bluetooth \
     onboard \
     \
     faenza-icon-theme \
