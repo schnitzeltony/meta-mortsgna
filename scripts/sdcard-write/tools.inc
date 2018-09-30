@@ -31,6 +31,7 @@ if [ -t 1 ] ; then
     fi
 fi
 
+# ErrorOut outputs error text in first param and exits script
 ErrorOut() {
     echo
     echo "${style_red}${style_bold}${1}!${style_normal}"
