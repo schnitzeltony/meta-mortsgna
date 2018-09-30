@@ -27,46 +27,47 @@ PREFERRED_PROVIDER_linux-libc-headers-nativesdk = "linux-libc-headers-nativesdk"
 
 require conf/distro/include/mortsgna-${TCLIBC}.inc
 
+# thumb2 only
 ARM_INSTRUCTION_SET ??= "thumb"
 ARM_INSTRUCTION_SET_armv4t ?= "arm"
 ARM_INSTRUCTION_SET_armv5te ?= "arm"
 ARM_INSTRUCTION_SET_armv6 ?= "arm"
 
-#use debian style naming
+# use debian style naming
 INHERIT += "debian"
 
-#activate config checker
+# activate config checker
 INHERIT += "sanity" 
 
-#activate the blacklister
+# activate the blacklister
 INHERIT += "blacklist"
 
-#make devshell available as task
+# make devshell available as task
 INHERIT += "devshell" 
 
-#run QA tests on builds and packages and log them  
+# run QA tests on builds and packages and log them
 INHERIT += "insane"
 QA_LOG = "1"
 
 INHERIT += "buildhistory"
 BUILDHISTORY_COMMIT = "1"
 
-#run QA tests on recipes
+# run QA tests on recipes
 #INHERIT += "recipe_sanity"
 
-#have a shared state a.k.a package-staging2
+# have a shared state a.k.a package-staging2
 INHERIT += "sstate"
 
 # Generate locales on the buildsystem instead of on the target. Speeds up first boot, set to "1" to enable
 ENABLE_BINARY_LOCALE_GENERATION ?= "1"
 
-# We only want to build UTF8 locales
+# build UTF8 locales only
 LOCALE_UTF8_ONLY = "1"
 
-#qemu doesn't like this fp
+# qemu doesn't like this fp
 ENABLE_BINARY_LOCALE_GENERATION_ep9312 = "0"
 
-#qemu has taken a dislike to armeb as well
+# qemu has taken a dislike to armeb as well
 ENABLE_BINARY_LOCALE_GENERATION_armeb = "0"
 
 # drop buildinfo to /etc/build
@@ -111,7 +112,6 @@ DISTRO_WAYLAND_mx8 = ""
 DISTRO_WAYLAND_use-mainline-bsp = "wayland"
 
 DISTRO_FEATURES += "${DISTRO_WAYLAND}"
-
 
 # Inherit the default LIBC features superset from OE-core
 DISTRO_FEATURES += "${DISTRO_FEATURES_LIBC}"
