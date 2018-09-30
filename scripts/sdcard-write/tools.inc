@@ -111,6 +111,56 @@ SelectCardDevice() {
 	DevicePath=${DevicePathArr[$menuitem]}
 }
 
+# SelectRootfs() opens a dialog to select file containing rootfs. It expects
+# one parameter which contains find parameters e.g for raspberrypi: '
+SelectRootfs() {
+	# OE environment found?
+	if [ -z $BUILDDIR ]; then
+		ErrorOut "The environment variable BUILDDIR is not set. It is usually set before running bitbake."
+	fi
+	iCount=0
+	strSelection=
+	for grep_result in `grep -h TMPDIR $BUILDDIR/conf/*.conf | sed -e s/' '/''/g -e s/'\"'/''/g`; do
+		# exclude comments
+		tmp_dir=`echo $grep_result | grep '^TMPDIR='`
+		if [ ! -z $tmp_dir ]; then
+			TMPDIR=`echo $tmp_dir | sed -e s/'TMPDIR='/''/g`
+		fi
+	done
+	for BuildPath in ${TMPDIR}-*; do
+		for i in `find ${BuildPath}/deploy/images/${MACHINE} $1 | sort` ; do
+			iCount=`expr $iCount + 1`
+			RootFileNameArr[${iCount}]=$i
+			strSelection="$strSelection $iCount "`basename $i`
+		done
+	done
+
+	# were files found?
+	if [ $iCount -eq 0 ]; then
+		ErrorOut "No rootfs files found in ${TMPDIR}-\*"
+	fi
+
+	dialog --title 'Select rootfs'\
+	--menu 'Move using [UP] [DOWN],[Enter] to select' 30 100 $iCount\
+	${strSelection}\
+	2>/tmp/menuitem.$$
+
+	# get OK/Cancel
+	sel=$?
+	# get selected menuitem
+	menuitem=`cat /tmp/menuitem.$$`
+	rm -f /tmp/menuitem.$$
+
+	# Cancel Button or <ESC>
+	if [ $sel -eq 1 -o $sel -eq 255 ] ; then
+		echo Cancel selected 1
+		return 1
+	fi
+	RootFsFile=${RootFileNameArr[$menuitem]}
+	echo
+}
+
+
 # chk_root() tests if we are running as root. If not, it calls run_user and then
 # asks operator how to log on as root. Then the main script is started as root
 chk_root() {
