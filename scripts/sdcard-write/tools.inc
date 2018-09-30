@@ -51,13 +51,13 @@ CheckPrerequisite() {
 # SelectCardDevice() creates a dialog to select one of all available removable
 # devices. The path to the selected device is stored in the variale DevicePath.
 SelectCardDevice() {
-	iCount=0
-	for dev in /dev/sd[a-z] ; do
-		DeviceFile=`basename $dev`
-		# we are only interested in removable devices
-		if [ `cat  /sys/block/$DeviceFile/removable` = '1' ] && [ `cat  /sys/block/$DeviceFile/size` -gt "0" ]; then
-			iCount=`expr $iCount + 1`
-			DevicePathArr[${iCount}]=$dev
+    iCount=0
+    for dev in /dev/sd[a-z] ; do
+        DeviceFile=`basename $dev`
+        # we are only interested in removable devices
+        if [ `cat  /sys/block/$DeviceFile/removable` = '1' ] && [ `cat  /sys/block/$DeviceFile/size` -gt "0" ]; then
+            iCount=`expr $iCount + 1`
+            DevicePathArr[${iCount}]=$dev
             # pretify display
             secondline=
             display=
@@ -74,7 +74,7 @@ SelectCardDevice() {
                         secondline="2"
                         # second line - header + partition
                         display="$display / partitions: $line"
-                    else
+                     else
                         # second line - separator + partition
                         display="$display + $line"
                     fi
@@ -86,131 +86,144 @@ SelectCardDevice() {
             
             unset IFS
             menuitems+=( "$iCount" "$display" )
-		fi
-	done
+        fi
+    done
 	
-	if [ $iCount -eq 0 ]; then
-		ErrorOut 'No removable devices found!'
-	fi
+    if [ $iCount -eq 0 ]; then
+        ErrorOut 'No removable devices found!'
+    fi
 
-	dialog --title 'Select card device'\
-	--menu 'Move using [UP] [DOWN],[Enter] to select' 10 100 $iCount\
-	"${menuitems[@]}"\
-	2>/tmp/menuitem.$$
+    dialog --title 'Select card device'\
+        --menu 'Move using [UP] [DOWN],[Enter] to select' 10 100 $iCount\
+        "${menuitems[@]}"\
+        2>/tmp/menuitem.$$
 
-	# get OK/Cancel
-	sel=$?
-	# get selected menuitem
-	menuitem=`cat /tmp/menuitem.$$`
-	rm -f /tmp/menuitem.$$
+    # get OK/Cancel
+    sel=$?
+    # get selected menuitem
+    menuitem=`cat /tmp/menuitem.$$`
+    rm -f /tmp/menuitem.$$
 
-	# Cancel Button or <ESC>
-	if [ $sel -eq 1 -o $sel -eq 255 ] ; then
-		echo 'Cancel selected SelectCardDevice()'
-		return 1
-	fi
-	DevicePath=${DevicePathArr[$menuitem]}
+    # Cancel Button or <ESC>
+    if [ $sel -eq 1 -o $sel -eq 255 ] ; then
+        echo 'Cancel selected SelectCardDevice()'
+        return 1
+    fi
+    DevicePath=${DevicePathArr[$menuitem]}
 }
 
 # SelectRootfs() opens a dialog to select file containing rootfs. It expects
 # one parameter which contains find parameters e.g for raspberrypi: '
 SelectRootfs() {
-	# OE environment found?
-	if [ -z $BUILDDIR ]; then
-		ErrorOut "The environment variable BUILDDIR is not set. It is usually set before running bitbake."
-	fi
-	iCount=0
-	strSelection=
-	for grep_result in `grep -h TMPDIR $BUILDDIR/conf/*.conf | sed -e s/' '/''/g -e s/'\"'/''/g`; do
-		# exclude comments
-		tmp_dir=`echo $grep_result | grep '^TMPDIR='`
-		if [ ! -z $tmp_dir ]; then
-			TMPDIR=`echo $tmp_dir | sed -e s/'TMPDIR='/''/g`
-		fi
-	done
-	for BuildPath in ${TMPDIR}-*; do
-		for i in `find ${BuildPath}/deploy/images/${MACHINE} $1 | sort` ; do
-			iCount=`expr $iCount + 1`
-			RootFileNameArr[${iCount}]=$i
-			strSelection="$strSelection $iCount "`basename $i`
-		done
-	done
+    # OE environment found?
+    if [ -z $BUILDDIR ]; then
+        ErrorOut "The environment variable BUILDDIR is not set. It is usually set before running bitbake."
+    fi
+    iCount=0
+    strSelection=
+    for grep_result in `grep -h TMPDIR $BUILDDIR/conf/*.conf | sed -e s/' '/''/g -e s/'\"'/''/g`; do
+        # exclude comments
+        tmp_dir=`echo $grep_result | grep '^TMPDIR='`
+        if [ ! -z $tmp_dir ]; then
+            TMPDIR=`echo $tmp_dir | sed -e s/'TMPDIR='/''/g`
+        fi
+    done
+    for BuildPath in ${TMPDIR}-*; do
+        for i in `find ${BuildPath}/deploy/images/${MACHINE} $1 | sort` ; do
+            iCount=`expr $iCount + 1`
+            RootFileNameArr[${iCount}]=$i
+            strSelection="$strSelection $iCount "`basename $i`
+        done
+    done
 
-	# were files found?
-	if [ $iCount -eq 0 ]; then
-		ErrorOut "No rootfs files found in ${TMPDIR}-\*"
-	fi
+    # were files found?
+    if [ $iCount -eq 0 ]; then
+        ErrorOut "No rootfs files found in ${TMPDIR}-\*"
+    fi
 
-	dialog --title 'Select rootfs'\
-	--menu 'Move using [UP] [DOWN],[Enter] to select' 30 100 $iCount\
-	${strSelection}\
-	2>/tmp/menuitem.$$
+    dialog --title 'Select rootfs'\
+        --menu 'Move using [UP] [DOWN],[Enter] to select' 30 100 $iCount\
+        ${strSelection}\
+        2>/tmp/menuitem.$$
 
-	# get OK/Cancel
-	sel=$?
-	# get selected menuitem
-	menuitem=`cat /tmp/menuitem.$$`
-	rm -f /tmp/menuitem.$$
+    # get OK/Cancel
+    sel=$?
+    # get selected menuitem
+    menuitem=`cat /tmp/menuitem.$$`
+    rm -f /tmp/menuitem.$$
 
-	# Cancel Button or <ESC>
-	if [ $sel -eq 1 -o $sel -eq 255 ] ; then
-		echo Cancel selected 1
-		return 1
-	fi
-	RootFsFile=${RootFileNameArr[$menuitem]}
-	echo
+    # Cancel Button or <ESC>
+    if [ $sel -eq 1 -o $sel -eq 255 ] ; then
+        echo Cancel selected 1
+        return 1
+    fi
+    RootFsFile=${RootFileNameArr[$menuitem]}
+    echo
 }
 
 
 # chk_root() tests if we are running as root. If not, it calls run_user and then
 # asks operator how to log on as root. Then the main script is started as root
 chk_root() {
-	# we are not already root?
-	if [ ! $( id -u ) -eq 0 ]; then
-		# do all non root operations
-		run_user
-		# abort in case run_user was performed without success
-		if [ $? -ne 0 ] ; then
-			return 1
-		fi
+    # we are not already root?
+    if [ ! $( id -u ) -eq 0 ]; then
+        # do all non root operations
+        run_user
+        # abort in case run_user was performed without success
+        if [ $? -ne 0 ] ; then
+            return 1
+        fi
 
-		dialog --title 'Select how you want to logon as root'\
-		--menu 'Move using [UP] [DOWN],[Enter] to select' 10 100 2 1 su 2 sudo \
-		2>/tmp/menuitem.$$
+        dialog --title 'Select how you want to logon as root'\
+            --menu 'Move using [UP] [DOWN],[Enter] to select' 10 100 2 1 su 2 sudo \
+            2>/tmp/menuitem.$$
 
-		# get OK/Cancel
-		sel=$?
-		# get selected menuitem
-		menuitem=`cat /tmp/menuitem.$$`
-		rm -f /tmp/menuitem.$$
+        # get OK/Cancel
+        sel=$?
+        # get selected menuitem
+        menuitem=`cat /tmp/menuitem.$$`
+        rm -f /tmp/menuitem.$$
 
-		# Cancel Button or <ESC>
-		if [ $sel -eq 1 -o $sel -eq 255 ] ; then
-			echo 'Cancel selected chk_root()'
-			return 1
-		fi
+        # Cancel Button or <ESC>
+        if [ $sel -eq 1 -o $sel -eq 255 ] ; then
+            echo 'Cancel selected chk_root()'
+            return 1
+        fi
 
-		clear
-		if [ "x$1" = "x" ] ; then
-			echo "All data currenly stored on $DevicePath will be overwritten!!"
-		else
-			echo $1 | sed "s|\%DevicePath\%|$DevicePath|"
-		fi
+        clear
+        if [ "x$1" = "x" ] ; then
+            echo "All data currenly stored on $DevicePath will be overwritten!!"
+        else
+            echo $1 | sed "s|\%DevicePath\%|$DevicePath|"
+        fi
 
-		if [ $menuitem -eq 1 ]; then
-			echo -e "\nEnter valid root password if you are sure you want to continue"
-			# Call this prog as root
-			exec su -c "${0} $RootParams"
-		else
-			echo -e "\nEnter valid sudo password if you are sure you want to continue"
-			sudo -k
-			# Call this prog as root
-			exec sudo ${0} $RootParams
-		fi
-		return 1	# sice we're 'execing' above, we wont reach this exit
-				# unless something goes wrong.
-	fi
+        if [ $menuitem -eq 1 ]; then
+            echo -e "\nEnter valid root password if you are sure you want to continue"
+            # Call this prog as root
+            exec su -c "${0} $RootParams"
+        else
+            echo -e "\nEnter valid sudo password if you are sure you want to continue"
+            sudo -k
+            # Call this prog as root
+            exec sudo ${0} $RootParams
+        fi
+        return 1 # sice we're 'execing' above, we wont reach this exit
+                 # unless something goes wrong.
+    fi
 }
+
+# chk_umount() tests if a device partition is mounted. If so partition is
+# unmounted. Devic name is expected in first parameter.
+chk_umount() {
+    # check if the card is currently mounted
+    MOUNTSTR=$(mount | grep $1)
+    if [ -n "$MOUNTSTR" ] ; then
+        echo -en "\n$1 is mounted. Unmounting..."
+        umount -f ${1}?*
+        echo "   done"
+    fi
+}
+
 
 # common prerequisites
 CheckPrerequisite "dialog"

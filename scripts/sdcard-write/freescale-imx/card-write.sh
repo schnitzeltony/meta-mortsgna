@@ -7,52 +7,48 @@
 # This script writes image to sdcard and aligns rootfs partition to max size.
 
 run_user() {
-	if [ -z $DevicePath ]; then
-		# DevicePath for memory card
-		SelectCardDevice || exit 1
-	fi
+    if [ -z $DevicePath ]; then
+        # DevicePath for memory card
+        SelectCardDevice || exit 1
+    fi
 
-	if [ -z $RootFsFile ]; then
-		# select rootfs
-		SelectRootfs '-name *.sdcard -o -name *.wic.gz -type l' || exit 1
-	fi
-	RootParams="$DevicePath $RootFsFile"
+    if [ -z $RootFsFile ]; then
+        # select rootfs
+        SelectRootfs '-name *.sdcard -o -name *.wic.gz -type l' || exit 1
+    fi
+    RootParams="$DevicePath $RootFsFile"
 }
 
 run_root() {
-	# device node valid?
-	if [ ! -b $DevicePath ] ; then
-		echo "$DevicePath is not a valid block device!"
-		exit 1
-	fi
-	# rootfs valid?
-	if [ ! -e $RootFsFile ] ; then
-		echo "$RootFsFile can not be found!"
-		exit 1
-	fi
+    # device node valid?
+    if [ ! -b $DevicePath ] ; then
+        echo "$DevicePath is not a valid block device!"
+        exit 1
+    fi
+    # rootfs valid?
+    if [ ! -e $RootFsFile ] ; then
+        echo "$RootFsFile can not be found!"
+        exit 1
+    fi
 
-	IMAGEDIR=$(dirname $RootFsFile)
+    IMAGEDIR=$(dirname $RootFsFile)
 
-	# check if the card is currently mounted
-	MOUNTSTR=$(mount | grep $DevicePath)
-	if [ -n "$MOUNTSTR" ] ; then
-	    echo -e "\n$DevicePath is mounted. Unmounting..."
-	    umount -f ${DevicePath}?*
-	fi
+    # check if the card is currently mounted
+    chk_umount $DevicePath
 
-	# rootfs write/resize to card fit
-	time(
-		echo "Writing $RootFsFile to $DevicePath..."
-		if echo $RootFsFile | grep -q '.wic.gz'; then
-			gunzip -c $RootFsFile | dd of=$DevicePath bs=1024K
-		else
-			dd of=$DevicePath if=$RootFsFile bs=1024K
-		fi
-		sync
+    # rootfs write/resize to card fit
+    time(
+        echo "Writing $RootFsFile to $DevicePath..."
+        if echo $RootFsFile | grep -q '.wic.gz'; then
+            gunzip -c $RootFsFile | dd of=$DevicePath bs=1024K
+        else
+            dd of=$DevicePath if=$RootFsFile bs=1024K
+        fi
+        sync
 	    echo "Resizing ${DevicePath}2..."
-		parted -s $DevicePath -- resizepart 2 -0
-		resize2fs "${DevicePath}2"
-	)
+        parted -s $DevicePath -- resizepart 2 -0
+        resize2fs "${DevicePath}2"
+     )
 }
 
 # includes
@@ -65,7 +61,7 @@ CheckPrerequisite "parted"
 CheckPrerequisite "resize2fs"
 
 if [ -z $MACHINE ]; then
-	MACHINE=$DEFAULT_MACHINE
+    MACHINE=$DEFAULT_MACHINE
 fi
 
 
