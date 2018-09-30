@@ -19,11 +19,8 @@ ONLINE_PACKAGE_MANAGEMENT = "full"
 #INHERIT += "src_distribute_local"
 SRC_DIST_LOCAL ?= "symlink"
 
-# Can be "glibc", "musl" or "uclibc"
+# Can be "glibc" or "musl"
 TCLIBC ?= "glibc"
-
-# The things *libc can provide.
-PREFERRED_PROVIDER_eglibc = "glibc"
 
 PREFERRED_PROVIDER_virtual/gettext ??= "gettext"
 PREFERRED_PROVIDER_linux-libc-headers-nativesdk = "linux-libc-headers-nativesdk"
