@@ -57,9 +57,7 @@ BUILDHISTORY_COMMIT = "1"
 #have a shared state a.k.a package-staging2
 INHERIT += "sstate"
 
-MORTSGNA_PKG_FORMAT ?= "ipk"
-
-#Generate locales on the buildsystem instead of on the target. Speeds up first boot, set to "1" to enable
+# Generate locales on the buildsystem instead of on the target. Speeds up first boot, set to "1" to enable
 ENABLE_BINARY_LOCALE_GENERATION ?= "1"
 
 # We only want to build UTF8 locales
@@ -77,8 +75,8 @@ INHERIT += "image-buildinfo"
 # Prelink images
 INHERIT += "image-prelink"
 
-#Name the generated images in a sane way
-IMAGE_NAME = "${DISTRO_NAME}-${IMAGE_BASENAME}-${TCLIBC}-${MORSTGNA_PKG_FORMAT}-${DISTRO_VERSION}-${MACHINE}"
+# Name the generated images in a sane way
+IMAGE_NAME = "${DISTRO_NAME}-${IMAGE_BASENAME}-${TCLIBC}-${IMAGE_PKGTYPE}-${DISTRO_VERSION}-${MACHINE}"
 DEPLOY_DIR_IMAGE = "${DEPLOY_DIR}/images/${MACHINE}"
 
 # Prefer ext4 images where possible
