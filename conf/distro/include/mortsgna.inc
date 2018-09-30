@@ -12,8 +12,6 @@ BUILDNAME = "Mortsgna ${DISTRO_VERSION}"
 TARGET_VENDOR = "-mortsgna"
 SDK_VENDOR = "-mortsgnasdk"
 
-SOC_FAMILY ?= ""
-
 # Yocto work around for missing ONLINE_PACKAGE_MANAGEMENT support
 ONLINE_PACKAGE_MANAGEMENT = "full"
 
