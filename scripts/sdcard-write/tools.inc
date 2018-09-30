@@ -220,7 +220,7 @@ chk_umount() {
     if [ -n "$MOUNTSTR" ] ; then
         echo -en "\n$1 is mounted. Unmounting..."
         umount -f ${1}?*
-        echo "   done"
+        echo "   ${style_green}done${style_normal}"
     fi
 }
 
