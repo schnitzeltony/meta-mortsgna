@@ -53,7 +53,7 @@ RootCardKernelWriteCallback() {
     # rootfs/boot kernel
     ExecEx "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
     KernelWithAbiName=`basename $DeployedFile | sed -e 's:-abiversion-::'`
-    ExecEx "cp $DeployedFile $tmpdir/boot/$KernelImageType" "\nCopy new kernel to /boot/$KernelImageType..." "Copy done" "Copy failed"
+    ExecEx "cp $DeployedFile $tmpdir/boot/$KernelWithAbiName" "\nCopy new kernel to /boot/$KernelWithAbiName..." "Copy done" "Copy failed"
     ExecEx "ln -sf $KernelWithAbiName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelWithAbiName..." "Copy done" "Copy failed"
     # rootfs/lib/modules
     kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}'::g'`
