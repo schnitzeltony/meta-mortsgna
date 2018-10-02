@@ -12,32 +12,27 @@
 . `dirname $0`/../tools.inc
 
 
-# overrride default
+# overrride default SelectInOut - we have nothing to deploy here
 SelectInOut() {
     # DevicePath for target card
     SelectCardDevice
-
-    RootParams="$DevicePath"
 }
 
 # implement here - not im machine-ti-old-omap.inc
 RootCardWriteCallback() {
 	# kill u-boot environment
-    dd if=/dev/zero of=$DevicePath bs=1024 count=1024
+    EvalExAuto "dd if=/dev/zero of=$DevicePath bs=1024 count=1024" "\nKill u-boot environment..."
 
     # Create the FAT partition of 64MB and make it bootable
-    parted -s $DevicePath mklabel msdos
-    parted -s $DevicePath mkpart primary fat32 63s 64MB
-    parted -s $DevicePath toggle 1 boot
+    EvalExAuto "parted -s $DevicePath mklabel msdos && parted -s $DevicePath mkpart primary fat32 63s 64MB && parted -s $DevicePath toggle 1 boot" "\nCreate boot partition..."
 
     # Create the rootfs partition until end of device
-    parted -s $DevicePath -- mkpart primary ext4 64MB -0
+    EvalExAuto "parted -s $DevicePath -- mkpart primary ext4 64MB -0" "\nCreate rootfs partition..."
 
-    # write partitions
-    mkfs.vfat -F 32 -n "boot" -I ${DevicePath}1
-    mke2fs -F -j -t ext4 -L "rootfs" ${DevicePath}2
+    # create filesystems
+    EvalExAuto "mkfs.vfat -F 32 -n "boot" -I ${DevicePath}1" "\nCreate boot filesystem..."
+    EvalExAuto "mke2fs -F -j -t ext4 -L "rootfs" ${DevicePath}2" "\nCreate rootfs filesystem..."
 }
-
 
 CheckPrerequisite "parted"
 CheckPrerequisite "dd"
