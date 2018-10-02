@@ -43,7 +43,7 @@ RootCardKernelWriteCallback() {
     ExecEx "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..." "Remove done" "Remove failed"
     for dtb in `find ${DeployFileDir} -name "${KernelImageType}*.dtb" -type l`; do
         dtbname=`basename $dtb | sed 's:'${KernelImageType}'-::'`
-        ExecEx "cp $dtb $tmpdir/${dtbname}" "Copy $dtb -> $tmpdir/${dtbname}..." "Copy done" "Copy failed"
+        ExecEx "cp $dtb $tmpdir/${dtbname}" "\nCopy $dtb -> $tmpdir/${dtbname}..." "Copy done" "Copy failed"
     done
     # unmount boot partition
     ExecEx "sleep 1 && umount ${DevicePath}1" "\nUnmount boot partition..." "Unmount done" "Unmount failed"
