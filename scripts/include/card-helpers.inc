@@ -201,8 +201,10 @@ RunUserStartRoot() {
 
         # prepare passing params to root-run - make sure they have same
         # signature as loaded at the end of this file
-        RootParams="$DevicePath $DeployedFile $DeployFileDir $Machine $FindString $KernelImageType"
-        
+        # replace spaces - otherwise param are realigned
+        for setting in "$DevicePath" "$DeployedFile" "$DeployFileDir" "$Machine" "$FindString" "$KernelImageType"; do
+            RootParams="$RootParams `echo $setting | sed 's: :%20:g'`"
+        done
         # dialog's gui is done here
         clear
         echo
@@ -261,19 +263,19 @@ StartCardKernelWrite() {
     RootCardKernelWriteCallback
 }
 
-
 # check common prerequisites
 CheckPrerequisite "dialog"
 CheckPrerequisite "lsblk"
 
 # For user call the first two params can be set optionally - the first
 # target/source dialogs won't be displayed then
-DevicePath=$1
-DeployedFile=$2
+# reintoduce spaces
+DevicePath="`echo $1 | sed 's:%20: :g'`"
+DeployedFile="`echo $2 | sed 's:%20: :g'`"
 # For root call all params are mandatory
 if [ $( id -u ) -eq 0 ]; then
-    DeployFileDir=$3
-    Machine=$4
-    FindString=$5
-    KernelImageType=$6
+    DeployFileDir="`echo $3 | sed 's:%20: :g'`"
+    Machine="`echo $4 | sed 's:%20: :g'`"
+    FindString="`echo $5 | sed 's:%20: :g'`"
+    KernelImageType="`echo $6 | sed 's:%20: :g'`"
 fi

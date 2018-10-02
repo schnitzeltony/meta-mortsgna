@@ -17,19 +17,16 @@ RootCardWriteCallback() {
     # rootfs write/resize to card fit
     time(
         # write
-        echo "Write $DeployedFile to $DevicePath..."
+        StartMessage="\nWrite $DeployedFile to $DevicePath..."
         if echo $DeployedFile | grep -q '.wic.gz'; then
-            gunzip -c $DeployedFile | dd of=$DevicePath bs=1024K
+            ExecEx "gunzip -c $DeployedFile | dd of=$DevicePath bs=1024K" "$StartMessage" "Write done." "Write failed!"
         else
-            dd of=$DevicePath if=$DeployedFile bs=1024K
+            ExecEx "dd of=$DevicePath if=$DeployedFile bs=1024K" "$StartMessage" "Write done." "Write failed!"
         fi
-        sync
-        echo "${style_green}Write done.${style_normal}"
+        # sync
+        ExecEx "sync" "\nSync..." "Sync done." "Sync failed!"
         # resize
-	    echo "Resize ${DevicePath}2..."
-        parted -s $DevicePath -- resizepart 2 -0
-        resize2fs "${DevicePath}2"
-        echo "${style_green}Resize done.${style_normal}"
+        ExecEx "parted -s $DevicePath -- resizepart 2 -0 && resize2fs ${DevicePath}2" "\nResize ${DevicePath}2..." "Reszize done." "Resize failed!"
      )
 }
 
@@ -37,51 +34,38 @@ RootCardWriteCallback() {
 RootCardKernelWriteCallback() {
     tmpdir=`mktemp -d`
 
+    # mount boot partition
+    ExecEx "mount ${DevicePath}1 $tmpdir" "\nMount boot partition ${DevicePath}1 to $tmpdir..." "Mount done" "Mount failed"
     # initial kernel
-    mount ${DevicePath}1 $tmpdir || exit 1
-    echo "Write initial kernel and devicetrees to boot partition..."
-    rm -f $tmpdir/${KernelImageType}*
-    cp -f $DeployedFile $tmpdir/$KernelImageType
+    ExecEx "rm -f $tmpdir/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
+    ExecEx "cp $DeployedFile $tmpdir/$KernelImageType" "\nCopy new kernel $KernelImageType..." "Copy done" "Copy failed"
     # devicetrees
-    rm -f $tmpdir/*.dtb
+    ExecEx "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..." "Remove done" "Remove failed"
     for dtb in `find ${DeployFileDir} -name "${KernelImageType}*.dtb" -type l`; do
         dtbname=`basename $dtb | sed 's:'${KernelImageType}'-::'`
-        cp -f $dtb $tmpdir/${dtbname}
+        ExecEx "cp $dtb $tmpdir/${dtbname}" "Copy $dtb -> $tmpdir/${dtbname}..." "Copy done" "Copy failed"
     done
-    echo "${style_green}Write done.${style_normal}"
+    # unmount boot partition
+    ExecEx "sleep 1 && umount ${DevicePath}1" "\nUnmount boot partition..." "Unmount done" "Unmount failed"
 
-    echo "Unmount boot partition..."
-    sleep 1
-    umount ${DevicePath}1 || exit 1
-    echo "${style_green}Unmount done.${style_normal}"
-
-    # rootfs/boot
-    mount ${DevicePath}2 $tmpdir || exit 1
-    echo "Write kernel to rootfs..."
-    rm -f $tmpdir/boot/${KernelImageType}*
+    # mount rootfs
+    ExecEx "mount ${DevicePath}2 $tmpdir" "\nMount rootfs ${DevicePath}2 to $tmpdir..." "Mount done" "Mount failed"
+    # rootfs/boot kernel
+    ExecEx "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
     KernelWithAbiName=`basename $DeployedFile | sed -e 's:-abiversion-::'`
-    cp $DeployedFile $tmpdir/boot/$KernelWithAbiName
-    ln -sf $KernelWithAbiName $tmpdir/boot/$KernelImageType
-    echo "${style_green}Write done.${style_normal}"
-
+    ExecEx "cp $DeployedFile $tmpdir/boot/$KernelImageType" "\nCopy new kernel to /boot/$KernelImageType..." "Copy done" "Copy failed"
+    ExecEx "ln -sf $KernelWithAbiName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelWithAbiName..." "Copy done" "Copy failed"
     # rootfs/lib/modules
-    echo "Write modules to rootfs..."
     kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}'::g'`
     for modules in `find ${DeployFileDir} -name "modules-${Machine}.tgz"`; do
-        tar xvzf ${modules} -C $tmpdir/
+        ExecEx "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..." "Unpack done" "Unpack failed"
     done
-    echo "${style_green}Write done.${style_normal}"
-
     # run depmod (stolen from dempodwrapper)
     sys_map=`realpath ${DeployFileDir}/../../../pkgdata/${Machine}/kernel-depmod/System.map-$kernel_abi_ver`
-    echo "Run depmod on modules..."
-    depmod -a -b $tmpdir -F "$sys_map" "$kernel_abi_ver"
-    echo "${style_green}Run done.${style_normal}"
+    ExecEx "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..." "Run done" "Run failed"
+    # unmount boot partition
+    ExecEx "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..." "Unmount done" "Unmount failed"
 
-    # cleanup
-    echo "Unmount rootfs partition..."
-    umount ${DevicePath}2 || exit 1
-    echo "${style_green}Unmount done.${style_normal}"
     rm -rf $tmpdir
 }
 

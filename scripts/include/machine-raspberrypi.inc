@@ -17,14 +17,11 @@ RootCardWriteCallback() {
     # rootfs write/resize to card fit
     time(
         # write
-        echo "Write $DeployedFile to $DevicePath..."
-        dd of=$DevicePath if=$DeployedFile bs=1024K
-        sync
-        echo "${style_green}Write done.${style_normal}"
-        echo "Resize ${DevicePath}2..."
-        parted -s $DevicePath -- resizepart 2 -0
-        resize2fs "${DevicePath}2"
-        echo "${style_green}Resize done.${style_normal}"
+        ExecEx "dd of=$DevicePath if=$DeployedFile bs=1024K" "\nWrite $DeployedFile to $DevicePath..." "Write done." "Write failed!"
+        # sync
+        ExecEx "sync" "\nSync..." "Sync done." "Sync failed!"
+        # resize
+        ExecEx "parted -s $DevicePath -- resizepart 2 -0 && resize2fs ${DevicePath}2" "\nResize ${DevicePath}2..." "Reszize done." "Resize failed!"
     )
 }
 

@@ -37,10 +37,33 @@ base_tempdir=`dirname "$base_tempdir"`
 
 # ErrorOut outputs error text in first param and exits script
 ErrorOut() {
-    clear
-    echo "${style_red}${style_bold}${1}${style_normal}"
+    echo
+    echo -e "${style_red}${style_bold}${1}${style_normal}"
     echo
     exit -1
+}
+
+# ExecEx executes a command, checks if it succeeds and ouputs messages
+# It expectes the following parameters:
+# 1. Command
+# 2. Message on start
+# 3. Message on successful end
+# 4. Message on error end
+ExecEx() {
+    if [ -n "${2}" ] ; then
+        echo -e "${style_blue}${2}${style_normal}"
+    fi
+    if eval ${1} ; then
+        if [ -n "${3}" ] ; then
+            echo -e "${style_green}${3}${style_normal}"
+        fi
+    else
+        if [ -n "${4}" ] ; then
+            ErrorOut "${4}"
+        else
+            ErrorOut "An error occured!"
+        fi
+    fi
 }
 
 # CheckPrerequisite checks if required hosttool is found on host. In case not
