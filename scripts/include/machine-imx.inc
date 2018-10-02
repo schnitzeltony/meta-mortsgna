@@ -19,14 +19,14 @@ RootCardWriteCallback() {
         # write
         StartMessage="\nWrite $DeployedFile to $DevicePath..."
         if echo $DeployedFile | grep -q '.wic.gz'; then
-            ExecEx "gunzip -c $DeployedFile | dd of=$DevicePath bs=1024K" "$StartMessage" "Write done." "Write failed!"
+            EvalEx "gunzip -c $DeployedFile | dd of=$DevicePath bs=1024K" "$StartMessage" "Write done." "Write failed!"
         else
-            ExecEx "dd of=$DevicePath if=$DeployedFile bs=1024K" "$StartMessage" "Write done." "Write failed!"
+            EvalEx "dd of=$DevicePath if=$DeployedFile bs=1024K" "$StartMessage" "Write done." "Write failed!"
         fi
         # sync
-        ExecEx "sync" "\nSync..." "Sync done." "Sync failed!"
+        EvalEx "sync" "\nSync..." "Sync done." "Sync failed!"
         # resize
-        ExecEx "parted -s $DevicePath -- resizepart 2 -0 && resize2fs ${DevicePath}2" "\nResize ${DevicePath}2..." "Reszize done." "Resize failed!"
+        EvalEx "parted -s $DevicePath -- resizepart 2 -0 && resize2fs ${DevicePath}2" "\nResize ${DevicePath}2..." "Reszize done." "Resize failed!"
      )
 }
 
@@ -35,36 +35,36 @@ RootCardKernelWriteCallback() {
     tmpdir=`mktemp -d`
 
     # mount boot partition
-    ExecEx "mount ${DevicePath}1 $tmpdir" "\nMount boot partition ${DevicePath}1 to $tmpdir..." "Mount done" "Mount failed"
+    EvalEx "mount ${DevicePath}1 $tmpdir" "\nMount boot partition ${DevicePath}1 to $tmpdir..." "Mount done" "Mount failed"
     # initial kernel
-    ExecEx "rm -f $tmpdir/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
-    ExecEx "cp $DeployedFile $tmpdir/$KernelImageType" "\nCopy new kernel $KernelImageType..." "Copy done" "Copy failed"
+    EvalEx "rm -f $tmpdir/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
+    EvalEx "cp $DeployedFile $tmpdir/$KernelImageType" "\nCopy new kernel $KernelImageType..." "Copy done" "Copy failed"
     # devicetrees
-    ExecEx "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..." "Remove done" "Remove failed"
+    EvalEx "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..." "Remove done" "Remove failed"
     for dtb in `find ${DeployFileDir} -name "${KernelImageType}*.dtb" -type l`; do
         dtbname=`basename $dtb | sed 's:'${KernelImageType}'-::'`
-        ExecEx "cp $dtb $tmpdir/${dtbname}" "\nCopy $dtb -> $tmpdir/${dtbname}..." "Copy done" "Copy failed"
+        EvalEx "cp $dtb $tmpdir/${dtbname}" "\nCopy $dtb -> $tmpdir/${dtbname}..." "Copy done" "Copy failed"
     done
     # unmount boot partition
-    ExecEx "sleep 1 && umount ${DevicePath}1" "\nUnmount boot partition..." "Unmount done" "Unmount failed"
+    EvalEx "sleep 1 && umount ${DevicePath}1" "\nUnmount boot partition..." "Unmount done" "Unmount failed"
 
     # mount rootfs
-    ExecEx "mount ${DevicePath}2 $tmpdir" "\nMount rootfs ${DevicePath}2 to $tmpdir..." "Mount done" "Mount failed"
+    EvalEx "mount ${DevicePath}2 $tmpdir" "\nMount rootfs ${DevicePath}2 to $tmpdir..." "Mount done" "Mount failed"
     # rootfs/boot kernel
-    ExecEx "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
+    EvalEx "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
     KernelWithAbiName=`basename $DeployedFile | sed -e 's:-abiversion-::'`
-    ExecEx "cp $DeployedFile $tmpdir/boot/$KernelWithAbiName" "\nCopy new kernel to /boot/$KernelWithAbiName..." "Copy done" "Copy failed"
-    ExecEx "ln -sf $KernelWithAbiName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelWithAbiName..." "Copy done" "Copy failed"
+    EvalEx "cp $DeployedFile $tmpdir/boot/$KernelWithAbiName" "\nCopy new kernel to /boot/$KernelWithAbiName..." "Copy done" "Copy failed"
+    EvalEx "ln -sf $KernelWithAbiName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelWithAbiName..." "Copy done" "Copy failed"
     # rootfs/lib/modules
     kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}'::g'`
     for modules in `find ${DeployFileDir} -name "modules-${Machine}.tgz"`; do
-        ExecEx "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..." "Unpack done" "Unpack failed"
+        EvalEx "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..." "Unpack done" "Unpack failed"
     done
     # run depmod (stolen from dempodwrapper)
     sys_map=`realpath ${DeployFileDir}/../../../pkgdata/${Machine}/kernel-depmod/System.map-$kernel_abi_ver`
-    ExecEx "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..." "Run done" "Run failed"
+    EvalEx "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..." "Run done" "Run failed"
     # unmount rootfs
-    ExecEx "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..." "Unmount done" "Unmount failed"
+    EvalEx "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..." "Unmount done" "Unmount failed"
 
     rm -rf $tmpdir
 }

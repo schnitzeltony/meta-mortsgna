@@ -43,13 +43,13 @@ ErrorOut() {
     exit -1
 }
 
-# ExecEx executes a command, checks if it succeeds and ouputs messages
+# EvalEx executes a command, checks if it succeeds and ouputs messages
 # It expectes the following parameters:
 # 1. Command
 # 2. Message on start
 # 3. Message on successful end
 # 4. Message on error end
-ExecEx() {
+EvalEx() {
     if [ -n "${2}" ] ; then
         echo -e "${style_blue}${2}${style_normal}"
     fi
