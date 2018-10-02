@@ -63,7 +63,7 @@ RootCardKernelWriteCallback() {
     # run depmod (stolen from dempodwrapper)
     sys_map=`realpath ${DeployFileDir}/../../../pkgdata/${Machine}/kernel-depmod/System.map-$kernel_abi_ver`
     ExecEx "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..." "Run done" "Run failed"
-    # unmount boot partition
+    # unmount rootfs
     ExecEx "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..." "Unmount done" "Unmount failed"
 
     rm -rf $tmpdir

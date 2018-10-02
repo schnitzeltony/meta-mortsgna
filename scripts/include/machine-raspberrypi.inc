@@ -29,64 +29,45 @@ RootCardWriteCallback() {
 RootCardKernelWriteCallback() {
     tmpdir=`mktemp -d`
 
-    # initial kernel / devicetrees
-    mount ${DevicePath}1 $tmpdir || exit 1
-    echo "Write initial kernel and devicetrees to boot partition..."
-    # kernel (REVISIT for aarch64)
-    cp -f $DeployedFile $tmpdir/kernel7.img
+    # mount boot partition
+    ExecEx "mount ${DevicePath}1 $tmpdir" "\nMount boot partition ${DevicePath}1 to $tmpdir..." "Mount done" "Mount failed"
+    # initial kernel (REVISIT for aarch64)
+    ExecEx "cp -f $DeployedFile $tmpdir/kernel7.img" "\nCopy new kernel kernel7.img..." "Copy done" "Copy failed"
     # devicetrees
-    rm -f $tmpdir/*.dtb
+    ExecEx "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..." "Remove done" "Remove failed"
     for dtb in `find ${DeployFileDir} -name "bcm27*.dtb"`; do
-        cp -f $dtb $tmpdir/
+        ExecEx "cp -f $dtb $tmpdir/" "\nCopy $dtb -> $tmpdir..." "Copy done" "Copy failed"
     done
-    echo "${style_green}Write done.${style_normal}"
-
     # devicetree overlays
-    echo "Write devicetree-overlays to boot partition..."
-    rm -f $tmpdir/overlays/*.dtbo
+    ExecEx "rm -f $tmpdir/overlays/*.dtbo" "\nRemove old devicetree-overlays..." "Remove done" "Remove failed"
     for dtbo in `find ${DeployFileDir} -name "*.dtbo"`; do
         bname=`basename $dtbo`
         if ! echo "${bname}" | grep -q 'Image-'; then
-            cp -f ${dtbo} $tmpdir/overlays/
+            ExecEx "cp -f ${dtbo} $tmpdir/overlays/" "\nCopy $dtbo -> $tmpdir/overlays/..." "Copy done" "Copy failed"
         fi
     done
-    echo "${style_green}Write done.${style_normal}"
-
     # TODO bootfiles?
-    echo "Unmount boot partition..."
-    sleep 1
-    umount ${DevicePath}1 || exit 1
-    echo "${style_green}Unmount done.${style_normal}"
+    # unmount boot partition
+    ExecEx "sleep 1 && umount ${DevicePath}1" "\nUnmount boot partition..." "Unmount done" "Unmount failed"
 
-
-    # rootfs/boot
-    mount ${DevicePath}2 $tmpdir || exit 1
-    echo "Write kernel to rootfs..."
-    rm -f $tmpdir/boot/${KernelImageType}*
+    # mount rootfs partition
+    ExecEx "mount ${DevicePath}2 $tmpdir" "\nMount rootfs partition ${DevicePath}2 to $tmpdir..." "Mount done" "Mount failed"
+    # rootfs/boot kernel
+    ExecEx "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
     KernelFileName=`basename $DeployedFile`
-    cp $DeployedFile $tmpdir/boot/
-    ln -sf $KernelFileName $tmpdir/boot/$KernelImageType
-    echo "${style_green}Write done.${style_normal}"
-
+    ExecEx "cp $DeployedFile $tmpdir/boot/" "\nCopy new kernel to /boot/$KernelFileName..." "Copy done" "Copy failed"
+    ExecEx "ln -sf $KernelFileName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelFileName..." "Copy done" "Copy failed"
     # rootfs/lib/modules
-    echo "Write modules to rootfs..."
-    kernel_abi_ver=`echo $KernelFileName | sed 's:'${KernelImageType}'-::g'`
-    rm -rf $tmpdir/lib/modules/$kernel_abi_ver
+    kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}'::g'`
     for modules in `find ${DeployFileDir} -name "modules-${Machine}.tgz"`; do
-        tar xvzf ${modules} -C $tmpdir/
+        ExecEx "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..." "Unpack done" "Unpack failed"
     done
-    echo "${style_green}Write done.${style_normal}"
-
     # run depmod (stolen from dempodwrapper)
     sys_map=`realpath ${DeployFileDir}/../../../pkgdata/${Machine}/kernel-depmod/System.map-$kernel_abi_ver`
-    echo "Run depmod on modules..."
-    depmod -a -b $tmpdir -F "$sys_map" "$kernel_abi_ver"
-    echo "${style_green}Run done.${style_normal}"
+    ExecEx "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..." "Run done" "Run failed"
+    # unmount rootfs
+    ExecEx "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..." "Unmount done" "Unmount failed"
 
-    # cleanup
-    echo "Unmount rootfs partition..."
-    umount ${DevicePath}2 || exit 1
-    echo "${style_green}Unmount done.${style_normal}"
     rm -rf $tmpdir
 }
 
