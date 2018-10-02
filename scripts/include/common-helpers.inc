@@ -37,9 +37,7 @@ base_tempdir=`dirname "$base_tempdir"`
 
 # ErrorOut outputs error text in first param and exits script
 ErrorOut() {
-    echo
-    echo -e "${style_red}${style_bold}${1}${style_normal}"
-    echo
+    echo -e "\n${style_red}${style_bold}${1}${style_normal}\n" >&2
     exit -1
 }
 
@@ -51,7 +49,7 @@ ErrorOut() {
 # 4. Message on error end
 EvalEx() {
     if [ -n "${2}" ] ; then
-        echo -e "${style_blue}${2}${style_normal}"
+        echo -e "${style_magenta}${2}${style_normal}"
     fi
     if eval ${1} ; then
         if [ -n "${3}" ] ; then
@@ -64,6 +62,19 @@ EvalEx() {
             ErrorOut "An error occured!"
         fi
     fi
+}
+
+# EvalExAuto is similar it EvalEx and expectes the following parameters:
+# 1. Command
+# 2. Message on start
+# The end messages are created by extracting first word of start message
+# and appening 'done' respectively 'failed'
+EvalExAuto() {
+    # Catch 'Start...' case
+    StartAligned=`echo $2 | sed 's:\.: :'`
+    EndMessageOk="`echo $StartAligned | awk '{ print $1 }'` done."
+    EndMessageFail="`echo $StartAligned | awk '{ print $1 }'` failed!"
+    EvalEx "$1" "$2" "$EndMessageOk" "$EndMessageFail"
 }
 
 # CheckPrerequisite checks if required hosttool is found on host. In case not
