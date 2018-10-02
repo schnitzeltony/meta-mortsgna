@@ -26,7 +26,7 @@ IMAGE_LOGIN_MANAGER = "busybox shadow"
 
 inherit image
 
-export IMAGE_BASENAME = "console-base-image-no-nm"
+export IMAGE_BASENAME = "console-base-image"
 
 # we have journal
 BAD_RECOMMENDATIONS += "busybox-syslog"
