@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# card-part.sh
+# ti-old-omap-card-part.sh
 # (c) Copyright 2018 Andreas Müller <schnitzeltony@gmail.com>
 # Licensed under terms of GPLv2
 #

@@ -71,7 +71,6 @@ RootCardKernelWriteCallback() {
     rm -rf $tmpdir
 }
 
-
 CheckPrerequisite "time"
 CheckPrerequisite "gunzip"
 CheckPrerequisite "dd"
