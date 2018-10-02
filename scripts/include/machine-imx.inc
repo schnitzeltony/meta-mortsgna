@@ -19,14 +19,14 @@ RootCardWriteCallback() {
         # write
         StartMessage="\nWrite $DeployedFile to $DevicePath..."
         if echo $DeployedFile | grep -q '.wic.gz'; then
-            EvalEx "gunzip -c $DeployedFile | dd of=$DevicePath bs=1024K" "$StartMessage" "Write done." "Write failed!"
+            EvalExAuto "gunzip -c $DeployedFile | dd of=$DevicePath bs=1024K" "$StartMessage"
         else
-            EvalEx "dd of=$DevicePath if=$DeployedFile bs=1024K" "$StartMessage" "Write done." "Write failed!"
+            EvalExAuto "dd of=$DevicePath if=$DeployedFile bs=1024K" "$StartMessage"
         fi
         # sync
-        EvalEx "sync" "\nSync..." "Sync done." "Sync failed!"
+        EvalExAuto "sync" "\nSync..."
         # resize
-        EvalEx "parted -s $DevicePath -- resizepart 2 -0 && resize2fs ${DevicePath}2" "\nResize ${DevicePath}2..." "Reszize done." "Resize failed!"
+        EvalExAuto "parted -s $DevicePath -- resizepart 2 -0 && resize2fs ${DevicePath}2" "\nResize ${DevicePath}2..."
      )
 }
 
@@ -35,36 +35,36 @@ RootCardKernelWriteCallback() {
     tmpdir=`mktemp -d`
 
     # mount boot partition
-    EvalEx "mount ${DevicePath}1 $tmpdir" "\nMount boot partition ${DevicePath}1 to $tmpdir..." "Mount done" "Mount failed"
+    EvalExAuto "mount ${DevicePath}1 $tmpdir" "\nMount boot partition ${DevicePath}1 to $tmpdir..."
     # initial kernel
-    EvalEx "rm -f $tmpdir/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
-    EvalEx "cp $DeployedFile $tmpdir/$KernelImageType" "\nCopy new kernel $KernelImageType..." "Copy done" "Copy failed"
+    EvalExAuto "rm -f $tmpdir/${KernelImageType}*" "\nRemove old kernels..."
+    EvalExAuto "cp $DeployedFile $tmpdir/$KernelImageType" "\nCopy new kernel $KernelImageType..."
     # devicetrees
-    EvalEx "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..." "Remove done" "Remove failed"
+    EvalExAuto "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..."
     for dtb in `find ${DeployFileDir} -name "${KernelImageType}*.dtb" -type l`; do
         dtbname=`basename $dtb | sed 's:'${KernelImageType}'-::'`
-        EvalEx "cp $dtb $tmpdir/${dtbname}" "\nCopy $dtb -> $tmpdir/${dtbname}..." "Copy done" "Copy failed"
+        EvalExAuto "cp $dtb $tmpdir/${dtbname}" "\nCopy $dtb -> $tmpdir/${dtbname}..."
     done
     # unmount boot partition
-    EvalEx "sleep 1 && umount ${DevicePath}1" "\nUnmount boot partition..." "Unmount done" "Unmount failed"
+    EvalExAuto "sleep 1 && umount ${DevicePath}1" "\nUnmount boot partition..."
 
     # mount rootfs
-    EvalEx "mount ${DevicePath}2 $tmpdir" "\nMount rootfs ${DevicePath}2 to $tmpdir..." "Mount done" "Mount failed"
+    EvalExAuto "mount ${DevicePath}2 $tmpdir" "\nMount rootfs ${DevicePath}2 to $tmpdir..."
     # rootfs/boot kernel
-    EvalEx "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..." "Remove done" "Remove failed"
+    EvalExAuto "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..."
     KernelWithAbiName=`basename $DeployedFile | sed -e 's:-abiversion-::'`
-    EvalEx "cp $DeployedFile $tmpdir/boot/$KernelWithAbiName" "\nCopy new kernel to /boot/$KernelWithAbiName..." "Copy done" "Copy failed"
-    EvalEx "ln -sf $KernelWithAbiName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelWithAbiName..." "Copy done" "Copy failed"
+    EvalExAuto "cp $DeployedFile $tmpdir/boot/$KernelWithAbiName" "\nCopy new kernel to /boot/$KernelWithAbiName..."
+    EvalExAuto "ln -sf $KernelWithAbiName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelWithAbiName..."
     # rootfs/lib/modules
     kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}'::g'`
     for modules in `find ${DeployFileDir} -name "modules-${Machine}.tgz"`; do
-        EvalEx "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..." "Unpack done" "Unpack failed"
+        EvalExAuto "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..."
     done
     # run depmod (stolen from dempodwrapper)
     sys_map=`realpath ${DeployFileDir}/../../../pkgdata/${Machine}/kernel-depmod/System.map-$kernel_abi_ver`
-    EvalEx "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..." "Run done" "Run failed"
+    EvalExAuto "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..."
     # unmount rootfs
-    EvalEx "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..." "Unmount done" "Unmount failed"
+    EvalExAuto "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..."
 
     rm -rf $tmpdir
 }
@@ -76,4 +76,3 @@ CheckPrerequisite "dd"
 CheckPrerequisite "parted"
 CheckPrerequisite "resize2fs"
 CheckPrerequisite "depmod"
-
