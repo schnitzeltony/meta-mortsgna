@@ -5,7 +5,8 @@
 # Licensed under terms of GPLv2
 #
 # This script contains some helper functions and can be sourced by other 
-# scripts
+# scripts. To work properly common-helpers.inc in this directory must
+# be sourced before this file.
 
 # SelectCardDevice() creates a dialog to select one of all available removable
 # devices. The path to the selected device is stored in the variale DevicePath.
@@ -129,6 +130,11 @@ SelectDeployedFile() {
     Machine=`basename $DeployFileDir`
 }
 
+# SelectSuSudo opens a dialog in which the user can select how to login
+# as root: either su with root password or sudo
+# The selection result is found in variable SuSudoSelection:
+# su -> 1
+# sudo -> 2
 SelectSuSudo() {
     # Select su/sudo
     dialog --title 'Select how you want to logon as root'\
@@ -200,8 +206,8 @@ RunUserStartRoot() {
         SelectSuSudo
 
         # prepare passing params to root-run - make sure they have same
-        # signature as loaded at the end of this file
-        # replace spaces - otherwise param are realigned
+        # signature as loaded at the end of this file and replace spaces -
+        # otherwise param are realigned
         for setting in "$DevicePath" "$DeployedFile" "$DeployFileDir" "$Machine" "$FindString" "$KernelImageType"; do
             RootParams="$RootParams `echo $setting | sed 's: :%20:g'`"
         done
