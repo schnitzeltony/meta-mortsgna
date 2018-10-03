@@ -279,15 +279,22 @@ StartCardKernelWrite() {
 CheckPrerequisite "dialog"
 CheckPrerequisite "lsblk"
 
-# For user call the first two params can be set optionally - the first
-# target/source dialogs won't be displayed then
-# reintoduce spaces
-DevicePath="`echo $1 | sed 's:%20: :g'`"
-DeployedFile="`echo $2 | sed 's:%20: :g'`"
-# For root call all params are mandatory
+# Common script parameter handling for all scripts
 if [ $( id -u ) -eq 0 ]; then
+    # For root call all params are mandatory. It is important to
+    # * have the same signature as set in RunUserStartRoot
+    # * reintroduce spaces
+    DevicePath="`echo $1 | sed 's:%20: :g'`"
+    DeployedFile="`echo $2 | sed 's:%20: :g'`"
     DeployFileDir="`echo $3 | sed 's:%20: :g'`"
     Machine="`echo $4 | sed 's:%20: :g'`"
     FindString="`echo $5 | sed 's:%20: :g'`"
     KernelImageType="`echo $6 | sed 's:%20: :g'`"
+else
+    # User call params: By setiing them dialogs are not displayed. If
+    # one really wants, custom parameters can be appended after those
+    # set here
+    DevicePath=$1
+    DeployedFile=$2
+    SuSudoSelection=$3
 fi
