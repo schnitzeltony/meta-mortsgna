@@ -54,11 +54,9 @@ RootCardKernelWriteCallback() {
 
     # mount rootfs partition
     EvalExAuto "mount ${DevicePath}2 $tmpdir" "\nMount rootfs partition ${DevicePath}2 to $tmpdir..."
-    # rootfs/boot kernel
-    EvalExAuto "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..."
+    # Note: /boot is empty by default!!
     KernelFileName=`basename $DeployedFile`
-    EvalExAuto "cp $DeployedFile $tmpdir/boot/" "\nCopy new kernel to /boot/$KernelFileName..."
-    EvalExAuto "ln -sf $KernelFileName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelFileName..."
+    KernelWithAbiName=`echo $KernelFileName | sed -e 's:-abiversion-::'`
     # rootfs/lib/modules
     kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}'::g'`
     for modules in `find ${DeployFileDir} -name "modules-${Machine}.tgz"`; do
