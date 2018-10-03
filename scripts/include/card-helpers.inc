@@ -161,9 +161,9 @@ EnsureUnmount() {
     # check if the card is currently mounted
     MOUNTSTR=$(mount | grep $1)
     if [ -n "$MOUNTSTR" ] ; then
-        echo -e "\n$1 is mounted. Unmounting..."
-        umount -f ${1}?*
-        echo "${style_green}Unmount done${style_normal}"
+        echo -e "${style_magenta}Unmount all partitions of $1...${style_normal}"
+        umount -f ${1}?* 2>/dev/null
+        echo "${style_green}Unmount done.${style_normal}"
     fi
 }
 
