@@ -57,19 +57,20 @@ SelectCardDevice() {
         dialog --title 'Select card device'\
             --menu 'Move using [UP] [DOWN],[Enter] to select' 10 100 $iCount\
             "${menuitems[@]}"\
-            2>/tmp/menuitem.$$
+            2>"$base_tempdir/menuitem.$$"
 
         # get OK/Cancel
         sel=$?
         # get selected menuitem
-        menuitem=`cat /tmp/menuitem.$$`
-        rm -f /tmp/menuitem.$$
+        menuitem=`cat "$base_tempdir/menuitem.$$"`
+        rm -f "$base_tempdir/menuitem.$$"
 
         # Cancel Button or <ESC>
         if [ $sel -eq 1 -o $sel -eq 255 ] ; then
             ErrorOut 'Cancel selected at SelectCardDevice().'
         fi
         DevicePath=${DevicePathArr[$menuitem]}
+        unset menuitem
     fi
 }
 
@@ -110,19 +111,20 @@ SelectDeployedFile() {
         dialog --title 'Select rootfs'\
             --menu 'Move using [UP] [DOWN],[Enter] to select' 30 100 $iCount\
             ${strSelection}\
-            2>/tmp/menuitem.$$
+            2>"$base_tempdir/menuitem.$$"
 
         # get OK/Cancel
         sel=$?
         # get selected menuitem
-        menuitem=`cat /tmp/menuitem.$$`
-        rm -f /tmp/menuitem.$$
+        menuitem=`cat "$base_tempdir/menuitem.$$"`
+        rm -f "$base_tempdir/menuitem.$$"
 
         # Cancel Button or <ESC>
         if [ $sel -eq 1 -o $sel -eq 255 ] ; then
             ErrorOut "Cancel selected at SelectDeployedFile()."
         fi
         DeployedFile=${RootFileNameArr[$menuitem]}
+        unset menuitem
     fi
     DeployFileDir=`dirname $DeployedFile`
 
@@ -136,20 +138,22 @@ SelectDeployedFile() {
 # su -> 1
 # sudo -> 2
 SelectSuSudo() {
-    # Select su/sudo
-    dialog --title 'Select how you want to logon as root'\
-        --menu 'Move using [UP] [DOWN],[Enter] to select' 10 100 2 1 su 2 sudo \
-        2>/tmp/menuitem.$$
+    if [ -z "$SuSudoSelection" ]; then
+        # Select su/sudo
+        dialog --title 'Select how you want to logon as root'\
+            --menu 'Move using [UP] [DOWN],[Enter] to select' 10 100 2 1 su 2 sudo \
+            2>"$base_tempdir/menuitem.$$"
 
-    # get OK/Cancel
-    sel=$?
-    # get selected menuitem
-    menuitem=`cat /tmp/menuitem.$$`
-    rm -f /tmp/menuitem.$$
+        # get OK/Cancel
+        sel=$?
+        # get selected menuitem
+        SuSudoSelection=`cat "$base_tempdir/menuitem.$$"`
+        rm -f "$base_tempdir/menuitem.$$"
 
-    # Cancel Button or <ESC>
-    if [ $sel -eq 1 -o $sel -eq 255 ] ; then
-        ErrorOut "Cancel selected at SelectSuSudo()."
+        # Cancel Button or <ESC>
+        if [ $sel -eq 1 -o $sel -eq 255 ] ; then
+            ErrorOut "Cancel selected at SelectSuSudo()."
+        fi
     fi
 }
 
@@ -222,7 +226,7 @@ RunUserStartRoot() {
             echo $1 | sed "s|\%DevicePath\%|$DevicePath|"
         fi
 
-        if [ $menuitem -eq 1 ]; then
+        if [ $SuSudoSelection -eq 1 ]; then
             echo -e "\nEnter valid root password if you are sure you want to continue"
             # Call this prog as root
             exec su -c "${0} $RootParams"
