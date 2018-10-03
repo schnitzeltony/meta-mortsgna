@@ -44,10 +44,13 @@ ErrorOut() {
 # EvalEx executes a command, checks if it succeeds and ouputs messages
 # It expectes the following parameters:
 # 1. Command
-# 2. Message on start
-# 3. Message on successful end
-# 4. Message on error end
+# 2. Message on start (optional)
+# 3. Message on successful end (optional)
+# 4. Message on error end (optional)
 EvalEx() {
+    if [ -z "${1}" ] ; then
+        ErrorOut "EvalEx: No command found in first parameter"
+    fi
     if [ -n "${2}" ] ; then
         echo -e "${style_magenta}${2}${style_normal}"
     fi
@@ -70,10 +73,10 @@ EvalEx() {
 # The end messages are created by extracting first word of start message
 # and appening 'done' respectively 'failed'
 EvalExAuto() {
-    # Catch 'Start...' case
-    StartAligned=`echo $2 | sed 's:\.: :'`
-    EndMessageOk="`echo $StartAligned | awk '{ print $1 }'` done."
-    EndMessageFail="`echo $StartAligned | awk '{ print $1 }'` failed!"
+    # Remove linefeeds / catch 'Start...' case / extract forst
+    StartAligned=`echo -e $2 | tr '\n' ' ' | sed 's:\.: :' | awk '{ print $1 }' `
+    EndMessageOk="`echo $StartAligned` done."
+    EndMessageFail="`echo $StartAligned` failed!"
     EvalEx "$1" "$2" "$EndMessageOk" "$EndMessageFail"
 }
 
