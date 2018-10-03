@@ -219,10 +219,10 @@ RunUserStartRoot() {
         done
         # dialog's gui is done here
         clear
-        echo
+        echo "${style_bold}${style_red}IMPORTANT: THIS is YOUR LAST EXIT...${style_normal}"
         if [ "x$1" = "x" ] ; then
             # No message text passed: use standard
-            echo "${style_bold}All data currenly stored on $DevicePath will be overwritten by $DeployedFile!${style_normal}"
+            echo "${style_bold}All data on $DevicePath will be overwritten by $DeployedFile${style_normal}"
         else
             # Use message text passed
             echo $1 | sed "s|\%DevicePath\%|$DevicePath|" | sed "s|\%DeployedFile\%|$DeployedFile|"
@@ -270,7 +270,7 @@ StartCardKernelWrite() {
         KernelImageType="$DEFAULT_KERNEL_IMAGE_TYPE"
     fi
 
-    RunUserStartRoot "${style_bold}The kernel images on %DevicePath% will be overwritten by %DeployedFile%!${style_normal}"
+    RunUserStartRoot "${style_bold}Kernel on %DevicePath% will be overwritten by %DeployedFile%${style_normal}"
     PrepareWrite
     RootCardKernelWriteCallback
 }
