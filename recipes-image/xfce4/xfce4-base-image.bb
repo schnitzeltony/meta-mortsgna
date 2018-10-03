@@ -1,4 +1,4 @@
-require ../console/console-base-image-nm.bb
+require ../console/console-net-image.bb
 
 export IMAGE_BASENAME = "xfce4-base-image"
 
