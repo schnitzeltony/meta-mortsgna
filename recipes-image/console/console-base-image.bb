@@ -8,11 +8,7 @@ IMAGE_FEATURES += "package-management"
 
 IMAGE_INSTALL += " \
     packagegroup-boot \
-    packagegroup-base-ext2 \
-    packagegroup-base-ipv6 \
-    packagegroup-base-keyboard \
-    packagegroup-base-usbhost \
-    packagegroup-base-vfat \
+    packagegroup-base \
     ${ROOTFS_PKGMANAGE} \
     update-alternatives-opkg \
     systemd-analyze \
