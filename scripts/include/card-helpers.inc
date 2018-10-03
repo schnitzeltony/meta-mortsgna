@@ -108,7 +108,7 @@ SelectDeployedFile() {
             ErrorOut "No files found in ${OeTmpDir}-\* matching $FindString"
         fi
 
-        dialog --title 'Select rootfs'\
+        dialog --title 'Select file to write'\
             --menu 'Move using [UP] [DOWN],[Enter] to select' 30 100 $iCount\
             ${strSelection}\
             2>"$base_tempdir/menuitem.$$"
