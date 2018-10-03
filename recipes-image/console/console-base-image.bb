@@ -13,6 +13,7 @@ IMAGE_INSTALL += " \
     update-alternatives-opkg \
     systemd-analyze \
     cpufrequtils \
+    htop \
     fixmac \
     glibc-utils \
     util-linux-lsblk \
