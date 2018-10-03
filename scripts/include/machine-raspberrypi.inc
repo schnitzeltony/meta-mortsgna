@@ -35,15 +35,17 @@ RootCardKernelWriteCallback() {
     EvalExAuto "cp -f $DeployedFile $tmpdir/kernel7.img" "\nCopy new kernel kernel7.img..."
     # devicetrees
     EvalExAuto "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..."
+    echo
     for dtb in `find ${DeployFileDir} -name "bcm27*.dtb"`; do
-        EvalExAuto "cp -f $dtb $tmpdir/" "\nCopy $dtb -> $tmpdir..."
+        EvalExAuto "cp -f $dtb $tmpdir/" "Copy $dtb -> $tmpdir..."
     done
     # devicetree overlays
     EvalExAuto "rm -f $tmpdir/overlays/*.dtbo" "\nRemove old devicetree-overlays..."
+    echo
     for dtbo in `find ${DeployFileDir} -name "*.dtbo"`; do
         bname=`basename $dtbo`
         if ! echo "${bname}" | grep -q 'Image-'; then
-            EvalExAuto "cp -f ${dtbo} $tmpdir/overlays/" "\nCopy $dtbo -> $tmpdir/overlays/..."
+            EvalExAuto "cp -f ${dtbo} $tmpdir/overlays/" "Copy $dtbo -> $tmpdir/overlays/..."
         fi
     done
     # TODO bootfiles?

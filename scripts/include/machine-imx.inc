@@ -41,9 +41,10 @@ RootCardKernelWriteCallback() {
     EvalExAuto "cp $DeployedFile $tmpdir/$KernelImageType" "\nCopy new kernel $KernelImageType..."
     # devicetrees
     EvalExAuto "rm -f $tmpdir/*.dtb" "\nRemove old devicetrees..."
+    echo
     for dtb in `find ${DeployFileDir} -name "${KernelImageType}*.dtb" -type l`; do
         dtbname=`basename $dtb | sed 's:'${KernelImageType}'-::'`
-        EvalExAuto "cp $dtb $tmpdir/${dtbname}" "\nCopy $dtb -> $tmpdir/${dtbname}..."
+        EvalExAuto "cp $dtb $tmpdir/${dtbname}" "Copy $dtb -> $tmpdir/${dtbname}..."
     done
     # unmount boot partition
     EvalExAuto "sleep 1 && umount ${DevicePath}1" "\nUnmount boot partition..."
