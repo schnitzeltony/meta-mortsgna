@@ -199,10 +199,12 @@ PrepareWrite() {
     EnsureUnmount $DevicePath
 }
 
-# RunUserStartRoot() tests if we are running as root. If not, it calls SelectInOut. It expects
-# SelectInOut to leave the required parameters for root call in variable RootParams.
-# After this it asks user how to log on as root. Then the main script is started
-# as root.
+# RunUserStartRoot() tests if we are running as root. If not, it calls
+# SelectInOut and SelectSuSudo and starts the main script as root.
+# One parameter can be set optionally containing the last-exit message.
+# If not set the standard full-card message is displayed. If set the
+# placeholders %DeployedFile% and %DeployedFile% are replaces by actual
+# contents of the variables.
 RunUserStartRoot() {
     # we are not already root?
     if [ ! $( id -u ) -eq 0 ]; then
@@ -220,10 +222,10 @@ RunUserStartRoot() {
         echo
         if [ "x$1" = "x" ] ; then
             # No message text passed: use standard
-            echo "${style_bold}All data currenly stored on $DevicePath will be overwritten!${style_normal}"
+            echo "${style_bold}All data currenly stored on $DevicePath will be overwritten by $DeployedFile!${style_normal}"
         else
             # Use message text passed
-            echo $1 | sed "s|\%DevicePath\%|$DevicePath|"
+            echo $1 | sed "s|\%DevicePath\%|$DevicePath|" | sed "s|\%DeployedFile\%|$DeployedFile|"
         fi
 
         if [ $SuSudoSelection -eq 1 ]; then
@@ -268,7 +270,7 @@ StartCardKernelWrite() {
         KernelImageType="$DEFAULT_KERNEL_IMAGE_TYPE"
     fi
 
-    RunUserStartRoot "${style_bold}The kernel images on %DevicePath% will be overwritten!${style_normal}"
+    RunUserStartRoot "${style_bold}The kernel images on %DevicePath% will be overwritten by %DeployedFile%!${style_normal}"
     PrepareWrite
     RootCardKernelWriteCallback
 }
