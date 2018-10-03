@@ -28,7 +28,7 @@ RDEPENDS_${PN} = "${USER_DEPS} bash"
 
 USERADD_PACKAGES = "${PN}"
 
-USERADD_PARAM_${PN} = "-m -c Morona -d /home/${USERNAME} -s /bin/bash -k /etc/skel -g ${USERNAME} ${USERNAME}"
+USERADD_PARAM_${PN} = "-m -c Morona -d /home/${USERNAME} -s /bin/bash -k /etc/skel -g ${USERNAME} -G ${USERGROUPS}"
 
 GROUPADD_PARAM_${PN} = "${USERNAME}"
 
