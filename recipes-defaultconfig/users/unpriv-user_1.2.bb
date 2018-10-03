@@ -5,14 +5,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 inherit useradd
 
 USERNAME = "morona"
-# groups user shall be member of
-USERGROUPS = " \
-    audio \
-    video \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'datetime network', '', d)} \
-    \
-    systemd-journal \
-"
+# groups user shall be member of (NO WHITESPACES ALLOWED)
+USERGROUPS = "audio,video,${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'datetime,network,', '', d)}systemd-journal"
 
 # all those we are member of
 USER_DEPS ?= " \
@@ -28,7 +22,7 @@ RDEPENDS_${PN} = "${USER_DEPS} bash"
 
 USERADD_PACKAGES = "${PN}"
 
-USERADD_PARAM_${PN} = "-m -c Morona -d /home/${USERNAME} -s /bin/bash -k /etc/skel -g ${USERNAME} -G ${USERGROUPS}"
+USERADD_PARAM_${PN} = "-m -c Morona -d /home/${USERNAME} -s /bin/bash -k /etc/skel -g ${USERNAME} --groups ${USERGROUPS} ${USERNAME}"
 
 GROUPADD_PARAM_${PN} = "${USERNAME}"
 
