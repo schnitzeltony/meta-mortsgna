@@ -41,9 +41,9 @@ SelectCardDevice() {
                         fi
                     fi
                 done
-                display=`echo $display | sed 's:  : :g'`
-                display=`echo $display | sed 's:  : :g'`
-                display=`echo $display | sed 's:  : :g'`
+                display=`echo "$display" | sed 's:  : :g'`
+                display=`echo "$display" | sed 's:  : :g'`
+                display=`echo "$display" | sed 's:  : :g'`
                 
                 unset IFS
                 menuitems+=( "$iCount" "$display" )
