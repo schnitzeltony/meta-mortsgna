@@ -9,7 +9,10 @@
 # be sourced before this file.
 
 # SelectCardDevice() creates a dialog to select one of all available removable
-# devices. The path to the selected device is stored in the variale DevicePath.
+# devices.
+# Output variables:
+# DevicePath: path to the selected device
+# DeviceSize: size of the selected device
 SelectCardDevice() {
     if [ -z "$DevicePath" ]; then
         iCount=0
@@ -23,21 +26,31 @@ SelectCardDevice() {
                 secondline=
                 display=
                 IFS=$'\n'
-                for line in `lsblk --raw --noheadings --output NAME,LABEL,MODEL $dev` ; do
-                    # a bug in lsblk?
-                    line=`echo $line | sed 's:\\\x20: :g'`
+                for name in `lsblk --raw --noheadings --output NAME $dev` ; do
+                    # device
                     if [ "x$secondline" = "x" ]; then
                         # first line - it is for device
                         secondline="1"
-                        display="$line"
+                        model=`lsblk --nodeps --raw --noheadings --output MODEL $dev`
+                        # a bug in lsblk?
+                        model=`echo $model | sed 's:\\\x20::g'`
+                        if [ -n "$model" ]; then
+                            model="'$model'"
+                        fi
+                        display="$name $model size: `lsblk --nodeps --raw --noheadings --output SIZE $dev`"
+                    # partition
                     else
+                        label=`lsblk --nodeps --raw --noheadings --output LABEL /dev/$name`
+                        if [ -n "$label" ]; then
+                            label="'$label'"
+                        fi
                         if [ "x$secondline" = "x1" ]; then
                             secondline="2"
-                            # second line - header + partition
-                            display="$display / partitions: $line"
+                            # second: header + partition
+                            display="$display | partitions: $name $label"
                          else
-                            # second line - separator + partition
-                            display="$display + $line"
+                            # third..: separator + partition
+                            display="$display + $name $label"
                         fi
                     fi
                 done
@@ -70,6 +83,7 @@ SelectCardDevice() {
             ErrorOut 'Cancel selected at SelectCardDevice().'
         fi
         DevicePath=${DevicePathArr[$menuitem]}
+        DeviceSize=`lsblk --nodeps --raw --noheadings --output SIZE --bytes $dev`
         unset menuitem
     fi
 }
@@ -79,6 +93,7 @@ SelectCardDevice() {
 # '-name *.rpi-sdimg -type l'.
 # Output variables:
 # DeployedFile: The file selected
+# DeployedFileSize: Size of the file selected
 # DeployFileDir: Path of the file selected
 SelectDeployedFile() {
     if [ -z "$DeployedFile" ]; then
@@ -126,6 +141,7 @@ SelectDeployedFile() {
         DeployedFile=${RootFileNameArr[$menuitem]}
         unset menuitem
     fi
+    DeployedFileSize=`du -Dkb "$DeployedFile" | cut -f1`
     DeployFileDir=`dirname $DeployedFile`
 
     # Now that we know the file, exact_machine can be set without wildcards
@@ -163,6 +179,11 @@ SelectInOut() {
 
     # select rootfs source
     SelectDeployedFile
+
+    # rudimental size check
+    if [ "$DeployedFileSize" -gt "$DeviceSize" ]; then
+        ErrorOut "`basename $DeployedFile` (size: $DeployedFileSize) is too large for $DevicePath (size: $DeviceSize)"
+    fi
 }
 
 # EnsureUnmount() tests if a device partition is mounted. If so partition is
