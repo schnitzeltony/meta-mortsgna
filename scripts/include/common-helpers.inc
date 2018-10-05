@@ -60,10 +60,11 @@ EvalEx() {
         fi
     else
         if [ -n "${4}" ] ; then
-            ErrorOut "${4}"
+            ErrorText="${4}"
         else
-            ErrorOut "An error occured!"
+            ErrorText="An error occured!"
         fi
+        ErrorOut "${ErrorText}\nCommand was: '${1}'"
     fi
 }
 
