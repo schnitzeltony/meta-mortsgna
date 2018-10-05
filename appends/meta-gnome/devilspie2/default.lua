@@ -3,7 +3,7 @@
 -- this is an example 
 -- * maximizing and undecorating all appplication's windows in apps_list
 -- for further information see
--- http://www.gusnan.se/devilspie2/manual.php
+-- http://git.savannah.gnu.org/cgit/devilspie2.git/tree/README
 
 wnd_type = get_window_type()
 
