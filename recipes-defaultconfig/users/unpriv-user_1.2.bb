@@ -13,8 +13,6 @@ USER_DEPS ?= " \
     systemd \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'polkit-group-rule-datetime polkit-group-rule-network', '', d)} \
-    \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-qt5-extra', 'audio-tweaks', '', d)} \
 "
 
 DEPENDS += "${USER_DEPS}"
