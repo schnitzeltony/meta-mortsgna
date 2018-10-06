@@ -25,8 +25,8 @@ PRINC ??= "0"
 # Shared state fixups
 MACHINEOVERRIDES[vardepsexclude] += "SOC_FAMILY"
 
-# opkg
-EXTRA_IMAGE_FEATURES ?= "package-management empty-root-password"
+# Image features strongly suggested
+EXTRA_IMAGE_FEATURES += "package-management empty-root-password allow-empty-password post-install-logging"
 
 # Prefer libjpeg-turbo
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
