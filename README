@@ -7,8 +7,8 @@
                                    .-'  |
                                    '----'
 
-Yet another distribution layer. It has it's origon in Ångström distribution
-see https://github.com/Angstrom-distribution/meta-angstrom
+Yet another distribution layer. It is based on Ångström distribution  - check
+https://github.com/Angstrom-distribution/meta-angstrom
 
 -------------------------------------------------------------------------------
 This layer contains the following folders:
