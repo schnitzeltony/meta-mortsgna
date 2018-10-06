@@ -1,14 +1,112 @@
+.-.    .-.
+|  \  /  |            .-.
+|   \/   |.-----.----.| |   .-----.-----.-----..----.
+|        ||     |  .-'| '--.|  ---' __  |     |.--  |
+|    |   ||  '  |  |  |  --'|---  |     |  |  |  '  \
+'----'---''-----'--'  '----''-----'--.  |--'--''--`--`
+                                   .-'  |
+                                   '----'
+
+Yet another distribution layer. It has it's origon in Ångström distribution
+see https://github.com/Angstrom-distribution/meta-angstrom
+
+-------------------------------------------------------------------------------
+This layer contains the following folders:
+
+appends:
+  All bbappends are stored in this folder. For each layer a sub-folder exists
+  and the appends are dynamic: If a layer is not in bblayers.conf the folder
+  for the layer is ignored (see conf/layer.conf).
+
+classes:
+  Currently instant-remote.bbclass only.
+
+conf:
+  layer.conf / and distro configurations
+
+recipes-defaultconfig:
+  * default configurations for lxqt and xfce to get a preconfigured
+    environment. Note that all data is stored in th image at /etc/skel
+  * unpriv-user: A default non root user (named morona) member of many groups
+    required for daily operations and earining initial home forlder from
+    /etc/skel.
+
+recipes-image:
+   All images for console / kde / lxqt / xfce ar found. allgui-images build
+   images for all graphical environments.
+
+recipes-uitls:
+   Some tools (these are the only left from angstrom). Honestly: Have never
+   used them but kept them if users come from angstrom and might miss
+   them.
+
+scripts:
+   A script collection to get images or kernel
+
+-------------------------------------------------------------------------------
 This layer depends on:
 
 URI: git://git.openembedded.org/openembedded-core
 branch: master
 revision: HEAD
 
-And the layers found in the meta-openembedded repo. At least 'meta-oe' is needed.
+
+For building console images:
 
 URI: git://git.openembedded.org/meta-openembedded
+Layer: meta-oe
 branch: master
 revision: HEAD
 
-This layer contains my working branches. In them many recipes, appends and packagefeed support were removed. Although not recommended, feel free to use but please don't ask questions particularly not at angstrom mailing list.
+URI: git://git.openembedded.org/meta-openembedded
+Layer: meta-networking
+branch: master
+revision: HEAD
+
+
+Other layers are required when building 'GUI images'
+
+URI: git://git.openembedded.org/meta-openembedded
+Layer: meta-gnome
+branch: master
+revision: HEAD
+
+URI: git://git.openembedded.org/meta-openembedded
+Layer: meta-multimedia
+branch: master
+revision: HEAD
+
+URI: git://git.openembedded.org/meta-openembedded
+Layer: meta-python
+branch: master
+revision: HEAD
+
+URI: git://git.openembedded.org/meta-openembedded
+Layer: meta-xfce
+branch: master
+revision: HEAD
+
+URI: git://github.com/meta-qt5/meta-qt5.git
+branch: master
+revision: HEAD
+
+URI: git://github.com/schnitzeltony/meta-qt5-extra.git
+branch: master
+revision: HEAD
+
+URI: git://github.com/schnitzeltony/meta-office.git
+branch: master
+revision: HEAD
+
+URI: git://github.com/OSSystems/meta-browser.git
+branch: master
+revision: HEAD
+
+URI: git://github.com/cazfi/meta-games.git
+branch: master
+revision: HEAD
+
+URI: git://github.com/schnitzeltony/meta-retro
+branch: master
+revision: HEAD
 
