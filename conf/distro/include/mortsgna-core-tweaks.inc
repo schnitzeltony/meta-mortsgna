@@ -37,6 +37,9 @@ PREFERRED_PROVIDER_virtual/libx11 = "libx11"
 PREFERRED_PROVIDER_virtual/xserver-xf86 = "xserver-xorg"
 PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
 
+# libtool REVISIT
+PREFERRED_PROVIDER_libltdl-dev = "libtool"
+
 #
 # udev, devfsd, busybox-mdev (from busybox) or none
 #
@@ -58,6 +61,8 @@ IMAGE_BOOT ?= "${IMAGE_INITSCRIPTS} \
                ${IMAGE_DEV_MANAGER} \
                ${IMAGE_INIT_MANAGER} \
                ${IMAGE_LOGIN_MANAGER}"
+
+IMAGE_INSTALL += "${IMAGE_BOOT}"
 
 # some default locales
 IMAGE_LINGUAS ?= "de-de fr-fr en-gb it-it"
@@ -90,15 +95,4 @@ IMAGE_LINGUAS_FULL ?= " \
     zh-cn \
 "
 # broken?
-#    tr-tr 
-
-
-
-IMAGE_INSTALL += "${IMAGE_BOOT}"
-
-# Layer tweaks
-
-# SDK stuff
-
-PREFERRED_PROVIDER_libltdl-dev = "libtool"
-PREFERRED_PROVIDER_libtool = "libtool"
+#    tr-tr
