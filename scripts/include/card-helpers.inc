@@ -85,6 +85,7 @@ SelectCardDevice() {
         DevicePath=${DevicePathArr[$menuitem]}
         DeviceSize=`lsblk --nodeps --raw --noheadings --output SIZE --bytes $dev`
         unset menuitem
+        unset menuitems
     fi
 }
 
@@ -102,7 +103,6 @@ SelectDeployedFile() {
             ErrorOut "The environment variable BUILDDIR is not set. It is usually set before running bitbake."
         fi
         iCount=0
-        strSelection=
         for grep_result in `grep -h TMPDIR $BUILDDIR/conf/*.conf | sed -e s/' '/''/g -e s/'\"'/''/g`; do
             # exclude comments
             tmp_dir=`echo $grep_result | grep '^TMPDIR='`
@@ -111,10 +111,11 @@ SelectDeployedFile() {
             fi
         done
         for BuildPath in ${OeTmpDir}-*; do
-            for i in `find ${BuildPath}/deploy/images/${Machine} $FindString | sort` ; do
+            for FilePath in `find ${BuildPath}/deploy/images/${Machine} $FindString | sort` ; do
                 iCount=`expr $iCount + 1`
-                RootFileNameArr[${iCount}]=$i
-                strSelection="$strSelection $iCount "`basename $i`
+                RootFileNameArr[${iCount}]="$FilePath"
+                FileSize=`du -Dh "$FilePath" | cut -f1`
+                menuitems+=( "$iCount" "`basename $FilePath` / size: $FileSize" )
             done
         done
 
@@ -125,7 +126,7 @@ SelectDeployedFile() {
 
         dialog --title 'Select file to write'\
             --menu 'Move using [UP] [DOWN],[Enter] to select' 30 100 $iCount\
-            ${strSelection}\
+            "${menuitems[@]}"\
             2>"$base_tempdir/menuitem.$$"
 
         # get OK/Cancel
@@ -140,11 +141,12 @@ SelectDeployedFile() {
         fi
         DeployedFile=${RootFileNameArr[$menuitem]}
         unset menuitem
+        unset menuitems
     fi
-    DeployedFileSize=`du -Dkb "$DeployedFile" | cut -f1`
+    DeployedFileSize=`du -Db "$DeployedFile" | cut -f1`
     DeployFileDir=`dirname $DeployedFile`
 
-    # Now that we know the file, exact_machine can be set without wildcards
+    # Now that we know the file, exact machine can be set without wildcards
     Machine=`basename $DeployFileDir`
 }
 
