@@ -29,8 +29,8 @@ require conf/distro/include/mortsgna-${TCLIBC}.inc
 
 # thumb2 only
 ARM_INSTRUCTION_SET ??= "thumb"
-ARM_INSTRUCTION_SET_armv4t ?= "arm"
-ARM_INSTRUCTION_SET_armv5te ?= "arm"
+ARM_INSTRUCTION_SET_armv4 ?= "arm"
+ARM_INSTRUCTION_SET_armv5 ?= "arm"
 ARM_INSTRUCTION_SET_armv6 ?= "arm"
 
 # use debian style naming
