@@ -16,17 +16,19 @@ DEFAULT_FIND_KERNEL="-name ${DEFAULT_KERNEL_IMAGE_TYPE}-abiversion-* -type l"
 RootCardWriteCallback() {
     # rootfs write/resize to card fit
     time(
+        # evt. write partition table
+        CheckPartitionTable "$DevicePath"
         # write
         StartMessage="\nWrite $DeployedFile to $DevicePath..."
         if echo $DeployedFile | grep -q '.wic.gz'; then
-            EvalExAuto "gunzip -c $DeployedFile | dd of=$DevicePath bs=1024K" "$StartMessage"
+            EvalExAuto "gunzip -c $DeployedFile | dd of=$DevicePath oflag=nocache bs=1024K" "$StartMessage"
         else
-            EvalExAuto "dd of=$DevicePath if=$DeployedFile bs=1024K" "$StartMessage"
+            EvalExAuto "dd of=$DevicePath oflag=nocache if=$DeployedFile bs=1024K" "$StartMessage"
         fi
-        # sync
-        EvalExAuto "sync" "\nSync..."
-        # resize
-        EvalExAuto "parted -s $DevicePath -- resizepart 2 -0 && resize2fs ${DevicePath}2" "\nResize ${DevicePath}2..."
+        # resize I
+        EvalExAuto "parted -s $DevicePath -- resizepart 2 -0" "\nResize I ${DevicePath}2..."
+        # resize II
+        EvalExAuto "resize2fs ${DevicePath}2" "\nResize II ${DevicePath}2..."
      )
 }
 

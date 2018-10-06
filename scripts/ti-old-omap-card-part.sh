@@ -20,8 +20,11 @@ SelectInOut() {
 
 # implement here - not im machine-ti-old-omap.inc
 RootCardWriteCallback() {
-	# kill u-boot environment
-    EvalExAuto "dd if=/dev/zero of=$DevicePath bs=1024 count=1024" "\nKill u-boot environment..."
+    # evt. write partition table
+    CheckPartitionTable "$DevicePath"
+
+    # kill u-boot environment
+    EvalExAuto "dd if=/dev/zero of=$DevicePath ti-old-omap-card-part.sh bs=1024 count=1024" "\nKill u-boot environment..."
 
     # Create the FAT partition of 64MB and make it bootable
     EvalExAuto "parted -s $DevicePath mklabel msdos && parted -s $DevicePath mkpart primary fat32 63s 64MB && parted -s $DevicePath toggle 1 boot" "\nCreate boot partition..."

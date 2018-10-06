@@ -16,12 +16,14 @@ DEFAULT_FIND_KERNEL="-name ${DEFAULT_KERNEL_IMAGE_TYPE}-abiversion-* -type l"
 RootCardWriteCallback() {
     # rootfs write/resize to card fit
     time(
+        # evt. write partition table
+        CheckPartitionTable "$DevicePath"
         # write
-        EvalExAuto "dd of=$DevicePath if=$DeployedFile bs=1024K" "\nWrite $DeployedFile to $DevicePath..."
-        # sync
-        EvalExAuto "sync" "\nSync..."
-        # resize
-        EvalExAuto "parted -s $DevicePath -- resizepart 2 -0 && resize2fs ${DevicePath}2" "\nResize ${DevicePath}2..."
+        EvalExAuto "dd of=$DevicePath oflag=nocache if=$DeployedFile bs=1024K" "\nWrite $DeployedFile to $DevicePath..."
+        # resize I
+        EvalExAuto "parted -s $DevicePath -- resizepart 2 -0" "\nResize I ${DevicePath}2..."
+        # resize II
+        EvalExAuto "resize2fs ${DevicePath}2" "\nResize II ${DevicePath}2..."
     )
 }
 

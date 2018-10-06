@@ -267,6 +267,49 @@ RunUserStartRoot() {
     fi
 }
 
+# CheckPartitionTable: Checks if device has a partition table. If not write one.
+# The following parameters are expected:
+# 1. Device: e.g /dev/sdc
+# 2. Partition table type: This parameter is optional and default value is msdos
+CheckPartitionTable() {
+    # This function is supposed to be called fist before data is written
+    # so do same safety checks (although it might be redundant)
+    if [ -z "$1" ]; then
+        ErrorOut "CheckPartitionTable: no parameter"
+    fi
+    if [ ! -b "$1" ]; then
+        ErrorOut "CheckPartitionTable: parameter $1 does not point to a block device"
+    fi
+    dev=`basename $1`
+    if [ ! `cat /sys/block/$dev/removable` = '1' ]; then
+        ErrorOut "CheckPartitionTable: parameter $1 does not point to a removable device"
+    fi
+    # checks passed here
+    parttype="$2"
+    if [ -z "$parttype" ]; then
+        parttype="msdos"
+    fi
+    # check for partition table
+    partresult=`parted -s $1 -- print 2> /dev/null`
+    PartTableReq=0
+    if ! echo -e $partresult | grep -q "$parttype"; then
+        PartTableReq=1
+    fi
+    # do we need to write part table?
+    if [ $PartTableReq -eq 1 ]; then
+        EvalExAuto "parted -s $1 -- mklabel $parttype" "\nWrite partition table $parttype..."
+        # During tests I found that my card writer failed writing parttion-
+        # table. So for others have similiar - check if partition table arrived.
+        # Funny side note: Now my box with sdcard marked as 'broken' is empty again :)
+        partresult=`parted -s $1 -- print 2> /dev/null`
+        if ! echo -e $partresult | grep -q "$parttype"; then
+            ErrorOut "Partition table '$parttype' was not written. Check your sdcard or another card-adapter!"
+        fi
+    fi
+
+    unset retVal parttype partresult retVal PartTableReq
+}
+
 StartCardWrite() {
     # If not set on call - get defaults from machine.inc
     if [ -z "$Machine" ]; then
