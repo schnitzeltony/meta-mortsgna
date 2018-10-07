@@ -7,8 +7,14 @@
                                    .-'  |
                                    '----'
 
-Yet another distribution layer. It is based on Ångström distribution  - check
-https://github.com/Angstrom-distribution/meta-angstrom
+meta-mortsgna is yet another distribution layer. It is based on Ångström
+distribution  - check https://github.com/Angstrom-distribution/meta-angstrom.
+The target of this layer is to build images with the best out-of-the-box
+experience.
+
+-------------------------------------------------------------------------------
+Layer maintainer: Andreas Müller <schnitzeltony@gmail.com>
+
 
 -------------------------------------------------------------------------------
 This layer contains the following folders:
@@ -42,6 +48,7 @@ recipes-uitls:
 
 scripts:
    A script collection to get images or kernel
+
 
 -------------------------------------------------------------------------------
 This layer depends on:
@@ -110,4 +117,3 @@ revision: HEAD
 URI: git://github.com/schnitzeltony/meta-retro
 branch: master
 revision: HEAD
-
