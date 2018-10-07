@@ -18,7 +18,7 @@ RDEPENDS_${PN} = " \
     automake autoconf libtool m4 \
     gcc-symlinks g++-symlinks cpp-symlinks \
     dtc \
-    pkgconfig binutils-symlinks elfutils coreutils gnu-config \
+    pkgconfig binutils-symlinks elfutils gnu-config \
     gdb gdbserver \
     git git-bash-completion subversion \
     python-shell python-subprocess \
