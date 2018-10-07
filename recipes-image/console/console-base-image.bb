@@ -27,3 +27,13 @@ export IMAGE_BASENAME = "console-base-image"
 
 # we have journal
 BAD_RECOMMENDATIONS += "busybox-syslog"
+
+# This is the mother af all or images. Add more love to root's console
+python () {
+    d.appendVar('ROOTFS_POSTPROCESS_COMMAND', 'root_defaults;')
+}
+
+root_defaults () {
+    cp ${IMAGE_ROOTFS}/${sysconfdir}/skel/.bashrc ${IMAGE_ROOTFS}/${ROOT_HOME}
+    cp ${IMAGE_ROOTFS}/${sysconfdir}/skel/.profile ${IMAGE_ROOTFS}/${ROOT_HOME}
+}
