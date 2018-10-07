@@ -25,17 +25,9 @@ PRINC ??= "0"
 # Shared state fixups
 MACHINEOVERRIDES[vardepsexclude] += "SOC_FAMILY"
 
-# Image features strongly suggested
-EXTRA_IMAGE_FEATURES += "package-management empty-root-password allow-empty-password post-install-logging"
-
 # Prefer libjpeg-turbo
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
-
-# Prefer the one from meta-oe over the one in oe-core
-PREFERRED_PROVIDER_virtual/libx11 = "libx11"
-PREFERRED_PROVIDER_virtual/xserver-xf86 = "xserver-xorg"
-PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
 
 # libtool REVISIT
 PREFERRED_PROVIDER_libltdl-dev = "libtool"
