@@ -7,6 +7,7 @@ export LS_OPTIONS='--color=auto'
 eval `dircolors`
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
-alias su='su --preserve-environment;export HOME=/home/`whoami`'
+# REVISIT - do not change path
+alias su='su --login'
 
 umask 022
