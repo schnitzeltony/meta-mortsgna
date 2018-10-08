@@ -1,14 +1,14 @@
-require ../console/console-net-image.bb
+require recipes-image/console/console-net-image.bb
+require recipes-image/include/x11-base.inc
 
 export IMAGE_BASENAME = "xfce4-base-image"
 
 XFCE_DM ?= "lxdm"
 
 IMAGE_INSTALL += " \
-    packagegroup-core-x11-xserver \
+    ${X11_BASE_INSTALL} \
     ${XFCE_DM} \
     \
-    packagegroup-gnome-xserver-base \
     packagegroup-xfce-base \
     packagegroup-image-base \
     \
@@ -16,7 +16,6 @@ IMAGE_INSTALL += " \
     xfce4-default-config \
     xfce4-whiskermenu-plugin \
 "
-
 
 # reenable graphical target
 IMAGE_FEATURES += "x11-base"

@@ -1,9 +1,10 @@
-require ../console/console-net-image.bb
+require recipes-image/console/console-net-image.bb
+require recipes-image/include/x11-base.inc
 
 export IMAGE_BASENAME = "kde-base-image"
 
 IMAGE_INSTALL += " \
-    packagegroup-core-x11-xserver \
+    ${X11_BASE_INSTALL} \
     packagegroup-image-base \
     \
     sddm \

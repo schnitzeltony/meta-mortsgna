@@ -12,8 +12,6 @@ RDEPENDS_${PN} = " \
     source-han-sans-jp-fonts \
     source-han-sans-tw-fonts \
     \
-    ${DISTRO_GUI_USER} \
-    \
     gedit gtksourceview-classic-light \
     xarchiver \
     shared-mime-info \

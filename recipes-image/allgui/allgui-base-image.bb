@@ -1,11 +1,11 @@
-require ../console/console-net-image.bb
+require recipes-image/console/console-net-image.bb
+require recipes-image/include/x11-base.inc
 
 export IMAGE_BASENAME = "allgui-base-image"
 
-# currently: plasma / xfce / lxqt
-# not included: gnome / efl
+# currently: plasma / xfce / lxqt / weston
 IMAGE_INSTALL += " \
-    packagegroup-core-x11-xserver \
+    ${X11_BASE_INSTALL} \
     packagegroup-image-base \
     \
     sddm \

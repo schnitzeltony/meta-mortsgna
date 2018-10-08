@@ -1,12 +1,12 @@
-require ../console/console-net-image.bb
+require recipes-image/console/console-net-image.bb
+require recipes-image/include/x11-base.inc
 
 export IMAGE_BASENAME = "lxqt-base-image"
 
 LXQT_DM ?= "lxdm"
 
 IMAGE_INSTALL += " \
-    packagegroup-gnome-xserver-base \
-    packagegroup-core-x11-xserver \
+    ${X11_BASE_INSTALL} \
     ${LXQT_DM} \
     \
     packagegroup-lxqt-base \
@@ -14,7 +14,6 @@ IMAGE_INSTALL += " \
     packagegroup-image-base \
     lxqt-default-config \
 "
-
 
 # reenable graphical target
 IMAGE_FEATURES += "x11-base"
