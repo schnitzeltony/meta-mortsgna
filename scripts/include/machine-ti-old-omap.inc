@@ -8,7 +8,7 @@
 
 # default settings
 DEFAULT_MACHINE_FAMILY=''
-DEFAULT_FIND_ROOTFS='-name *.rootfs.tar.bz2 -type l'
+DEFAULT_FIND_ROOTFS='-name *.tar.bz2 -type l'
 DEFAULT_KERNEL_IMAGE_TYPE='Image'
 DEFAULT_FIND_KERNEL="-name ${DEFAULT_KERNEL_IMAGE_TYPE}-abiversion-* -type l"
 
