@@ -40,6 +40,6 @@ RootCardWriteCallback() {
 CheckPrerequisite "parted"
 CheckPrerequisite "dd"
 CheckPrerequisite "mkfs.vfat"
-CheckPrerequisite "mke2fs.vfat"
+CheckPrerequisite "mke2fs"
 
 StartCardWrite
