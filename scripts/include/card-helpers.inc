@@ -245,7 +245,11 @@ RunUserStartRoot() {
         echo "${style_bold}${style_red}IMPORTANT: THIS is YOUR LAST EXIT...${style_normal}"
         if [ "x$1" = "x" ] ; then
             # No message text passed: use standard
-            echo "${style_bold}All data on $DevicePath will be overwritten by $DeployedFile${style_normal}"
+            if [ -n "$DeployedFile" ]; then
+                echo "${style_bold}All data on $DevicePath will be overwritten by $DeployedFile${style_normal}"
+            else
+                echo "${style_bold}All data on $DevicePath will be erased${style_normal}"
+            fi
         else
             # Use message text passed
             echo $1 | sed "s|\%DevicePath\%|$DevicePath|" | sed "s|\%DeployedFile\%|$DeployedFile|"
