@@ -10,7 +10,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 #
 # Feel free to add more...
 BOOTPARTSPEC = "boot,vfat BOOT,vfat"
-BOOTPARTSPEC_raspberrypi = "raspberrypi,vfat"
+BOOTPARTSPEC_rpi = "raspberrypi,vfat"
 
 do_install () {
 	install -d ${D}${base_libdir}/udev/rules.d
