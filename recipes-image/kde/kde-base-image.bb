@@ -5,7 +5,7 @@ export IMAGE_BASENAME = "kde-base-image"
 
 IMAGE_INSTALL += " \
     ${X11_BASE_INSTALL} \
-    packagegroup-image-base \
+    packagegroup-gui-base \
     \
     sddm \
     \

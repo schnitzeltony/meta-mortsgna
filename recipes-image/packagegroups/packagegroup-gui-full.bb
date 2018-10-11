@@ -8,7 +8,7 @@ MACHINE_SPECIFICS_FULL = ""
 MACHINE_SPECIFICS_FULL_mx6 = "gstreamer1.0-plugins-imx"
 
 RDEPENDS_${PN} = " \
-    packagegroup-image-music \
+    packagegroup-gui-music \
     \
     source-han-sans-cn-fonts \
     source-han-sans-kr-fonts \

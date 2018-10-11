@@ -8,6 +8,6 @@ IMAGE_INSTALL += " \
     rodent-icon-theme \
     gnome-theme-adwaita-dark \
     \
-    packagegroup-image-tiny \
+    packagegroup-gui-tiny \
 "
 

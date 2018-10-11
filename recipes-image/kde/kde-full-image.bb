@@ -4,7 +4,7 @@ export IMAGE_BASENAME = "kde-full-image"
 
 IMAGE_INSTALL += " \
     kde-world \
-    packagegroup-image-full \
+    packagegroup-gui-full \
 " 
 
 IMAGE_LINGUAS = "${IMAGE_LINGUAS_FULL}"

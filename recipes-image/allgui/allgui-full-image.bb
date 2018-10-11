@@ -3,7 +3,7 @@ require allgui-tiny-image.bb
 export IMAGE_BASENAME = "allgui-full-image"
 
 IMAGE_INSTALL += " \
-    packagegroup-image-full \
+    packagegroup-gui-full \
     kde-world \
     \
     onboard \

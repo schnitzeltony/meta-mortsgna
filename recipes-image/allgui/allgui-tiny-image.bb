@@ -3,7 +3,7 @@ require allgui-base-image.bb
 export IMAGE_BASENAME = "allgui-tiny-image"
 
 IMAGE_INSTALL += " \
-    packagegroup-image-tiny \
+    packagegroup-gui-tiny \
     qpdfview \
     \
     packagegroup-xfce-extended \

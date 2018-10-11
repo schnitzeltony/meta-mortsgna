@@ -6,7 +6,7 @@ export IMAGE_BASENAME = "allgui-base-image"
 # currently: plasma / xfce / lxqt / weston
 IMAGE_INSTALL += " \
     ${X11_BASE_INSTALL} \
-    packagegroup-image-base \
+    packagegroup-gui-base \
     \
     sddm \
     \
