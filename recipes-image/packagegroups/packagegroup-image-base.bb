@@ -7,10 +7,6 @@ inherit packagegroup
 RDEPENDS_${PN} = " \
     packagegroup-gnome-fonts \
     ttf-dejavu-sans ttf-dejavu-sans-mono ttf-dejavu-common \
-    source-han-sans-cn-fonts \
-    source-han-sans-kr-fonts \
-    source-han-sans-jp-fonts \
-    source-han-sans-tw-fonts \
     \
     gedit gtksourceview-classic-light \
     xarchiver \
