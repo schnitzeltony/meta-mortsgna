@@ -6,11 +6,14 @@
 #
 # This script writes image to sdcard and aligns rootfs partition to max size.
 
+# overo builds uImage instead of zImage
+if [ -z "$KernelImageType" ]; then
+    KernelImageType='uImage'
+fi
+
 # Includes
 . `dirname $0`/include/common-helpers.inc
 . `dirname $0`/include/card-helpers.inc
 . `dirname $0`/include/machine-ti-old-omap.inc
-
-DEFAULT_KERNEL_IMAGE_TYPE='zImage'
 
 StartCardKernelWrite
