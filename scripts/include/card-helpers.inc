@@ -385,6 +385,8 @@ StartCardKernelWrite() {
 # check common prerequisites
 CheckPrerequisite "dialog"
 CheckPrerequisite "lsblk"
+CheckPrerequisite "tar"
+CheckPrerequisite "depmod"
 
 # Common script parameter handling for all scripts
 if [ $( id -u ) -eq 0 ]; then

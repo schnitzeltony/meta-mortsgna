@@ -83,9 +83,4 @@ RootCardKernelWriteCallback() {
 }
 
 CheckPrerequisite "time"
-CheckPrerequisite "gunzip"
-CheckPrerequisite "dd"
-CheckPrerequisite "parted"
-CheckPrerequisite "resize2fs"
-CheckPrerequisite "depmod"
-
+CheckPrerequisite "tar"
