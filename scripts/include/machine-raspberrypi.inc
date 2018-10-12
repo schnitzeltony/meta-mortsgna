@@ -56,16 +56,9 @@ RootCardKernelWriteCallback() {
     # mount rootfs partition
     EvalExAuto "mount ${DevicePath}2 $tmpdir" "\nMount rootfs partition ${DevicePath}2 to $tmpdir..."
     # Note: /boot is empty by default!!
-    KernelFileName=`basename $DeployedFile`
-    KernelWithAbiName=`echo $KernelFileName | sed -e 's:-abiversion-::'`
-    # rootfs/lib/modules
-    kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}'::g'`
-    for modules in `find ${DeployFileDir} -name "modules-${Machine}.tgz"`; do
-        EvalExAuto "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..."
-    done
-    # run depmod (stolen from dempodwrapper)
-    sys_map=`realpath ${DeployFileDir}/../../../pkgdata/${Machine}/kernel-depmod/System.map-$kernel_abi_ver`
-    EvalExAuto "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..."
+    # kernel modules
+    CopyKernelModules
+    RegisterKernelModules
     # unmount rootfs
     EvalExAuto "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..."
 

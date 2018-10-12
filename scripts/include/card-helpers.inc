@@ -314,6 +314,28 @@ CheckPartitionTable() {
     unset retVal parttype partresult retVal PartTableReq
 }
 
+# CopyKernelModules: Copy kernel modules to roofs expected in tmpdir
+CopyKernelModules() {
+    # copy rootfs/lib/modules
+    for modules in `find ${DeployFileDir} -name "modules-${Machine}.tgz"`; do
+        EvalExAuto "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..."
+    done
+}
+
+# RegisterKernelModules: Update kernel modules database by running depmod
+# The following variables are expected:
+# tmpdir: Path to the mounted rootfs
+# DeployFileDir: Path to kernel image
+# Machine: Name of the machine
+# KernelAbiVersion: Kernel ABI version
+RegisterKernelModules() {
+    # stolen from dempodwrapper
+    sys_map=`realpath ${DeployFileDir}/../../../pkgdata/${Machine}/kernel-depmod/System.map-$KernelAbiVersion`
+    EvalExAuto "depmod -a -b $tmpdir -F $sys_map $KernelAbiVersion" "\nRun depmod on modules..."
+}
+
+# This is the function to be called by card-write scripts
+# It expects an implementation of RootCardWriteCallback
 StartCardWrite() {
     # If not set on call - get defaults from machine.inc
     if [ -z "$Machine" ]; then
@@ -324,10 +346,18 @@ StartCardWrite() {
     fi
 
     RunUserStartRoot
+
+    # now we are root
     PrepareWrite
     RootCardWriteCallback
 }
 
+# This is the function to be called by card-kernel-write scripts
+# It expects an implementation of RootCardKernelWriteCallback
+# and prepares the follwing kernel-write specific variables:
+# KernelWithAbiName: This kernel image file name including ABI version and
+#   is used by many machines as name of kernel image
+# KernelAbiVersion: Kernel ABI version itself required for depmod
 StartCardKernelWrite() {
     # If not set on call - get defaults from machine.inc
     if [ -z "$Machine" ]; then
@@ -342,8 +372,13 @@ StartCardKernelWrite() {
         FindString="-name ${KernelImageType}-abiversion-* -type l"
     fi
 
-    RunUserStartRoot "${style_bold}Kernel on %DevicePath% will be overwritten by %DeployedFile%${style_normal}"
+    RunUserStartRoot "${style_bold}Kernel, devicetrees and kernel-modules on %DevicePath% will be overwritten by %DeployedFile%${style_normal}"
+
+    # now we are root
     PrepareWrite
+    # Set variables used by RootCardKernelWriteCallback
+    KernelWithAbiName=`basename $DeployedFile | sed -e 's:-abiversion::'`
+    KernelAbiVersion=`echo $KernelWithAbiName | sed 's:'${KernelImageType}-'::g'`
     RootCardKernelWriteCallback
 }
 
