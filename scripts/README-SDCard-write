@@ -5,26 +5,26 @@ simple GUI was implemented to make selections easy. This GUI is based on
 
 There are three type of scripts:
 
-1. card-part: These type of scripts create partitions on the card as the
+1. card-part: This type of scripts create partitions on the card as the
    bootloaders expect them. This type of scripts are necessary only for
-   machines whose board support layer still builds images in 'old style' 
-   e.g rootfs as *.tar.bz2).
-2. card-write: These type of scripts write complete images (bootloader/
+   machines whose board support layer still builds images in 'old-school'
+   way e.g rootfs as *.tar.bz2).
+2. card-write: This type of scripts write complete images (bootloader/
    devicetrees/kernel/rootfs) onto card.
    Machine defaults can be overriden by setting variables 
    'Machine' / 'FindString' - see include/card-helpers.inc
    function StartCardWrite.
-3. card-kernel-write: This family of scripts just overwrite kernel, devicetrees
-   and kernel modules on cards with image installed. These scripts are extremly
-   helpful for testing kernel/devicetree modififations or just updating kernel
-   on precious (=many settings applied / full of userdata) images.
+3. card-kernel-write: This family of scripts just overwrites kernel, devicetrees
+   and kernel modules on cards with image installed.
+   These scripts are very helpful for testing kernel/devicetree modifications
+   or just for updating kernel on precious (precious=many settings applied /
+   full of userdata) images.
    Machine defaults can be overriden by setting variables 
    'Machine' / 'KernelImageType' / 'FindString' - see include/card-helpers.inc
    function StartCardKernelWrite.
 
 To reduce the GUI-dialogs displayed or avoid them completely all scripts can be
 called with the following parameters
-
 1. Card device path e.g '/dev/sdc'
 2. Source file to be written (either rootfs or kernel link with abiversion)
 3. su / sudo selection: Pass '1' for su or '2' for sudo
@@ -56,7 +56,7 @@ Script structure:
        machine-*.inc - see ti-old-omap-card-kernel-write-overo.sh
 3. <soc>-card-<operation>[-board].sh: These are the scripts to be executed.
    They typically just contain necessary includes and one call for desired
-   operation: StartCardWrite / StartCardKernelWrite. Sligly talored variants
+   operation: StartCardWrite / StartCardKernelWrite. Sligly tailored variants
    are found in ti-old-omap-card-part.sh / ti-old-omap-card-kernel-write-overo.sh
 
 
@@ -65,4 +65,5 @@ Howto create scripts for other socs/machines:
 1. Read above
 2. Create a machine/soc header include/machine-<your-machine>.inc containing
    variables for defaults and function overrides.
-3. Create <soc>-card-<operation>[-board].sh scripts.
+3. Create <soc>-card-<operation>[-board].sh scripts which include necessary
+   scripts and call either StartCardWrite or StartCardKernelWrite
