@@ -9,7 +9,7 @@
 # default settings
 DEFAULT_MACHINE_FAMILY=''
 DEFAULT_FIND_ROOTFS='-name *.tar.bz2 -type l'
-DEFAULT_KERNEL_IMAGE_TYPE='Image'
+DEFAULT_KERNEL_IMAGE_TYPE='zImage'
 DEFAULT_FIND_KERNEL="-name ${DEFAULT_KERNEL_IMAGE_TYPE}-abiversion-* -type l"
 
 # callback for card-write
@@ -51,7 +51,42 @@ RootCardWriteCallback() {
 
 # callback for card-kernel-write
 RootCardKernelWriteCallback() {
-    ErrorOut "Card kernel write for old TI is not yet implemented"
+    tmpdir=`mktemp -d`
+
+    # skip boot partition - it contains bootloaders and their config files only
+
+    # mount rootfs
+    EvalExAuto "mount ${DevicePath}2 $tmpdir" "\nMount rootfs ${DevicePath}2 to $tmpdir..."
+    # rootfs/boot kernel
+    EvalExAuto "rm -f $tmpdir/boot/${KernelImageType}*" "\nRemove old kernels..."
+    KernelWithAbiName=`basename $DeployedFile | sed -e 's:-abiversion::'`
+    EvalExAuto "cp $DeployedFile $tmpdir/boot/$KernelWithAbiName" "\nCopy new kernel to /boot/$KernelWithAbiName..."
+    EvalExAuto "ln -sf $KernelWithAbiName $tmpdir/boot/$KernelImageType" "\nLink kernel to /boot/$KernelImageType -> $KernelWithAbiName..."
+    # devicetrees
+    EvalExAuto "rm -f $tmpdir/boot/*.dtb" "\nRemove old devicetrees..."
+    echo
+    for dtb in `find ${DeployFileDir} -name '*.dtb' -type l`; do
+        if ! echo "${dtb}" | grep -q $KernelImageType; then
+            EvalExAuto "cp -f $dtb $tmpdir/boot/" "Copy $dtb -> $tmpdir/boot/..."
+        fi
+    done
+    # devicetree links
+    for dtb in `find ${tmpdir}/boot -name '*.dtb'`; do
+        dtbname=`basename $dtb`
+        EvalExAuto "ln -sf $dtbname $tmpdir/boot/devicetree-$KernelImageType-$dtbname" "Create link $tmpdir/boot/devicetree-$KernelImageType-$dtbname -> $dtbname..."
+    done
+    # rootfs/lib/modules
+    kernel_abi_ver=`echo $KernelWithAbiName | sed 's:'${KernelImageType}-'::g'`
+    for modules in `find ${DeployFileDir} -name "modules-${Machine}.tgz"`; do
+        EvalExAuto "tar xvzf ${modules} -C $tmpdir/" "\nUnpack kernel modules..."
+    done
+    # run depmod (stolen from dempodwrapper)
+    sys_map=`realpath ${DeployFileDir}/../../../pkgdata/${Machine}/kernel-depmod/System.map-$kernel_abi_ver`
+    EvalExAuto "depmod -a -b $tmpdir -F $sys_map $kernel_abi_ver" "\nRun depmod on modules..."
+    # unmount rootfs
+    EvalExAuto "sleep 1 && umount ${DevicePath}2" "\nUnmount rootfs..."
+
+    rm -rf $tmpdir
 }
 
 CheckPrerequisite "time"
