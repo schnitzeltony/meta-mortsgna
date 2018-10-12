@@ -10,7 +10,6 @@
 DEFAULT_MACHINE_FAMILY='raspberrypi*'
 DEFAULT_FIND_ROOTFS='-name *.rpi-sdimg -type l'
 DEFAULT_KERNEL_IMAGE_TYPE='Image'
-DEFAULT_FIND_KERNEL="-name ${DEFAULT_KERNEL_IMAGE_TYPE}-abiversion-* -type l"
 
 # callback for card-write
 RootCardWriteCallback() {

@@ -10,7 +10,6 @@
 DEFAULT_MACHINE_FAMILY=''
 DEFAULT_FIND_ROOTFS='-name *.tar.bz2 -type l'
 DEFAULT_KERNEL_IMAGE_TYPE='zImage'
-DEFAULT_FIND_KERNEL="-name ${DEFAULT_KERNEL_IMAGE_TYPE}-abiversion-* -type l"
 
 # callback for card-write
 RootCardWriteCallback() {

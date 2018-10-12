@@ -333,11 +333,13 @@ StartCardKernelWrite() {
     if [ -z "$Machine" ]; then
         Machine="$DEFAULT_MACHINE_FAMILY"
     fi
-    if [ -z "$FindString" ]; then
-        FindString="$DEFAULT_FIND_KERNEL"
-    fi
     if [ -z "$KernelImageType" ]; then
         KernelImageType="$DEFAULT_KERNEL_IMAGE_TYPE"
+    fi
+    if [ -z "$FindString" ]; then
+        # we create an extra link on kernel to make things easier - see
+        # appends/oe-core/linux%.bbappend
+        FindString="-name ${KernelImageType}-abiversion-* -type l"
     fi
 
     RunUserStartRoot "${style_bold}Kernel on %DevicePath% will be overwritten by %DeployedFile%${style_normal}"

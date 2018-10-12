@@ -10,7 +10,6 @@
 DEFAULT_MACHINE_FAMILY='*imx*'
 DEFAULT_FIND_ROOTFS='-name *.sdcard -o -name *.wic.gz -type l'
 DEFAULT_KERNEL_IMAGE_TYPE='uImage'
-DEFAULT_FIND_KERNEL="-name ${DEFAULT_KERNEL_IMAGE_TYPE}-abiversion-* -type l"
 
 # callback for card-write
 RootCardWriteCallback() {
