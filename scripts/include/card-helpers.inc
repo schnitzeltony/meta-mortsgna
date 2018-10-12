@@ -363,7 +363,7 @@ if [ $( id -u ) -eq 0 ]; then
     FindString="`echo $5 | sed 's:%20: :g'`"
     KernelImageType="`echo $6 | sed 's:%20: :g'`"
 else
-    # User call params: By setiing them dialogs are not displayed. If
+    # User call params: By setting them dialogs are not displayed. If
     # one really wants, custom parameters can be appended after those
     # set here
     DevicePath=$1
