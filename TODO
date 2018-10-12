@@ -1,7 +1,6 @@
 These are tasks are planned:
 
 OE:
-* Introduce no-static-libs.inc
 * Introduce security_flags.inc
 * Get rid of gold - the only adavantage I see is for sending patches: Recipes
   passing with gold are likely to pass for other linkers
