@@ -1,5 +1,0 @@
-ti-old-omap:
-These scripts are used when using old image style (non WKS / dd) for TI 
-omap3/zitara machines. Intended for images build with meta-bbone and
-meta-gumstix-community (would like to let them die but we still have active
-products based on these very old layers).
