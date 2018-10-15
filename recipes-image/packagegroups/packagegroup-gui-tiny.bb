@@ -4,8 +4,6 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit packagegroup
 
-MACHINE_SPECIFICS_TINY = ""
-
 RDEPENDS_${PN} = " \
     tzdata \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-initramfs', 'plymouth plymouth-set-default-theme plymouth-initrd', '', d)} \
@@ -25,6 +23,4 @@ RDEPENDS_${PN} = " \
     \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'glmark2', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl x11', 'eglinfo-x11', '', d)} \
-    \
-    ${MACHINE_SPECIFICS_TINY} \
 "
