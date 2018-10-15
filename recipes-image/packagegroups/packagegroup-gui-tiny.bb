@@ -8,7 +8,7 @@ MACHINE_SPECIFICS_TINY = ""
 
 RDEPENDS_${PN} = " \
     tzdata \
-    plymouth plymouth-set-default-theme plymouth-initrd \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-initramfs', 'plymouth plymouth-set-default-theme plymouth-initrd', '', d)} \
     xdg-user-dirs \
     \
     evince \
