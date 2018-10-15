@@ -6,6 +6,7 @@ XFCE_DM = "sddm"
 
 IMAGE_INSTALL += " \
     packagegroup-gui-music \
-    libreoffice \
-    chromium-x11 \
+    \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
 "

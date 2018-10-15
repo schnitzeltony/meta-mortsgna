@@ -19,13 +19,13 @@ RDEPENDS_${PN} = " \
     tzdata-americas tzdata-antarctica tzdata-arctic tzdata-asia \
     tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific \
     \
-    libreoffice \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice', '', d)} \
     abiword-meta \
     gimp \
     fontforge \
     menulibre \
     \
-    chromium-x11 \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
     \
     gparted \
     gnome-system-monitor \
