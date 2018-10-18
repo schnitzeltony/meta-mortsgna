@@ -5,6 +5,7 @@ IMAGE_INSTALL += " \
     networkmanager \
     openssh-sftp-server \
     openssh-sshd \
+    iputils \
 "
 
 export IMAGE_BASENAME = "console-net-image"
