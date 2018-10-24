@@ -47,7 +47,7 @@ recipes-uitls:
    them.
 
 scripts:
-   A script collection to get images or kernel
+   A script collection to write images or kernel only to sdcards
 
 
 -------------------------------------------------------------------------------
