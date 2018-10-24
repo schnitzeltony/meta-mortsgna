@@ -14,8 +14,4 @@ TARGET_OS .= "${@['','-gnuspe'][d.getVar('TUNE_PKGARCH',d,1) in ['ppce500', 'ppc
 
 TARGET_LINK_HASH_STYLE = "${@['-Wl,--hash-style=gnu',''][d.getVar('TARGET_ARCH',d,1) in ['mips', 'mipsel', 'mips64', 'mips64el']]}"
 
-# We use gold as default linker for arm/x86 on eglibc based images
-DISTRO_FEATURES_append_arm = " ld-is-gold"
-DISTRO_FEATURES_append_x86 = " ld-is-gold"
-DISTRO_FEATURES_append_x86-64 = " ld-is-gold"
 
