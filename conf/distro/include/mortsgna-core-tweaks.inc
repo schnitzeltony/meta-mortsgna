@@ -57,7 +57,7 @@ IMAGE_BOOT ?= "${IMAGE_INITSCRIPTS} \
 IMAGE_INSTALL += "${IMAGE_BOOT}"
 
 # some default locales
-IMAGE_LINGUAS ?= "de-de fr-fr en-gb it-it"
+IMAGE_LINGUAS ?= "de-de fr-fr en-gb en-us es-es it-it"
 
 # there are important missing I bet
 IMAGE_LINGUAS_FULL ?= " \
