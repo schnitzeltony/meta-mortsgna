@@ -51,6 +51,7 @@ RDEPENDS_${PN} = " \
     \
     qwt-qt5-examples \
     gnuplot gnuplot-x11 \
+    qskinny \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'mame dosbox z80 vice stella opentyrian d1x-rebirth', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'games-layer', 'pingus supertux2 freeciv wesnoth-all', '', d)} \
