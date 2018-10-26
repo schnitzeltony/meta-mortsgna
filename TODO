@@ -2,7 +2,6 @@ These are tasks are planned:
 
 OE:
 * Introduce security_flags.inc
-* Add an OPTION for local.conf to reduce all armv7a to common tune values
 
 Scripts:
 * get rid of bashisms

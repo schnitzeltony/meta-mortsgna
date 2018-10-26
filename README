@@ -9,12 +9,30 @@
 
 meta-mortsgna is yet another distribution layer. It is based on Ångström
 distribution  - check https://github.com/Angstrom-distribution/meta-angstrom.
+
 The target of this layer is to build images with the best out-of-the-box
-experience.
+experience and to support developers with helpers for common tasks.
 
 -------------------------------------------------------------------------------
 Layer maintainer: Andreas Müller <schnitzeltony@gmail.com>
 
+
+-------------------------------------------------------------------------------
+Additionally this layer checks the following variable in local.conf:
+
+* MORTSGNA_ARMV7_TUNE:
+  If this variable is set to "1", all armv7a / cortex variants are build as
+  armv7a.
+
+  + Reduce build time/disk-space required when building for multiple machines
+  - Build optimzation (e.g vfp/NEON) is not the best your machine can get
+
+  Rules of thumb:
+  * If you build images for multiple armv7 machines and don't need to tickle
+    the last quarter of your machine's performance:
+    Set MORTSGNA_ARMV7_TUNE="1"
+  * If you are intersted in best optimization for your machine and/or you have
+    a fast build host with lots of disk-space: don't!
 
 -------------------------------------------------------------------------------
 This layer contains the following folders:

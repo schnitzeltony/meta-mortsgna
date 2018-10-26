@@ -33,6 +33,10 @@ ARM_INSTRUCTION_SET_armv4 ?= "arm"
 ARM_INSTRUCTION_SET_armv5 ?= "arm"
 ARM_INSTRUCTION_SET_armv6 ?= "arm"
 
+# set MORTSGNA_ARMV7_TUNE="1" in your local.conf to build armv7athf
+require conf/distro/include/mortsgna-armv7-tune.inc
+DEFAULTTUNE_mortsgna := "${@armv7_tune_handler(d)}"
+
 # use debian style naming
 INHERIT += "debian"
 
