@@ -135,3 +135,12 @@ revision: HEAD
 URI: git://github.com/schnitzeltony/meta-retro
 branch: master
 revision: HEAD
+
+-------------------------------------------------------------------------------
+To add plymouth to 'GUI images'
+
+URI: git://git.openembedded.org/meta-openembedded
+Layer: meta-initramfs
+branch: master
+revision: HEAD
+
