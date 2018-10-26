@@ -1,7 +1,3 @@
-#@TYPE: Distribution
-#@NAME: Mortsgna 
-#@DESCRIPTION: Release independent distribution configuration for Mortsgna
-
 # Preserve original DISTRO value
 USERDISTRO := "${DISTRO}"
 DISTRO = "mortsgna"
