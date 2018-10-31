@@ -21,6 +21,6 @@ RDEPENDS_${PN} = " \
     bash-completion \
     dconf-editor \
     \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'glmark2', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'glmark2 mesa-demos', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl x11', 'eglinfo-x11', '', d)} \
 "

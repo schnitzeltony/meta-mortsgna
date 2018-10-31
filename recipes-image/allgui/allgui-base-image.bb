@@ -21,8 +21,6 @@ IMAGE_INSTALL += " \
     lumina \
     \
     weston weston-xwayland \
-    \
-    mesa-demos \
 "
 
 # reenable graphical target
