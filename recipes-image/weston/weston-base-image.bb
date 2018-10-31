@@ -8,6 +8,7 @@ IMAGE_INSTALL += " \
     sddm \
     \
     weston \
+    weston-examples \
 "
 
 # reenable graphical target
