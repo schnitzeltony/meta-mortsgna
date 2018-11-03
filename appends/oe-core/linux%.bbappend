@@ -14,7 +14,7 @@ kernel_do_deploy_append() {
 
         if [ -e $deployDir/${base_name}.bin ] ; then
             abilinkname=${imageType}-abiversion-${KERNEL_VERSION}
-	        ln -sf ${base_name} $deployDir/${abilinkname}
+	        ln -sf ${base_name}.bin $deployDir/${abilinkname}
         fi
     done
 }
