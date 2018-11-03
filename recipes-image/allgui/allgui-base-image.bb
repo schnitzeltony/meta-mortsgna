@@ -14,6 +14,7 @@ IMAGE_INSTALL += " \
     plasma-world \
     \
     packagegroup-xfce-base \
+    xfce4-default-config \
     \
     packagegroup-lxqt-base \
     lxqt-default-config \
