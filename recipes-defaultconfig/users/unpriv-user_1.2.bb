@@ -2,7 +2,7 @@ DESCRIPTION = "This recipe adds a user 'morona' without password"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-inherit useradd
+inherit useradd user-with-full-skel
 
 USERNAME = "morona"
 # groups user shall be member of (NO WHITESPACES ALLOWED)

@@ -43,7 +43,7 @@ appends:
   for the layer is ignored (see conf/layer.conf).
 
 classes:
-  Currently instant-remote.bbclass only.
+  Currently instant-remote.bbclass and user-with-full-skel.bbclass.
 
 conf:
   layer.conf / and distro configurations

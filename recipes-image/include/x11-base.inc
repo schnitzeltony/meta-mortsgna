@@ -1,3 +1,5 @@
+inherit user-with-full-skel
+
 X11_BASE_INSTALL += " \
     ${DISTRO_GUI_USER} \
     packagegroup-core-x11-xserver \
