@@ -14,7 +14,9 @@ IMAGE_INSTALL += " \
     plasma-world \
     \
     packagegroup-xfce-base \
+    network-manager-applet \
     xfce4-default-config \
+    xfce4-whiskermenu-plugin \
     \
     packagegroup-lxqt-base \
     lxqt-default-config \
