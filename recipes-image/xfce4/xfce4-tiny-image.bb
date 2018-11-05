@@ -6,7 +6,6 @@ IMAGE_INSTALL += " \
     packagegroup-xfce-extended \
     packagegroup-xfce-multimedia \
     rodent-icon-theme \
-    gnome-theme-adwaita-dark \
     \
     packagegroup-gui-tiny \
 "

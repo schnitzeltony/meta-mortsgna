@@ -14,7 +14,6 @@ IMAGE_INSTALL += " \
     \
     network-manager-applet \
     xfce4-default-config \
-    xfce4-whiskermenu-plugin \
 "
 
 # reenable graphical target

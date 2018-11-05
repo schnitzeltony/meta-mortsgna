@@ -25,3 +25,12 @@ do_install() {
 }
 
 FILES_${PN} += "${datadir}/backgrounds"
+
+RDEPENDS_${PN} += " \
+    adwaita-icon-theme-cursors \
+    adwaita-icon-theme-symbolic \
+    adwaita-icon-theme-symbolic-hires \
+    \
+    gnome-theme-adwaita-dark \
+    xfce4-whiskermenu-plugin \
+"
