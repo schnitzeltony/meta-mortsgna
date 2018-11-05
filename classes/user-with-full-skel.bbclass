@@ -27,9 +27,8 @@ ROOTFS_POSTPROCESS_COMMAND += "postinst_copy_skel; "
 postinst_copy_skel () {
     if [ -d "${IMAGE_ROOTFS}/home" -a -d "${IMAGE_ROOTFS}/${sysconfdir}/skel" ]; then
         for home_target in `find "${IMAGE_ROOTFS}/home" -name ${SKEL_INIT_MARKER}`; do
-            # remove marker
-            rm "$home_target"
             homedir=`dirname "$home_target"`
+            echo "Copying ${IMAGE_ROOTFS}${sysconfdir}/skel to $homedir..."
             user=`basename "$homedir"`
             # 1. copy -> /home/user/skel
             cp -rf  --preserve=mode,ownership,timestamps,links ${IMAGE_ROOTFS}${sysconfdir}/skel "$homedir"
@@ -38,6 +37,8 @@ postinst_copy_skel () {
             cp -rfT  --preserve=mode,ownership,timestamps,links "$homedir/skel" "$homedir"
             # 3. remove /home/user/skel
             rm -rf "$homedir/skel"
+            # remove marker
+            rm "$home_target"
         done
     fi
 }
