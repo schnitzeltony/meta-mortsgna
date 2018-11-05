@@ -16,10 +16,12 @@ SKEL_INIT_MARKER = "force-skel-full-init"
 
 # user recipe part
 pkg_postinst_${PN}() {
-    if [ -n "$D" ]; then
+    if [ -n "$D" -a -n "${USERNAME}" ]; then
         touch $D/home/${USERNAME}/${SKEL_INIT_MARKER}
     fi
 }
+
+do_package[vardeps] += "USERNAME"
 
 # image recipe part
 ROOTFS_POSTPROCESS_COMMAND += "postinst_copy_skel; "
