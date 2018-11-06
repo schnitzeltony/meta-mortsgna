@@ -12,7 +12,7 @@
 # * Additional build time for task do_copysourcestosysroot for most recipes is < 1s
 #
 # to enable debug sysroot build set:
-# 'INHERIT += "instant-remote"'
+# 'INHERIT += "instant-remote-debug"'
 # in your local.conf
 #
 # to debug by remote do:
