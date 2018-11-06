@@ -4,6 +4,9 @@ export IMAGE_BASENAME = "xfce4-music-image"
 
 XFCE_DM = "sddm"
 
+# Saving to SDCard creates delays/underruns
+MORTSGNA_IMAGE_VOLATILE_LOG_DIR = "1"
+
 IMAGE_INSTALL += " \
     packagegroup-gui-music \
     \
