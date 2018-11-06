@@ -116,5 +116,8 @@ DISTRO_FEATURES += "${DISTRO_WAYLAND}"
 # Inherit the default LIBC features superset from OE-core
 DISTRO_FEATURES += "${DISTRO_FEATURES_LIBC}"
 
+# image specific volatile logfile handlding with MORTSGNA_IMAGE_VOLATILE_LOG_DIR
+require conf/distro/include/mortsgna-image-logfile-volatile.inc
+
 # Yocto tweaks
 require conf/distro/include/mortsgna-core-tweaks.inc
