@@ -36,14 +36,17 @@ Additionally this layer checks the following variable in local.conf:
   see conf/distro/include/mortsgna-armv7-tune.inc for more information
 
 -------------------------------------------------------------------------------
-The following image specific variables are handled:
+The following image-features are (re-)added:
 
-* MORTSGNA_IMAGE_VOLATILE_LOG_DIR
-  * If set to "1", journal goes to volatile /run/log and /var/log is linked to
-    /run/log which is volatile
-  * Otherwise all log goes to /var/log which is persistent
-  see conf/distro/include/mortsgna-image-logfile-volatile.inc for more
-  information
+* x11-base: Let systemd boot into grahical target
+
+* volatile-log: If set, journal goes to volatile /run/log and /var/log is
+  linked to /run/log which is volatile.
+  NOTE: We change OE-Core's default here: In bitbake.conf VOLATILE_LOG_DIR is
+  enabled so that all images are build for volatile log. Since this is far off
+  what others do change the default.
+  See conf/distro/include/mortsgna-image-logfile-volatile.inc for more
+  information.
 
 -------------------------------------------------------------------------------
 This layer contains the following folders:
