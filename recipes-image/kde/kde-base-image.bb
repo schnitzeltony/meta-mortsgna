@@ -11,6 +11,9 @@ IMAGE_INSTALL += " \
     \
     kf5-world \
     plasma-world \
+    \
+    konsole \
+    dolphin \
 "
 
 # reenable graphical target
