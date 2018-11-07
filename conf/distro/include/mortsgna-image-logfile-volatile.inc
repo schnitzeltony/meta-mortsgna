@@ -7,7 +7,7 @@ IMAGE_FEATURES[validitems] += "volatile-log"
 ROOTFS_POSTPROCESS_COMMAND += "postinst_volatile_log; "
 
 postinst_volatile_log () {
-    if [ "${@bb.utils.contains('IMAGE_FEATURES', 'volatile-log', '1', '0', d)}" = "1" ]; then
+    if [ "${@bb.utils.contains_any('IMAGE_FEATURES', 'volatile-log read-only-rootfs', '1', '0', d)}" = "1" ]; then
         # systemd journal
         if [ -f "${IMAGE_ROOTFS}${sysconfdir}/systemd/journald.conf" ]; then
             sed -i \
