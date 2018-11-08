@@ -7,7 +7,7 @@ IMAGE_INSTALL += " \
     ${X11_BASE_INSTALL} \
     packagegroup-gui-base \
     \
-    sddm \
+    sddm sddm-morona-autologin \
     \
     kf5-world \
     plasma-world \

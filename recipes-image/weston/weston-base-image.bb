@@ -7,7 +7,7 @@ inherit user-with-full-skel
 IMAGE_INSTALL += " \
     ${DISTRO_GUI_USER} \
     \
-    sddm \
+    sddm sddm-morona-autologin \
     \
     weston \
     weston-examples \
