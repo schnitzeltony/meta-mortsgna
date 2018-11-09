@@ -89,4 +89,14 @@ CheckPrerequisite() {
     fi
 }
 
-
+# GetBitbakeEnvVar starts bitbake -e and extracts environment variable.
+# Bitbake Variable is stored in BitbakeEnvVar
+GetBitbakeEnvVar() {
+    if [ "x`which bitbake 2>/dev/null`" = "x" ] ; then
+        ErrorOut "Bitbake not found! Script can only run in build environment."
+    fi
+    EvalExAuto "BitbakeEnvVar=`bitbake -e | grep ^${1}=`" "Run bitbake -e"
+    if [ -n "${BitbakeEnvVar}" ]; then
+        BitbakeEnvVar=`echo ${BitbakeEnvVar=} | sed -e s:${1}=::`
+    fi
+}
