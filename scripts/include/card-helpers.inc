@@ -98,25 +98,17 @@ SelectCardDevice() {
 # DeployFileDir: Path of the file selected
 SelectDeployedFile() {
     if [ -z "$DeployedFile" ]; then
-        # OE environment found?
-        if [ -z "$BUILDDIR" ]; then
-            ErrorOut "The environment variable BUILDDIR is not set. It is usually set before running bitbake."
+        GetBitbakeEnvVar "TMPDIR"
+        _TMPDIR="$BitbakeEnvVar"
+        # bitbake environment found?
+        if [ -z "$_TMPDIR" ]; then
+            ErrorOut "Bitbake environment variable TMPDIR not found!"
         fi
-        iCount=0
-        for grep_result in `grep -h TMPDIR $BUILDDIR/conf/*.conf | sed -e s/' '/''/g -e s/'\"'/''/g`; do
-            # exclude comments
-            tmp_dir=`echo $grep_result | grep '^TMPDIR='`
-            if [ ! -z "$tmp_dir" ]; then
-                OeTmpDir=`echo $tmp_dir | sed -e s/'TMPDIR='/''/g`
-            fi
-        done
-        for BuildPath in ${OeTmpDir}-*; do
-            for FilePath in `find ${BuildPath}/deploy/images/${Machine} $FindString | sort` ; do
-                iCount=`expr $iCount + 1`
-                RootFileNameArr[${iCount}]="$FilePath"
-                FileSize=`du -Dh "$FilePath" | cut -f1`
-                menuitems+=( "$iCount" "`basename $FilePath` / size: $FileSize" )
-            done
+        for FilePath in `find ${_TMPDIR}/deploy/images/${Machine} $FindString | sort` ; do
+            iCount=`expr $iCount + 1`
+            RootFileNameArr[${iCount}]="$FilePath"
+            FileSize=`du -Dh "$FilePath" | cut -f1`
+            menuitems+=( "$iCount" "`basename $FilePath` / size: $FileSize" )
         done
 
         # were files found?
