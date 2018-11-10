@@ -14,6 +14,10 @@
 # Includes
 . `dirname $0`/include/common-helpers.inc
 
+if [ -z "$1" ]; then
+    ErrorOut "No fetch target set in first parameter!"
+fi
+
 # Ask bitbake for recipe directory
 GetBitbakeEnvVar "TOPDIR"
 _TOPDIR="$BitbakeEnvVar"
