@@ -25,13 +25,13 @@ Additionally this layer checks the following variable in local.conf:
   armv7a.
 
   + Reduce build time/disk-space required when building for multiple machines
-  - Build optimzation (e.g vfp/NEON) is not the best your machine can get
+  - Build optimization (e.g vfp/NEON) is not the best your machine can get
 
   Rules of thumb:
   * If you build images for multiple armv7 machines and don't need to tickle
     the last quarter of your machine's performance:
     Set MORTSGNA_ARMV7_TUNE="1"
-  * If you are intersted in best optimization for your machine and/or you have
+  * If you are looking for best optimization for your machine and/or you have
     a fast build host with lots of disk-space: don't!
   see conf/distro/include/mortsgna-armv7-tune.inc for more information
 
@@ -69,8 +69,8 @@ recipes-defaultconfig:
   * default configurations for lxqt and xfce to get a preconfigured
     environment. Note that all data is stored in th image at /etc/skel
   * unpriv-user: A default non root user (named morona) member of many groups
-    required for daily operations and earining initial home forlder from
-    /etc/skel.
+    required for daily operations. It is shipped with home folder populated
+    form /etc/skel.
 
 recipes-image:
   All images for console / kde / lxqt / xfce ar found. allgui-images build
