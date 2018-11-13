@@ -57,7 +57,10 @@ appends:
   for the layer is ignored (see conf/layer.conf).
 
 classes:
-  Our classes to tailor build.
+  * instant-remote-debug.bbclass: Create a sysroot for remote debugging -
+    OE-Core's suggested workflow is cumbersome for ad-hoc remote debugging.
+  * user-with-full-skel.bbclass: Helper to populate /etc/skel in user's
+    home at image creation time.
 
 conf:
   layer.conf / and distro configurations
@@ -70,16 +73,19 @@ recipes-defaultconfig:
     /etc/skel.
 
 recipes-image:
-   All images for console / kde / lxqt / xfce ar found. allgui-images build
-   images for all graphical environments.
+  All images for console / kde / lxqt / xfce ar found. allgui-images build
+  images for all graphical environments.
 
-recipes-uitls:
-   Some tools (these are the only left from angstrom). Honestly: Have never
-   used them but kept them if users come from angstrom and might miss
-   them.
+recipes-utlis:
+  * udev-rules-udisks-hide-bootpart: Hide boot partition from udisks
+  * Some tools (these are the only left from angstrom). Honestly: Have never
+    used them but kept them if users come from angstrom and might miss
+    them.
 
 scripts:
-   A script collection to write images or kernel only to sdcards
+  A script collection
+  * to write images or kernel only to sdcards
+  * for changing recipe checksums automatically after version bump
 
 
 -------------------------------------------------------------------------------

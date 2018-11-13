@@ -1,6 +1,6 @@
-# Problem with copying /etc/skel to home forder by useradd only is that
-# user-recipe must RDEPEND on all recipes installing files to /etc/skel.
-# Otherwise content found in home folder is unpredictable.
+# Problem with copying /etc/skel to home forder by useradd at image creation
+# time is that user-recipe must RDEPEND on all recipes installing files to 
+# /etc/skel. Otherwise content found in home folder is unpredictable.
 #
 # To get around, this class was created. It is dual role and can be inherited
 # by:

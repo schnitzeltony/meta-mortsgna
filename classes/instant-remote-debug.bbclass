@@ -6,7 +6,7 @@
 # dropping helpful information. In these situations one wants to debug NOW
 # without further waiting or quirky activities.
 #
-# To achieve a debug sysroot is build with low cost:
+# To achieve, a debug sysroot is build with low cost:
 #
 # * All files are hard-linked to recipe's ${WORKDIR}/package
 # * Additional build time for task do_copysourcestosysroot for most recipes is < 1s

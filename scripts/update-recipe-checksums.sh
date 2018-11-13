@@ -4,12 +4,12 @@
 # (c) Copyright 2018 Andreas Müller <schnitzeltony@gmail.com>
 # Licensed under terms of GPLv2
 #
-# This script updates checksums in recipes after version bump. It run in same
-# environment as bitbake by:
+# This script updates checksums in recipes after version bump. It is supposed
+# to run run in same environment as bitbake:
 #
 # update-recipe-checksums.sh <recipe>
 #
-# where recipe can be a single recipe, a packagegroup an image or...
+# where <recipe> can be a single recipe, a packagegroup an image or...
 
 # Includes
 . `dirname $0`/include/common-helpers.inc

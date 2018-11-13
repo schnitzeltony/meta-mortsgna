@@ -4,11 +4,13 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-# BOOTPARTSPEC is an array of comma separated entries Each entry can have
+# BOOTPARTSPEC is a space-separated array of entries. Each entry can have the
+# following comma-separated fields:
 # 1. A label e.g 'boot' or machine name
 # 2. A partition type e.g. 'vfat'
 #
 # Feel free to add more...
+
 BOOTPARTSPEC = "boot,vfat BOOT,vfat"
 BOOTPARTSPEC_rpi = "raspberrypi,vfat"
 
