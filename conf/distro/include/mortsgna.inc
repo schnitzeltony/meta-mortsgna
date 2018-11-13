@@ -49,9 +49,6 @@ INHERIT += "devshell"
 INHERIT += "insane"
 QA_LOG = "1"
 
-INHERIT += "buildhistory"
-BUILDHISTORY_COMMIT = "1"
-
 # run QA tests on recipes
 #INHERIT += "recipe_sanity"
 
