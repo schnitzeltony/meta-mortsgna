@@ -13,13 +13,6 @@ LICENSE_DIRECTORY = "${DEPLOY_DIR}/licenses/${MACHINE_ARCH}"
 # Shared state fixups
 MACHINEOVERRIDES[vardepsexclude] += "SOC_FAMILY"
 
-# Prefer libjpeg-turbo
-PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
-PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
-
-# libtool REVISIT
-PREFERRED_PROVIDER_libltdl-dev = "libtool"
-
 #
 # udev, devfsd, busybox-mdev (from busybox) or none
 #
