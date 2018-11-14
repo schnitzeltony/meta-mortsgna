@@ -11,10 +11,6 @@ SDK_VENDOR = "-mortsgnasdk"
 # Yocto work around for missing ONLINE_PACKAGE_MANAGEMENT support
 ONLINE_PACKAGE_MANAGEMENT = "full"
 
-# Put links to sources in deploy/sources to make it easier for people to be GPL compliant
-#INHERIT += "src_distribute_local"
-SRC_DIST_LOCAL ?= "symlink"
-
 # Can be "glibc" or "musl"
 TCLIBC ?= "glibc"
 
