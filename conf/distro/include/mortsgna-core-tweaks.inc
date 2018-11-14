@@ -27,9 +27,6 @@ IMAGE_INITSCRIPTS ?= "systemd-compat-units"
 #
 IMAGE_LOGIN_MANAGER ?= "busybox"
 
-IMAGE_KEEPROOTFS ?= ""
-IMAGE_KEEPROOTFS[doc] = "Set to non-empty to keep ${IMAGE_ROOTFS} around after image creation."
-
 IMAGE_BOOT ?= "${IMAGE_INITSCRIPTS} \
                ${IMAGE_DEV_MANAGER} \
                ${IMAGE_INIT_MANAGER} \
