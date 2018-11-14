@@ -29,27 +29,8 @@ ARM_INSTRUCTION_SET_armv6 ?= "arm"
 require conf/distro/include/mortsgna-armv7-tune.inc
 DEFAULTTUNE_mortsgna := "${@armv7_tune_handler(d)}"
 
-# use debian style naming
-INHERIT += "debian"
 
-# activate config checker
-INHERIT += "sanity" 
-
-# activate the blacklister
-INHERIT += "blacklist"
-
-# make devshell available as task
-INHERIT += "devshell" 
-
-# run QA tests on builds and packages and log them
-INHERIT += "insane"
-QA_LOG = "1"
-
-# run QA tests on recipes
-#INHERIT += "recipe_sanity"
-
-# have a shared state a.k.a package-staging2
-INHERIT += "sstate"
+require conf/distro/include/mortsgna-inherits.inc
 
 # Generate locales on the buildsystem instead of on the target. Speeds up first boot, set to "1" to enable
 ENABLE_BINARY_LOCALE_GENERATION ?= "1"
@@ -62,12 +43,6 @@ ENABLE_BINARY_LOCALE_GENERATION_ep9312 = "0"
 
 # qemu has taken a dislike to armeb as well
 ENABLE_BINARY_LOCALE_GENERATION_armeb = "0"
-
-# drop buildinfo to /etc/build
-INHERIT += "image-buildinfo"
-
-# Prelink images
-INHERIT += "image-prelink"
 
 # Name the generated images in a sane way
 IMAGE_NAME = "${DISTRO_NAME}-${IMAGE_BASENAME}-${TCLIBC}-${IMAGE_PKGTYPE}-${DISTRO_VERSION}-${MACHINE}"
