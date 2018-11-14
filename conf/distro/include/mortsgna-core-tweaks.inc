@@ -10,9 +10,6 @@ LICENSE_FLAGS_WHITELIST += "commercial"
 # Unbreak multimachine builds
 LICENSE_DIRECTORY = "${DEPLOY_DIR}/licenses/${MACHINE_ARCH}"
 
-# Preset set this or bbappends break
-PRINC ??= "0"
-
 # Shared state fixups
 MACHINEOVERRIDES[vardepsexclude] += "SOC_FAMILY"
 
