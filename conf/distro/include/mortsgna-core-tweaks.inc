@@ -4,7 +4,6 @@
 BB_SIGNATURE_HANDLER ?= "OEBasicHash"
 
 # Empty commercial license, we want to build a superset for the default config
-COMMERCIAL_LICENSE = ""
 LICENSE_FLAGS_WHITELIST += "commercial"
 
 # Unbreak multimachine builds
