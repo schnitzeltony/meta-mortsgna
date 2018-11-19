@@ -11,6 +11,8 @@ IMAGE_INSTALL += " \
     \
     weston \
     weston-examples \
+    \
+    glmark2 mesa-demos \
 "
 
 # reenable graphical target
