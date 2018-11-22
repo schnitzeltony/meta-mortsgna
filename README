@@ -164,3 +164,10 @@ Layer: meta-initramfs
 branch: master
 revision: HEAD
 
+-------------------------------------------------------------------------------
+To hear radio
+
+URI: git://github.com/balister/meta-sdr.git
+Layer: meta-initramfs
+branch: master
+revision: HEAD
