@@ -35,10 +35,10 @@
 #   3. Set sysroot (see INSTANT_REMOTE_PATH below) e.g:
 #      <TMDIR>/sysroot-instant-remote
 #   4. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
-#      C:   '<TMDIR>/sysroots-components/x86_64/gcc-cross-arm/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
-#      C++: '<TMDIR>/sysroots-components/x86_64/gcc-cross-arm/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
+#      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
+#      C++: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
 #   5. Select debugger e.g:
-#      GDB: '<TMDIR>/sysroots-components/x86_64/gdb-cross-arm/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gdb'
+#      GDB: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gdb'
 #   6. Select 'OK' in Options dialog -> 'Start Debugger' should be back on top
 # * Make sure 'OE' Kit is selected
 # * Browse for executable e.g '<TMDIR>/sysroot-instant-remote/usr/bin/thunar'
