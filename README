@@ -58,7 +58,11 @@ appends:
 
 classes:
   * instant-remote-debug.bbclass: Create a sysroot for remote debugging -
-    OE-Core's suggested workflow is cumbersome for ad-hoc remote debugging.
+    Yocto's suggested workflows are cumbersome for ad-hoc remote debugging.
+  * instant-native-sysroot.bbclass: Native recipes inheriting this class
+    install everything necessary to run into a native sysroot. It's like a
+    quick & minimal native SDK. Currently gcc-cross and gdb-cross inherit this
+    class to enable instant remote debugging.
   * user-with-full-skel.bbclass: Helper to populate /etc/skel in user's
     home at image creation time.
 
