@@ -5,6 +5,8 @@ IMAGE_INSTALL += " \
     networkmanager \
     openssh-sftp-server \
     openssh-sshd \
+    openssh-ssh \
+    openssh-scp \
     iputils \
 "
 
