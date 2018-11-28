@@ -15,10 +15,10 @@ BOOTPARTSPEC = "boot,vfat BOOT,vfat"
 BOOTPARTSPEC_rpi = "raspberrypi,vfat"
 
 do_install () {
-	install -d ${D}${base_libdir}/udev/rules.d
+	install -d ${D}${nonarch_base_libdir}/udev/rules.d
 
     # generate udev rule
-    rulefile="${D}${base_libdir}/udev/rules.d/80-udisks-hide-bootpart.rules"
+    rulefile="${D}${nonarch_base_libdir}/udev/rules.d/80-udisks-hide-bootpart.rules"
 
     # create header
     echo '###############################################################################' >> "$rulefile"
@@ -59,4 +59,4 @@ do_install () {
     done
 }
 
-FILES_${PN} = "${base_libdir}/udev/rules.d"
+FILES_${PN} = "${nonarch_base_libdir}/udev/rules.d"
