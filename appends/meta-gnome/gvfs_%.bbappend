@@ -1,1 +1,1 @@
-PACKAGECONFIG = "archive gcr libmtp libgphoto2 samba systemd"
+PACKAGECONFIG_append = " archive gcr libmtp libgphoto2 samba systemd"

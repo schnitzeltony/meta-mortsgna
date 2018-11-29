@@ -1,1 +1,1 @@
-PACKAGECONFIG = "notify"
+PACKAGECONFIG_append = " notify"

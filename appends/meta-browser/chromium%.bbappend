@@ -1,1 +1,1 @@
-PACKAGECONFIG = "use-egl impl-side-painting proprietary-codecs"
+PACKAGECONFIG_append = " use-egl impl-side-painting proprietary-codecs"
