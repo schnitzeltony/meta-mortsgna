@@ -32,8 +32,8 @@
 #   The settings are kept so 1.-6. have to be done once only.
 #   1. Create a Kit by 'Add' -> further dilaog opens
 #   2. Select an name for the Kit e.g 'OE'
-#   3. Set sysroot (see INSTANT_REMOTE_PATH below) e.g:
-#      <TMDIR>/sysroot-instant-remote
+#   3. Set sysroot (see INSTANT_REMOTE_PATH below):
+#      ${TMPDIR}/sysroot-instant-remote-${MACHINE}
 #   4. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
 #      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
 #      C++: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
@@ -52,13 +52,14 @@
 #   -> Implement error message
 # * Class does not work properly when package data is taken from sstate cache
 #   -> Help appreciated
+# * Class does not work properly for when changing machine
 #------------------------------------------------------------------------------
 
 # ensure necessary gdb recipes are build
 EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"
 
 # This is where instant sysroot is installed into
-INSTANT_REMOTE_PATH ??= "${TMPDIR}/sysroot-instant-remote"
+INSTANT_REMOTE_PATH = "${TMPDIR}/sysroot-instant-remote-${MACHINE}"
 
 addtask copysourcestosysroot before do_packagedata after do_package
 
