@@ -6,10 +6,7 @@
 # dropping helpful information. In these situations one wants to debug NOW
 # without further waiting or quirky activities.
 #
-# To achieve, a debug sysroot is build with low cost:
-#
-# * All files are hard-linked to recipe's ${WORKDIR}/package
-# * Additional build time for task do_copysourcestosysroot for most recipes is < 1s
+# To achieve, a machine specific debug sysroot is build
 #
 # to enable debug sysroot build set:
 # 'INHERIT += "instant-remote-debug"'
@@ -30,10 +27,10 @@
 #   -> Dialog 'Start Debugger' opens
 # * At the first session a so called 'Kit' has to be set up (1st line -> 'Manage').
 #   The settings are kept so 1.-6. have to be done once only.
-#   1. Create a Kit by 'Add' -> further dilaog opens
+#   1. Create a Kit by 'Add' -> further dialog opens
 #   2. Select an name for the Kit e.g 'OE'
 #   3. Set sysroot (see INSTANT_REMOTE_PATH below):
-#      ${TMPDIR}/sysroot-instant-remote-${MACHINE}
+#      ${TMPDIR}/sysroot-instant-remote-${MACHINE_ARCH}
 #   4. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
 #      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
 #      C++: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
@@ -47,25 +44,24 @@
 #
 # Happy debugging!!
 #
-# TODO:
-# * Class won't work with rm_work.bbclass / rm_work_and_downloads.bbclass
-#   -> Implement error message
-# * Class does not work properly when package data is taken from sstate cache
-#   -> Help appreciated
-# * Class does not work properly for when changing machine
 #------------------------------------------------------------------------------
 
 # ensure necessary gdb recipes are build
 EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"
 
 # This is where instant sysroot is installed into
-INSTANT_REMOTE_PATH = "${TMPDIR}/sysroot-instant-remote-${MACHINE}"
+INSTANT_REMOTE_PATH = "${TMPDIR}/sysroot-instant-remote-${MACHINE_ARCH}"
 WORK_REMOTE_PATH = "${WORKDIR}/sysroot-instant-remote"
 
-do_copysourcestosysroot() {
-    # remove old
-    rm -rf ${WORK_REMOTE_PATH}
+python __anonymous () {
+    if d.getVar('CLASSOVERRIDE') != 'class-target':
+        bb.build.deltask('do_copysourcestosysroot', d)
+}
 
+do_copysourcestosysroot() {
+    if [ ! -d "${WORKDIR}/packages-split" -o ! -d ${WORKDIR}/package ]; then
+        exit 0
+    fi
     # ---------- link source code files ----------
     if [ -d ${WORKDIR}/package/usr/src/debug/${PN} ] ; then
         mkdir -p ${WORK_REMOTE_PATH}/usr/src/debug/${PN}
@@ -142,16 +138,21 @@ do_copysourcestosysroot() {
     fi
 }
 
-addtask copysourcestosysroot before do_packagedata after do_package
+addtask copysourcestosysroot after do_package before do_build
 SSTATETASKS += "do_copysourcestosysroot"
+
 do_copysourcestosysroot[sstate-inputdirs] = "${WORK_REMOTE_PATH}"
 do_copysourcestosysroot[sstate-outputdirs] = "${INSTANT_REMOTE_PATH}"
-#do_copysourcestosysroot[stamp-extra-info] = "${MACHINE_ARCH}"
+
+# same as do package
+do_copysourcestosysroot[vardeps] = "${PACKAGEBUILDPKGD} ${PACKAGESPLITFUNCS} ${PACKAGEFUNCS} ${@gen_packagevar(d)}"
+
+do_copysourcestosysroot[stamp-extra-info] = "${MACHINE_ARCH}"
+do_copysourcestosysroot[cleandirs] = "${WORK_REMOTE_PATH}"
 
 python do_copysourcestosysroot_setscene () {
     sstate_setscene(d)
 }
 addtask do_copysourcestosysroot_setscene
 
-
-do_clean[cleandirs] += "${WORK_REMOTE_PATH}"
+do_build[recrdeptask] += "do_copysourcestosysroot"
