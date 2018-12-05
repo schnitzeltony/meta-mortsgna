@@ -130,6 +130,14 @@ do_copysourcestosysroot() {
 	        fi
         done
     done
+    # ---------- names of includes (they might contain debuggable code) -> manifest ----------
+    if [ -d ${WORKDIR}/packages-split/${PN}-dev/${includedir} ]; then
+        for include in `find ${WORKDIR}/packages-split/${PN}-dev/${includedir} -type f` ; do
+            # do 'root' path
+            include=`echo $include | sed -e 's:'${WORKDIR}/packages-split/${PN}-dev/'::'`
+	        echo $include >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
+        done
+    fi
 
     # ---------- link to files in package folder from manifest ----------
     if [ -f ${INSTANT_REMOTE_PATH}/manifests/${PN} ] ; then
