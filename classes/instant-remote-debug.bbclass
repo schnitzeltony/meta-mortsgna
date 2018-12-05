@@ -60,30 +60,21 @@ EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"
 
 # This is where instant sysroot is installed into
 INSTANT_REMOTE_PATH = "${TMPDIR}/sysroot-instant-remote-${MACHINE}"
-
-addtask copysourcestosysroot before do_packagedata after do_package
+WORK_REMOTE_PATH = "${WORKDIR}/sysroot-instant-remote"
 
 do_copysourcestosysroot() {
-    # remove old source code / files in old manifest
-    rm -rf ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
-    if [ -f ${INSTANT_REMOTE_PATH}/manifests/${PN} ] ; then
-        # remove old files from sysroot
-        for file in `cat ${INSTANT_REMOTE_PATH}/manifests/${PN}` ; do
-            rm -f ${INSTANT_REMOTE_PATH}/$file
-        done
-        # remove old manifest
-        rm ${INSTANT_REMOTE_PATH}/manifests/${PN}
-    fi
+    # remove old
+    rm -rf ${WORK_REMOTE_PATH}
 
     # ---------- link source code files ----------
     if [ -d ${WORKDIR}/package/usr/src/debug/${PN} ] ; then
-        mkdir -p ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
+        mkdir -p ${WORK_REMOTE_PATH}/usr/src/debug/${PN}
         cd ${WORKDIR}/package/usr/src/debug/${PN}
-        find . -print0 | cpio --null -pdlu ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
+        find . -print0 | cpio --null -pdlu ${WORK_REMOTE_PATH}/usr/src/debug/${PN}
     fi
 
     # ---------- names of binaries and debuginfo -> manifest ----------
-    mkdir -p ${INSTANT_REMOTE_PATH}/manifests
+    mkdir -p ${WORK_REMOTE_PATH}/manifests
     # get path to library-link once only
     if [ "${PN}" = "glibc-locale" ] ; then
         PACK_SPLIT_LIB_LINK_SEARCH_PATH=`find ${WORKDIR}/packages-split -mindepth 1 -maxdepth 1 -type d ! -name '*-dbg' ! -name '*-dev' ! -name '*-staticdev' ! -name '*-doc' ! -name 'glibc*-localedata-*' ! -name 'glibc-charmap-*' ! -name 'locale-base-*'`
@@ -115,8 +106,8 @@ do_copysourcestosysroot() {
                 filestripped=`echo $file | sed -e 's:\.debug/::'`
             fi
             # keep files in manifest
-	        echo $file >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
-	        echo $filestripped >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
+	        echo $file >> ${WORK_REMOTE_PATH}/manifests/${PN}
+	        echo $filestripped >> ${WORK_REMOTE_PATH}/manifests/${PN}
 	        # check for so-file links
 	        if echo $filestripped | grep -q '\.so'; then
 	            soname=`basename $filestripped`
@@ -124,7 +115,7 @@ do_copysourcestosysroot() {
 	                for link in `find $packsplit -lname $soname` ; do
                         # do 'root' path
                         link=`echo $link | sed -e 's:'$packsplit'::'`
-	                    echo $link >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
+	                    echo $link >> ${WORK_REMOTE_PATH}/manifests/${PN}
 	                done
 	            done
 	        fi
@@ -135,37 +126,32 @@ do_copysourcestosysroot() {
         for include in `find ${WORKDIR}/packages-split/${PN}-dev/${includedir} -type f` ; do
             # do 'root' path
             include=`echo $include | sed -e 's:'${WORKDIR}/packages-split/${PN}-dev/'::'`
-	        echo $include >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
+	        echo $include >> ${WORK_REMOTE_PATH}/manifests/${PN}
         done
     fi
 
     # ---------- link to files in package folder from manifest ----------
-    if [ -f ${INSTANT_REMOTE_PATH}/manifests/${PN} ] ; then
+    if [ -f ${WORK_REMOTE_PATH}/manifests/${PN} ] ; then
         cd ${WORKDIR}/package
-        for file in `cat ${INSTANT_REMOTE_PATH}/manifests/${PN}` ; do
+        for file in `cat ${WORK_REMOTE_PATH}/manifests/${PN}` ; do
             file=`echo $file | cut -c 2-`
             if [ -e $file ] ; then
-                echo -n $file | cpio --null -pdlu ${INSTANT_REMOTE_PATH}
+                echo -n $file | cpio --null -pdlu ${WORK_REMOTE_PATH}
             fi
         done
     fi
 }
 
-# remove source code links
-do_clean[cleandirs] += "${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}"
+addtask copysourcestosysroot before do_packagedata after do_package
+SSTATETASKS += "do_copysourcestosysroot"
+do_copysourcestosysroot[sstate-inputdirs] = "${WORK_REMOTE_PATH}"
+do_copysourcestosysroot[sstate-outputdirs] = "${INSTANT_REMOTE_PATH}"
+#do_copysourcestosysroot[stamp-extra-info] = "${MACHINE_ARCH}"
 
-do_clean_append() {
-    # remove binaries from mainfest
-    manifest = "%s/manifests/%s" % (d.expand("${INSTANT_REMOTE_PATH}"), d.expand("${PN}"))
-    if os.path.isfile(manifest):
-        bb.note("Removing all files from manifest " + manifest)
-        manifestfile = open(manifest, "r")
-        for filetoremove in manifestfile:
-            filetoremove = filetoremove.rstrip()
-            filetoremove = d.expand("${INSTANT_REMOTE_PATH}") + filetoremove
-            if os.path.isfile(filetoremove):
-                os.remove(filetoremove)
-        manifestfile.close()
-
-        os.remove(manifest)
+python do_copysourcestosysroot_setscene () {
+    sstate_setscene(d)
 }
+addtask do_copysourcestosysroot_setscene
+
+
+do_clean[cleandirs] += "${WORK_REMOTE_PATH}"
