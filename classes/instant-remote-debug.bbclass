@@ -64,19 +64,8 @@ INSTANT_REMOTE_PATH = "${TMPDIR}/sysroot-instant-remote-${MACHINE}"
 addtask copysourcestosysroot before do_packagedata after do_package
 
 do_copysourcestosysroot() {
-    # ---------- link source code files ----------
-    # remove old
+    # remove old source code / files in old manifest
     rm -rf ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
-    # add new
-    if [ -d ${WORKDIR}/package/usr/src/debug/${PN} ] ; then
-        mkdir -p ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
-        cd ${WORKDIR}/package/usr/src/debug/${PN}
-        find . -print0 | cpio --null -pdlu ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
-    fi
-
-    # ---------- names of binaries and debuginfo -> manifest ----------
-    mkdir -p ${INSTANT_REMOTE_PATH}/manifests
-    # remove old
     if [ -f ${INSTANT_REMOTE_PATH}/manifests/${PN} ] ; then
         # remove old files from sysroot
         for file in `cat ${INSTANT_REMOTE_PATH}/manifests/${PN}` ; do
@@ -85,6 +74,16 @@ do_copysourcestosysroot() {
         # remove old manifest
         rm ${INSTANT_REMOTE_PATH}/manifests/${PN}
     fi
+
+    # ---------- link source code files ----------
+    if [ -d ${WORKDIR}/package/usr/src/debug/${PN} ] ; then
+        mkdir -p ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
+        cd ${WORKDIR}/package/usr/src/debug/${PN}
+        find . -print0 | cpio --null -pdlu ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
+    fi
+
+    # ---------- names of binaries and debuginfo -> manifest ----------
+    mkdir -p ${INSTANT_REMOTE_PATH}/manifests
     # get path to library-link once only
     if [ "${PN}" = "glibc-locale" ] ; then
         PACK_SPLIT_LIB_LINK_SEARCH_PATH=`find ${WORKDIR}/packages-split -mindepth 1 -maxdepth 1 -type d ! -name '*-dbg' ! -name '*-dev' ! -name '*-staticdev' ! -name '*-doc' ! -name 'glibc*-localedata-*' ! -name 'glibc-charmap-*' ! -name 'locale-base-*'`
@@ -97,6 +96,7 @@ do_copysourcestosysroot() {
     # add new
     for pkgdbg in `find ${WORKDIR}/packages-split -mindepth 1 -maxdepth 1 -type d -name '*-dbg'` ; do
         debug_binaries=
+        # Note: hardcoding is used in package.bbclass either (search for PACKAGE_DEBUG_SPLIT_STYLE)
         if [ "${PACKAGE_DEBUG_SPLIT_STYLE}" = "debug-file-directory" ] ; then
             if [ -d $pkgdbg/usr/lib/debug ] ; then
                 debug_binaries=`find $pkgdbg/usr/lib/debug -name '*.debug'`
@@ -131,7 +131,7 @@ do_copysourcestosysroot() {
         done
     done
 
-    # ---------- link binaries and debuginfo from manifest ----------
+    # ---------- link to files in package folder from manifest ----------
     if [ -f ${INSTANT_REMOTE_PATH}/manifests/${PN} ] ; then
         cd ${WORKDIR}/package
         for file in `cat ${INSTANT_REMOTE_PATH}/manifests/${PN}` ; do
