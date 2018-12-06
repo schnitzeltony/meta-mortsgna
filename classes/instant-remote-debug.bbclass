@@ -62,6 +62,8 @@ python __anonymous () {
         bb.build.deltask('do_copysourcestosysroot', d)
 }
 
+INSTANT_MANIFEST = "${INSTANT_CROSS_PATH}/manifests/${PN}"
+
 do_copysourcestosysroot() {
     # ---------- bail out on package-less recipes ----------
     if [ ! -d "${WORKDIR}/packages-split" -o ! -d ${WORKDIR}/package ]; then
@@ -72,13 +74,13 @@ do_copysourcestosysroot() {
     rm -rf ${INSTANT_CROSS_PATH}/usr/src/debug/${PN}
 
     # ---------- remove old files in manifest and manifest ----------
-    if [ -f ${INSTANT_CROSS_PATH}/manifests/${PN} ] ; then
+    if [ -f ${INSTANT_MANIFEST} ] ; then
         # remove old files from sysroot
-        for file in `cat ${INSTANT_CROSS_PATH}/manifests/${PN}` ; do
+        for file in `cat ${INSTANT_MANIFEST}` ; do
             rm -f ${INSTANT_CROSS_PATH}/$file
         done
         # remove old manifest
-        rm ${INSTANT_CROSS_PATH}/manifests/${PN}
+        rm ${INSTANT_MANIFEST}
     fi
 
     # ---------- hard link source code files ----------
@@ -120,8 +122,8 @@ do_copysourcestosysroot() {
                 filestripped=`echo $file | sed -e 's:\.debug/::'`
             fi
             # keep files in manifest
-	        echo $file >> ${INSTANT_CROSS_PATH}/manifests/${PN}
-	        echo $filestripped >> ${INSTANT_CROSS_PATH}/manifests/${PN}
+	        echo $file >> ${INSTANT_MANIFEST}
+	        echo $filestripped >> ${INSTANT_MANIFEST}
 	        # check for so-file links
 	        if echo $filestripped | grep -q '\.so'; then
 	            soname=`basename $filestripped`
@@ -129,25 +131,35 @@ do_copysourcestosysroot() {
 	                for link in `find $packsplit -lname $soname` ; do
                         # do 'root' path
                         link=`echo $link | sed -e 's:'$packsplit'::'`
-	                    echo $link >> ${INSTANT_CROSS_PATH}/manifests/${PN}
+	                    echo $link >> ${INSTANT_MANIFEST}
 	                done
 	            done
 	        fi
         done
     done
-    # ---------- names of includes (they might contain debuggable code) -> manifest ----------
-    if [ -d ${WORKDIR}/packages-split/${PN}-dev/${includedir} ]; then
-        for include in `find ${WORKDIR}/packages-split/${PN}-dev/${includedir} -type f` ; do
+
+    # ---------- get -dev packet contents -> manifest ----------
+    if [ -d ${WORKDIR}/packages-split/${PN}-dev ]; then
+        for include in `find ${WORKDIR}/packages-split/${PN}-dev -type f` ; do
             # do 'root' path
             include=`echo $include | sed -e 's:'${WORKDIR}/packages-split/${PN}-dev/'::'`
-	        echo $include >> ${INSTANT_CROSS_PATH}/manifests/${PN}
+	        echo $include >> ${INSTANT_MANIFEST}
+        done
+    fi
+
+    # ---------- get -mkspecs packet contents -> manifest ----------
+    if [ -d ${WORKDIR}/packages-split/${PN}-mkspecs ]; then
+        for include in `find ${WORKDIR}/packages-split/${PN}-mkspecs -type f` ; do
+            # do 'root' path
+            include=`echo $include | sed -e 's:'${WORKDIR}/packages-split/${PN}-mkspecs/'::'`
+	        echo $include >> ${INSTANT_MANIFEST}
         done
     fi
 
     # ---------- link to files in package folder from manifest ----------
-    if [ -f ${INSTANT_CROSS_PATH}/manifests/${PN} ] ; then
+    if [ -f ${INSTANT_MANIFEST} ] ; then
         cd ${WORKDIR}/package
-        for file in `cat ${INSTANT_CROSS_PATH}/manifests/${PN}` ; do
+        for file in `cat ${INSTANT_MANIFEST}` ; do
             file=`echo $file | cut -c 2-`
             if [ -e $file ] ; then
                 echo -n $file | cpio --null -pdlu ${INSTANT_CROSS_PATH}
