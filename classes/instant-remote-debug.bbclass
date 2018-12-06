@@ -9,7 +9,7 @@
 # To achieve, a debug sysroot is build with low cost:
 #
 # * All files are hard-linked to recipe's ${WORKDIR}/package
-# * Additional build time for task do_copysourcestosysroot for most recipes is < 1s
+# * Additional build time for task do_copytocrosssysroot for most recipes is < 1s
 #
 # to enable debug sysroot build set:
 # 'INHERIT += "instant-remote-debug"'
@@ -56,12 +56,12 @@ EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"
 
 python __anonymous () {
     if d.getVar('CLASSOVERRIDE') != 'class-target':
-        bb.build.deltask('do_copysourcestosysroot', d)
+        bb.build.deltask('do_copytocrosssysroot', d)
 }
 
 INSTANT_MANIFEST = "${INSTANT_CROSS_PATH}/manifests/${PN}"
 
-do_copysourcestosysroot() {
+do_copytocrosssysroot() {
     # ---------- bail out on package-less recipes ----------
     if [ ! -d "${WORKDIR}/packages-split" -o ! -d ${WORKDIR}/package ]; then
         exit 0
@@ -165,11 +165,11 @@ do_copysourcestosysroot() {
     fi
 }
 
-addtask copysourcestosysroot after do_package before do_build
+addtask copytocrosssysroot after do_package before do_build
 
 # same as do package
-do_copysourcestosysroot[vardeps] = "${PACKAGEBUILDPKGD} ${PACKAGESPLITFUNCS} ${PACKAGEFUNCS} ${@gen_packagevar(d)}"
+do_copytocrosssysroot[vardeps] = "${PACKAGEBUILDPKGD} ${PACKAGESPLITFUNCS} ${PACKAGEFUNCS} ${@gen_packagevar(d)}"
 
-do_copysourcestosysroot[stamp-extra-info] = "${MACHINE_ARCH}"
+do_copytocrosssysroot[stamp-extra-info] = "${MACHINE_ARCH}"
 
-do_build[recrdeptask] += "do_copysourcestosysroot"
+do_build[recrdeptask] += "do_copytocrosssysroot"
