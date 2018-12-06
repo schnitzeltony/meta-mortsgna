@@ -32,7 +32,7 @@
 #   The settings are kept so 1.-6. have to be done once only.
 #   1. Create a Kit by 'Add' -> further dialog opens
 #   2. Select an name for the Kit e.g 'OE'
-#   3. Set sysroot (see INSTANT_REMOTE_PATH below):
+#   3. Set sysroot (see INSTANT_CROSS_PATH in instant-path.bbclass):
 #      ${TMPDIR}/sysroot-instant-remote-${MACHINE_ARCH}
 #   4. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
 #      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
@@ -51,11 +51,11 @@
 
 inherit utils
 
+# This is where instant cross sysroot is installed into
+INSTANT_CROSS_PATH = "${TMPDIR}/sysroot-instant-cross-${MACHINE_ARCH}"
+
 # ensure necessary gdb recipes are build
 EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"
-
-# This is where instant sysroot is installed into
-INSTANT_REMOTE_PATH = "${TMPDIR}/sysroot-instant-remote-${MACHINE_ARCH}"
 
 python __anonymous () {
     if d.getVar('CLASSOVERRIDE') != 'class-target':
@@ -69,26 +69,26 @@ do_copysourcestosysroot() {
     fi
 
     # ---------- remove old sources ----------
-    rm -rf ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
+    rm -rf ${INSTANT_CROSS_PATH}/usr/src/debug/${PN}
 
     # ---------- remove old files in manifest and manifest ----------
-    if [ -f ${INSTANT_REMOTE_PATH}/manifests/${PN} ] ; then
+    if [ -f ${INSTANT_CROSS_PATH}/manifests/${PN} ] ; then
         # remove old files from sysroot
-        for file in `cat ${INSTANT_REMOTE_PATH}/manifests/${PN}` ; do
-            rm -f ${INSTANT_REMOTE_PATH}/$file
+        for file in `cat ${INSTANT_CROSS_PATH}/manifests/${PN}` ; do
+            rm -f ${INSTANT_CROSS_PATH}/$file
         done
         # remove old manifest
-        rm ${INSTANT_REMOTE_PATH}/manifests/${PN}
+        rm ${INSTANT_CROSS_PATH}/manifests/${PN}
     fi
 
     # ---------- hard link source code files ----------
     if [ -d ${WORKDIR}/package/usr/src/debug/${PN} ] ; then
-        mkdir -p ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
-        hardlinkdir ${WORKDIR}/package/usr/src/debug/${PN} ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
+        mkdir -p ${INSTANT_CROSS_PATH}/usr/src/debug/${PN}
+        hardlinkdir ${WORKDIR}/package/usr/src/debug/${PN} ${INSTANT_CROSS_PATH}/usr/src/debug/${PN}
     fi
 
     # ---------- names of binaries and debuginfo -> manifest ----------
-    mkdir -p ${INSTANT_REMOTE_PATH}/manifests
+    mkdir -p ${INSTANT_CROSS_PATH}/manifests
     # get path to library-link once only
     if [ "${PN}" = "glibc-locale" ] ; then
         PACK_SPLIT_LIB_LINK_SEARCH_PATH=`find ${WORKDIR}/packages-split -mindepth 1 -maxdepth 1 -type d ! -name '*-dbg' ! -name '*-dev' ! -name '*-staticdev' ! -name '*-doc' ! -name 'glibc*-localedata-*' ! -name 'glibc-charmap-*' ! -name 'locale-base-*'`
@@ -120,8 +120,8 @@ do_copysourcestosysroot() {
                 filestripped=`echo $file | sed -e 's:\.debug/::'`
             fi
             # keep files in manifest
-	        echo $file >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
-	        echo $filestripped >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
+	        echo $file >> ${INSTANT_CROSS_PATH}/manifests/${PN}
+	        echo $filestripped >> ${INSTANT_CROSS_PATH}/manifests/${PN}
 	        # check for so-file links
 	        if echo $filestripped | grep -q '\.so'; then
 	            soname=`basename $filestripped`
@@ -129,7 +129,7 @@ do_copysourcestosysroot() {
 	                for link in `find $packsplit -lname $soname` ; do
                         # do 'root' path
                         link=`echo $link | sed -e 's:'$packsplit'::'`
-	                    echo $link >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
+	                    echo $link >> ${INSTANT_CROSS_PATH}/manifests/${PN}
 	                done
 	            done
 	        fi
@@ -140,17 +140,17 @@ do_copysourcestosysroot() {
         for include in `find ${WORKDIR}/packages-split/${PN}-dev/${includedir} -type f` ; do
             # do 'root' path
             include=`echo $include | sed -e 's:'${WORKDIR}/packages-split/${PN}-dev/'::'`
-	        echo $include >> ${INSTANT_REMOTE_PATH}/manifests/${PN}
+	        echo $include >> ${INSTANT_CROSS_PATH}/manifests/${PN}
         done
     fi
 
     # ---------- link to files in package folder from manifest ----------
-    if [ -f ${INSTANT_REMOTE_PATH}/manifests/${PN} ] ; then
+    if [ -f ${INSTANT_CROSS_PATH}/manifests/${PN} ] ; then
         cd ${WORKDIR}/package
-        for file in `cat ${INSTANT_REMOTE_PATH}/manifests/${PN}` ; do
+        for file in `cat ${INSTANT_CROSS_PATH}/manifests/${PN}` ; do
             file=`echo $file | cut -c 2-`
             if [ -e $file ] ; then
-                echo -n $file | cpio --null -pdlu ${INSTANT_REMOTE_PATH}
+                echo -n $file | cpio --null -pdlu ${INSTANT_CROSS_PATH}
             fi
         done
     fi
