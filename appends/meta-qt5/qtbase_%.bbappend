@@ -26,5 +26,6 @@ do_copytocrosssysroot_append() {
         "$cross_sysroot_qtconf"
 
     # ---------- mkspecs ----------
+    # qmake.conf replace -fdebug-prefix-map ( see bitbake.conf )
 
 }
