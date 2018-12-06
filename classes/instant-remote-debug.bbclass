@@ -30,10 +30,10 @@
 #   -> Dialog 'Start Debugger' opens
 # * At the first session a so called 'Kit' has to be set up (1st line -> 'Manage').
 #   The settings are kept so 1.-6. have to be done once only.
-#   1. Create a Kit by 'Add' -> further dilaog opens
+#   1. Create a Kit by 'Add' -> further dialog opens
 #   2. Select an name for the Kit e.g 'OE'
 #   3. Set sysroot (see INSTANT_REMOTE_PATH below):
-#      ${TMPDIR}/sysroot-instant-remote-${MACHINE}
+#      ${TMPDIR}/sysroot-instant-remote-${MACHINE_ARCH}
 #   4. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
 #      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
 #      C++: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
@@ -47,25 +47,31 @@
 #
 # Happy debugging!!
 #
-# TODO:
-# * Class won't work with rm_work.bbclass / rm_work_and_downloads.bbclass
-#   -> Implement error message
-# * Class does not work properly when package data is taken from sstate cache
-#   -> Help appreciated
-# * Class does not work properly for when changing machine
 #------------------------------------------------------------------------------
+
+inherit utils
 
 # ensure necessary gdb recipes are build
 EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"
 
 # This is where instant sysroot is installed into
-INSTANT_REMOTE_PATH = "${TMPDIR}/sysroot-instant-remote-${MACHINE}"
+INSTANT_REMOTE_PATH = "${TMPDIR}/sysroot-instant-remote-${MACHINE_ARCH}"
 
-addtask copysourcestosysroot before do_packagedata after do_package
+python __anonymous () {
+    if d.getVar('CLASSOVERRIDE') != 'class-target':
+        bb.build.deltask('do_copysourcestosysroot', d)
+}
 
 do_copysourcestosysroot() {
-    # remove old source code / files in old manifest
+    # ---------- bail out on package-less recipes ----------
+    if [ ! -d "${WORKDIR}/packages-split" -o ! -d ${WORKDIR}/package ]; then
+        exit 0
+    fi
+
+    # ---------- remove old sources ----------
     rm -rf ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
+
+    # ---------- remove old files in manifest and manifest ----------
     if [ -f ${INSTANT_REMOTE_PATH}/manifests/${PN} ] ; then
         # remove old files from sysroot
         for file in `cat ${INSTANT_REMOTE_PATH}/manifests/${PN}` ; do
@@ -75,11 +81,10 @@ do_copysourcestosysroot() {
         rm ${INSTANT_REMOTE_PATH}/manifests/${PN}
     fi
 
-    # ---------- link source code files ----------
+    # ---------- hard link source code files ----------
     if [ -d ${WORKDIR}/package/usr/src/debug/${PN} ] ; then
         mkdir -p ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
-        cd ${WORKDIR}/package/usr/src/debug/${PN}
-        find . -print0 | cpio --null -pdlu ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
+        hardlinkdir ${WORKDIR}/package/usr/src/debug/${PN} ${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}
     fi
 
     # ---------- names of binaries and debuginfo -> manifest ----------
@@ -151,21 +156,11 @@ do_copysourcestosysroot() {
     fi
 }
 
-# remove source code links
-do_clean[cleandirs] += "${INSTANT_REMOTE_PATH}/usr/src/debug/${PN}"
+addtask copysourcestosysroot after do_package before do_build
 
-do_clean_append() {
-    # remove binaries from mainfest
-    manifest = "%s/manifests/%s" % (d.expand("${INSTANT_REMOTE_PATH}"), d.expand("${PN}"))
-    if os.path.isfile(manifest):
-        bb.note("Removing all files from manifest " + manifest)
-        manifestfile = open(manifest, "r")
-        for filetoremove in manifestfile:
-            filetoremove = filetoremove.rstrip()
-            filetoremove = d.expand("${INSTANT_REMOTE_PATH}") + filetoremove
-            if os.path.isfile(filetoremove):
-                os.remove(filetoremove)
-        manifestfile.close()
+# same as do package
+do_copysourcestosysroot[vardeps] = "${PACKAGEBUILDPKGD} ${PACKAGESPLITFUNCS} ${PACKAGEFUNCS} ${@gen_packagevar(d)}"
 
-        os.remove(manifest)
-}
+do_copysourcestosysroot[stamp-extra-info] = "${MACHINE_ARCH}"
+
+do_build[recrdeptask] += "do_copysourcestosysroot"
