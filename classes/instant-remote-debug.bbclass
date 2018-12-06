@@ -49,10 +49,7 @@
 #
 #------------------------------------------------------------------------------
 
-inherit utils
-
-# This is where instant cross sysroot is installed into
-INSTANT_CROSS_PATH = "${TMPDIR}/sysroot-instant-cross-${MACHINE_ARCH}"
+inherit utils instant-paths
 
 # ensure necessary gdb recipes are build
 EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"

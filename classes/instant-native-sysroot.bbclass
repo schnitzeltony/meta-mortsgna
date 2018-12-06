@@ -2,10 +2,7 @@
 # class for instant native sysroot
 #------------------------------------------------------------------------------
 
-inherit utils
-
-# This is where instant native sysroot is installed to
-INSTANT_NATIVE_PATH = "${TMPDIR}/sysroot-instant-native"
+inherit utils instant-paths
 
 do_prepare_recipe_sysroot[postfuncs] += "${INSTANTSYSROOTFUNC}"
 INSTANTSYSROOTFUNC = ""
