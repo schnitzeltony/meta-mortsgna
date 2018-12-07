@@ -14,18 +14,23 @@ do_copy_to_cross_sysroot_append() {
     generate_qt_config_file_effective_paths
 
     # copy to cross sysroot
-    cross_sysroot_qtconf="${INSTANT_CROSS_PATH}${OE_QMAKE_PATH_QT_BINS}/`basename ${OE_QMAKE_QTCONF_PATH}`"
-    cp -f ${OE_QMAKE_QTCONF_PATH} "$cross_sysroot_qtconf"
-    echo "$cross_sysroot_qtconf" >> ${INSTANT_MANIFEST}
+    qtconf=`basename ${OE_QMAKE_QTCONF_PATH}`
+    targetpath=${INSTANT_CROSS_PATH}${OE_QMAKE_PATH_HOST_BINS}
+    cp -f "${OE_QMAKE_QTCONF_PATH}" "$targetpath"
+    echo "${OE_QMAKE_PATH_HOST_BINS}/$qtconf" >> ${INSTANT_MANIFEST}
 
     # adjust to instant sysroot
-    qtconf_cross_sysroot=
     sed -i \
         -e 's:${STAGING_DIR_NATIVE}:${INSTANT_NATIVE_PATH}:g' \
         -e 's:${STAGING_DIR_HOST}:${INSTANT_CROSS_PATH}:g' \
-        "$cross_sysroot_qtconf"
+        "$targetpath/$qtconf"
 
-    # ---------- mkspecs ----------
-    # qmake.conf replace -fdebug-prefix-map ( see bitbake.conf )
+    # ---------- mkspecs qmake.conf ----------
+    rm ${INSTANT_CROSS_PATH}${libdir}${QT_DIR_NAME}/mkspecs/${XPLATFORM}/qmake.conf
+    cp -f "${WORKDIR}/packages-split/${PN}-mkspecs${libdir}${QT_DIR_NAME}/mkspecs/${XPLATFORM}/qmake.conf" \
+        "${INSTANT_CROSS_PATH}${libdir}${QT_DIR_NAME}/mkspecs/${XPLATFORM}/"
+    sed -i \
+        -e 's:${DEBUG_PREFIX_MAP}:-fdebug-prefix-map=${INSTANT_CROSS_PATH}= -fdebug-prefix-map=${INSTANT_NATIVE_PATH}=:g' \
+        "${INSTANT_CROSS_PATH}${libdir}${QT_DIR_NAME}/mkspecs/${XPLATFORM}/qmake.conf"
 
 }
