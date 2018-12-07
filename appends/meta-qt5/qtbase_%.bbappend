@@ -11,7 +11,6 @@ do_copy_to_cross_sysroot_append() {
     # ---------- qt.conf ----------
     # create
     generate_qt_config_file_paths
-    generate_qt_config_file_effective_paths
 
     # copy to cross sysroot
     qtconf=`basename ${OE_QMAKE_QTCONF_PATH}`
