@@ -72,9 +72,12 @@ do_copy_to_cross_sysroot() {
 
     # ---------- remove old files in manifest and manifest ----------
     if [ -f ${INSTANT_MANIFEST} ] ; then
+        echo "Old manifest ${INSTANT_MANIFEST} found - remove files..."
         # remove old files from sysroot
         for file in `cat ${INSTANT_MANIFEST}` ; do
-            rm -f ${INSTANT_CROSS_PATH}/$file
+            if ! rm "${INSTANT_CROSS_PATH}/$file" 2> /dev/null; then
+                echo "Tried to delete '${INSTANT_CROSS_PATH}/$file' but it is not there! A look into mainfest creation at '${INSTANT_MANIFEST}' might help."
+            fi
         done
         # remove old manifest
         rm ${INSTANT_MANIFEST}
@@ -96,7 +99,9 @@ do_copy_to_cross_sysroot() {
     else
         PACK_SPLIT_LIB_LINK_SEARCH_PATH=`find ${WORKDIR}/packages-split -mindepth 1 -maxdepth 1 -type d ! -name '*-dbg' ! -name '*-dev' ! -name '*-staticdev' ! -name '*-doc' ! -name '${PN}*-locale-*'`
     fi
-    echo "Search so-link in $PACK_SPLIT_LIB_LINK_SEARCH_PATH.."
+    echo "Search so-links in:"
+    echo "$PACK_SPLIT_LIB_LINK_SEARCH_PATH"
+    echo
     # add new
     for pkgdbg in `find ${WORKDIR}/packages-split -mindepth 1 -maxdepth 1 -type d -name '*-dbg'` ; do
         debug_binaries=
@@ -119,47 +124,42 @@ do_copy_to_cross_sysroot() {
                 filestripped=`echo $file | sed -e 's:\.debug/::'`
             fi
             # keep files in manifest
-	        echo $file >> ${INSTANT_MANIFEST}
-	        echo $filestripped >> ${INSTANT_MANIFEST}
-	        # check for so-file links
-	        if echo $filestripped | grep -q '\.so'; then
-	            soname=`basename $filestripped`
+            echo $file >> ${INSTANT_MANIFEST}
+            echo $filestripped >> ${INSTANT_MANIFEST}
+            # check for so-file links
+            if echo $filestripped | grep -q '\.so'; then
+                soname=`basename $filestripped`
                 for packsplit in  $PACK_SPLIT_LIB_LINK_SEARCH_PATH; do
-	                for link in `find $packsplit -lname $soname` ; do
+                    for link in `find $packsplit -lname $soname` ; do
                         # do 'root' path
                         link=`echo $link | sed -e 's:'$packsplit'::'`
-	                    echo $link >> ${INSTANT_MANIFEST}
-	                done
-	            done
-	        fi
+                        echo $link >> ${INSTANT_MANIFEST}
+                    done
+                done
+            fi
         done
     done
 
-    # ---------- get -dev packet contents -> manifest ----------
-    if [ -d ${WORKDIR}/packages-split/${PN}-dev ]; then
-        for include in `find ${WORKDIR}/packages-split/${PN}-dev -type f` ; do
-            # do 'root' path
-            include=`echo $include | sed -e 's:'${WORKDIR}/packages-split/${PN}-dev/'::'`
-	        echo $include >> ${INSTANT_MANIFEST}
-        done
-    fi
+    # ---------- get -dev/-mkspecs packet contents -> manifest ----------
+    for package in "${PN}-dev" "${PN}-mkspecs" ; do
+        if [ -d ${WORKDIR}/packages-split/$package ]; then
+            echo "Add files from ${WORKDIR}/packages-split/$package to manifest..."
+            for file in `find ${WORKDIR}/packages-split/$package -type f` ; do
+                # do 'root' path
+                file=`echo $file | sed -e 's:${WORKDIR}/packages-split/'$package'::'`
+                echo $file >> ${INSTANT_MANIFEST}
+            done
+        fi
+    done
 
-    # ---------- get -mkspecs packet contents -> manifest ----------
-    if [ -d ${WORKDIR}/packages-split/${PN}-mkspecs ]; then
-        for include in `find ${WORKDIR}/packages-split/${PN}-mkspecs -type f` ; do
-            # do 'root' path
-            include=`echo $include | sed -e 's:'${WORKDIR}/packages-split/${PN}-mkspecs/'::'`
-	        echo $include >> ${INSTANT_MANIFEST}
-        done
-    fi
-
-    # ---------- link to files in package folder from manifest ----------
+    # ---------- manifest: do the hardlinks (optimization welcome..) ----------
     if [ -f ${INSTANT_MANIFEST} ] ; then
+        echo "Create hardlinks from manifest ${INSTANT_MANIFEST}..."
         cd ${WORKDIR}/package
         for file in `cat ${INSTANT_MANIFEST}` ; do
             file=`echo $file | cut -c 2-`
             if [ -e $file ] ; then
-                echo -n $file | cpio --null -pdlu ${INSTANT_CROSS_PATH}
+                echo -n $file | cpio --null -pdlu ${INSTANT_CROSS_PATH} > /dev/null 2>&1
             fi
         done
     fi
