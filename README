@@ -57,9 +57,10 @@ appends:
   for the layer is ignored (see conf/layer.conf).
 
 classes:
-  * instant-remote-debug.bbclass: Create a sysroot for remote debugging -
-    Yocto's suggested workflows are cumbersome for ad-hoc remote debugging.
-  * instant-native-sysroot.bbclass: Native recipes inheriting this class
+  * instant-sysroot-cross.bbclass: Create a sysroot for remote
+    building/debugging - Yocto's suggested workflows are cumbersome for ad-hoc
+    usage.
+  * instant-sysroot-native.bbclass: Native recipes inheriting this class
     install everything necessary to run into a native sysroot. It's like a
     quick & minimal native SDK. Currently gcc-cross and gdb-cross inherit this
     class to enable instant remote debugging.

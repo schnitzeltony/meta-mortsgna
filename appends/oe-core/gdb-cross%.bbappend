@@ -1,1 +1,1 @@
-inherit instant-native-sysroot
+inherit instant-sysroot-native

@@ -12,7 +12,7 @@
 # * Additional build time for task do_copy_to_cross_sysroot for most recipes is < 1s
 #
 # to enable debug sysroot build set:
-# 'INHERIT += "instant-remote-debug"'
+# 'INHERIT += "instant-sysroot-cross"'
 # in your local.conf
 #
 # to debug by remote do:
@@ -33,7 +33,7 @@
 #   1. Create a Kit by 'Add' -> further dialog opens
 #   2. Select an name for the Kit e.g 'OE'
 #   3. Set sysroot (see INSTANT_CROSS_PATH in instant-path.bbclass):
-#      ${TMPDIR}/sysroot-instant-remote-${MACHINE_ARCH}
+#      ${TMPDIR}/sysroot-instant-cross-${MACHINE_ARCH}
 #   4. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
 #      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
 #      C++: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
@@ -41,7 +41,7 @@
 #      GDB: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gdb'
 #   6. Select 'OK' in Options dialog -> 'Start Debugger' should be back on top
 # * Make sure 'OE' Kit is selected
-# * Browse for executable e.g '<TMDIR>/sysroot-instant-remote/usr/bin/thunar'
+# * Browse for executable e.g '<TMDIR>/sysroot-instant-cross/usr/bin/thunar'
 # * Set IP:Port of target machine e.g '192.168.2.108:5000'
 # * Select 'OK'
 #
