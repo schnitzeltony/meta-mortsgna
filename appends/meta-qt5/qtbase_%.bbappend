@@ -7,7 +7,7 @@ PACKAGECONFIG_DISTRO += " \
 
 inherit instant-paths
 
-do_copytocrosssysroot_append() {
+do_copy_to_cross_sysroot_append() {
     # ---------- qt.conf ----------
     # create
     generate_qt_config_file_paths
