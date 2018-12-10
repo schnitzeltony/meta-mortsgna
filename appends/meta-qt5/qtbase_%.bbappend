@@ -22,6 +22,7 @@ do_copy_to_cross_sysroot_append() {
     sed -i \
         -e 's:${STAGING_DIR_NATIVE}:${INSTANT_NATIVE_PATH}:g' \
         -e 's:${STAGING_DIR_HOST}:${INSTANT_CROSS_PATH}:g' \
+        -e 's:^HostBinaries =.*:HostBinaries = ${INSTANT_NATIVE_PATH}${bindir}${QT_DIR_NAME}:g' \
         "$targetpath/$qtconf"
 
     # ---------- mkspecs qmake.conf ----------
