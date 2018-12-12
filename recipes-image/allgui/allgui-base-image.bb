@@ -20,6 +20,8 @@ IMAGE_INSTALL += " \
     packagegroup-lxqt-base \
     lxqt-default-config \
     \
+    liri-world \
+    \
     lumina \
     \
     weston weston-xwayland \
