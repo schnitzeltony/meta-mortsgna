@@ -9,10 +9,10 @@
 # To achieve, a debug sysroot is build with low cost:
 #
 # * All files are hard-linked to recipe's ${WORKDIR}/package
-# * Additional build time for task do_copy_to_cross_sysroot for most recipes is < 1s
+# * Additional build time for task do_copy_to_target_sysroot for most recipes is < 1s
 #
 # to enable debug sysroot build set:
-# 'INHERIT += "instant-sysroot-cross"'
+# 'INHERIT += "instant-sysroot-target"'
 # in your local.conf
 #
 # to debug by remote do:
@@ -24,7 +24,7 @@
 #   'gdbserver :5000 /usr/bin/thunar'
 #
 # ON BUILD HOST (suggested IDE: QtCreator)
-# * build gdb-cross-<TARGET_ARCH> (done automatically on images if this class
+# * build gdb-target-<TARGET_ARCH> (done automatically on images if this class
 #   enabled - see EXTRA_IMAGEDEPENDS below)
 # * in QtCreator select Menu Debug/Start Debugging/Attach to Running Debug Server
 #   -> Dialog 'Start Debugger' opens
@@ -32,8 +32,8 @@
 #   The settings are kept so 1.-6. have to be done once only.
 #   1. Create a Kit by 'Add' -> further dialog opens
 #   2. Select an name for the Kit e.g 'OE'
-#   3. Set sysroot (see INSTANT_CROSS_PATH in instant-path.bbclass):
-#      ${TMPDIR}/sysroot-instant-cross-${MACHINE_ARCH}
+#   3. Set sysroot (see INSTANT_TARGET_PATH in instant-path.bbclass):
+#      ${TMPDIR}/sysroot-instant-target-${MACHINE_ARCH}
 #   4. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
 #      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
 #      C++: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
@@ -41,7 +41,7 @@
 #      GDB: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gdb'
 #   6. Select 'OK' in Options dialog -> 'Start Debugger' should be back on top
 # * Make sure 'OE' Kit is selected
-# * Browse for executable e.g '<TMDIR>/sysroot-instant-cross/usr/bin/thunar'
+# * Browse for executable e.g '<TMDIR>/sysroot-instant-target/usr/bin/thunar'
 # * Set IP:Port of target machine e.g '192.168.2.108:5000'
 # * Select 'OK'
 #
@@ -56,27 +56,27 @@ EXTRA_IMAGEDEPENDS += "gdb-cross-${TARGET_ARCH} gdb"
 
 python __anonymous () {
     if d.getVar('CLASSOVERRIDE') != 'class-target':
-        bb.build.deltask('do_copy_to_cross_sysroot', d)
+        bb.build.deltask('do_copy_to_target_sysroot', d)
 }
 
-INSTANT_MANIFEST = "${INSTANT_CROSS_PATH}/manifests/${PN}"
+INSTANT_MANIFEST = "${INSTANT_TARGET_PATH}/manifests/${PN}"
 
-do_copy_to_cross_sysroot() {
+do_copy_to_target_sysroot() {
     # ---------- bail out on package-less recipes ----------
     if [ ! -d "${WORKDIR}/packages-split" -o ! -d ${WORKDIR}/package ]; then
         exit 0
     fi
 
     # ---------- remove old sources ----------
-    rm -rf ${INSTANT_CROSS_PATH}/usr/src/debug/${PN}
+    rm -rf ${INSTANT_TARGET_PATH}/usr/src/debug/${PN}
 
     # ---------- remove old files in manifest and manifest ----------
     if [ -f ${INSTANT_MANIFEST} ] ; then
         echo "Old manifest ${INSTANT_MANIFEST} found - remove files..."
         # remove old files from sysroot
         for file in `cat ${INSTANT_MANIFEST}` ; do
-            if ! rm "${INSTANT_CROSS_PATH}/$file" 2> /dev/null; then
-                echo "Tried to delete '${INSTANT_CROSS_PATH}/$file' but it is not there! A look into mainfest creation at '${INSTANT_MANIFEST}' might help."
+            if ! rm "${INSTANT_TARGET_PATH}/$file" 2> /dev/null; then
+                echo "Tried to delete '${INSTANT_TARGET_PATH}/$file' but it is not there! A look into mainfest creation at '${INSTANT_MANIFEST}' might help."
             fi
         done
         # remove old manifest
@@ -85,12 +85,12 @@ do_copy_to_cross_sysroot() {
 
     # ---------- hard link source code files ----------
     if [ -d ${WORKDIR}/package/usr/src/debug/${PN} ] ; then
-        mkdir -p ${INSTANT_CROSS_PATH}/usr/src/debug/${PN}
-        hardlinkdir ${WORKDIR}/package/usr/src/debug/${PN} ${INSTANT_CROSS_PATH}/usr/src/debug/${PN}
+        mkdir -p ${INSTANT_TARGET_PATH}/usr/src/debug/${PN}
+        hardlinkdir ${WORKDIR}/package/usr/src/debug/${PN} ${INSTANT_TARGET_PATH}/usr/src/debug/${PN}
     fi
 
     # ---------- names of binaries and debuginfo -> manifest ----------
-    mkdir -p ${INSTANT_CROSS_PATH}/manifests
+    mkdir -p ${INSTANT_TARGET_PATH}/manifests
     # get path to library-link once only
     if [ "${PN}" = "glibc-locale" ] ; then
         PACK_SPLIT_LIB_LINK_SEARCH_PATH=`find ${WORKDIR}/packages-split -mindepth 1 -maxdepth 1 -type d ! -name '*-dbg' ! -name '*-dev' ! -name '*-staticdev' ! -name '*-doc' ! -name 'glibc*-localedata-*' ! -name 'glibc-charmap-*' ! -name 'locale-base-*'`
@@ -159,17 +159,17 @@ do_copy_to_cross_sysroot() {
         for file in `cat ${INSTANT_MANIFEST}` ; do
             file=`echo $file | cut -c 2-`
             if [ -e $file ] ; then
-                echo -n $file | cpio --null -pdlu ${INSTANT_CROSS_PATH} > /dev/null 2>&1
+                echo -n $file | cpio --null -pdlu ${INSTANT_TARGET_PATH} > /dev/null 2>&1
             fi
         done
     fi
 }
 
-addtask copy_to_cross_sysroot after do_package before do_build
+addtask copy_to_target_sysroot after do_package before do_build
 
 # same as do package
-do_copy_to_cross_sysroot[vardeps] = "${PACKAGEBUILDPKGD} ${PACKAGESPLITFUNCS} ${PACKAGEFUNCS} ${@gen_packagevar(d)}"
+do_copy_to_target_sysroot[vardeps] = "${PACKAGEBUILDPKGD} ${PACKAGESPLITFUNCS} ${PACKAGEFUNCS} ${@gen_packagevar(d)}"
 
-do_copy_to_cross_sysroot[stamp-extra-info] = "${MACHINE_ARCH}"
+do_copy_to_target_sysroot[stamp-extra-info] = "${MACHINE_ARCH}"
 
-do_build[recrdeptask] += "do_copy_to_cross_sysroot"
+do_build[recrdeptask] += "do_copy_to_target_sysroot"

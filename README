@@ -57,7 +57,7 @@ appends:
   for the layer is ignored (see conf/layer.conf).
 
 classes:
-  * instant-sysroot-cross.bbclass: Create a sysroot for remote
+  * instant-sysroot-target.bbclass: Create a sysroot for target remote
     building/debugging - Yocto's suggested workflows are cumbersome for ad-hoc
     usage.
   * instant-sysroot-native.bbclass: Native recipes inheriting this class
