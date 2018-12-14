@@ -20,10 +20,10 @@ INSTANTPOPULATE_class-native = "instant_populate_sysroot"
 INSTANTPOPULATE_class-cross = "instant_populate_sysroot"
 
 instant_populate_sysroot () {
-    for executable in `find ${SYSROOT_DESTDIR}/${STAGING_DIR_NATIVE} -type f`; do
-        alignedpath=`echo ${executable} | sed 's:${SYSROOT_DESTDIR}/${STAGING_DIR_NATIVE}::'`
+    for file in `find ${SYSROOT_DESTDIR}${STAGING_DIR_NATIVE} -type f -o -type l`; do
+        alignedpath=`echo "$file" | sed 's:${SYSROOT_DESTDIR}${STAGING_DIR_NATIVE}::'`
         targetdir=`dirname ${INSTANT_NATIVE_PATH}/${alignedpath}`
         mkdir -p "$targetdir"
-        cp -fl "${executable}" "${targetdir}"
+        cp -fld "${file}" "${targetdir}"
     done
 }
