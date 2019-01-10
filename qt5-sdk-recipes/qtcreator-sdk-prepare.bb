@@ -28,7 +28,6 @@ ALLOW_EMPTY_${PN} = "1"
 RDEPENDS_${PN} = " \
     qtbase \
     gdbserver \
-    openssh-sshd \
-    openssh-ssh \
-    openssh-scp \
+    openssh-sftp openssh-sftp-server \
+    ${TASK_BASIC_SSHDAEMON} \
 "
