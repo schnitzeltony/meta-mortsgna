@@ -1,14 +1,14 @@
 require console-base-image.bb
 
-NETWORKMAN ?= "networkmanager"
+NETWORKPACKS ?= " \
+    ${TASK_BASIC_SSHDAEMON} \
+    avahi-autoipd \
+    iputils \
+    networkmanager \
+"
 
 IMAGE_INSTALL += " \
-    avahi-autoipd \
-    openssh-sshd \
-    openssh-ssh \
-    openssh-scp \
-    iputils \
-    ${NETWORKMAN} \
+    ${NETWORKPACKS} \
 "
 
 export IMAGE_BASENAME = "console-net-image"
