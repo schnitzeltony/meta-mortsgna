@@ -28,6 +28,5 @@ ALLOW_EMPTY_${PN} = "1"
 RDEPENDS_${PN} = " \
     qtbase \
     gdbserver \
-    openssh-sftp openssh-sftp-server \
     ${TASK_BASIC_SSHDAEMON} \
 "
