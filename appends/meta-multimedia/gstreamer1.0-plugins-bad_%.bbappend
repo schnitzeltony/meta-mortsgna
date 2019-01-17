@@ -3,5 +3,4 @@ PACKAGECONFIG_append = " \
     libmms \
     faad \
     fluidsynth \
-    gtk \
 "
