@@ -13,6 +13,7 @@ DISTRO_FEATURES += "x11"
 DISTRO_FEATURES += "3g"
 DISTRO_FEATURES += "pulseaudio"
 DISTRO_FEATURES += "ldconfig"
+DISTRO_FEATURES += "polkit"
 
 # OpenGL support
 DISTRO_FEATURES += "opengl"
