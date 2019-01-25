@@ -44,10 +44,7 @@ RDEPENDS_${PN} = " \
     \
     kde-apps-world \
     \
-    gottet \
-    hexalate \
-    peg-e \
-    simsu \
+    gottcode-world \
     \
     qwt-qt5-examples \
     gnuplot gnuplot-x11 \
