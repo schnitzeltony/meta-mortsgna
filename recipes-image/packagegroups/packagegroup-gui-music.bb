@@ -9,6 +9,9 @@ RDEPENDS_${PN} = " \
     alsa-utils alsa-utils-scripts \
     jack-utils \
     pulseaudio-module-alsa-card \
+    pulseaudio-module-jack-sink \
+    pulseaudio-module-jack-source \
+    pulseaudio-module-jackdbus-detect \
     sox \
     a2jmidid \
     fluidsynth-bin \
