@@ -1,4 +1,4 @@
-require recipes-image/xfce4/xfce4-full-image.bb
+require recipes-image/xfce4/xfce4-tiny-image.bb
 
 export IMAGE_BASENAME = "xfce4-dev-image"
 
