@@ -18,7 +18,6 @@ RDEPENDS_${PN} = " \
     bind \
     devilspie2 \
     \
-    bash-completion \
     dconf-editor \
     \
     glmark2 mesa-demos eglinfo-x11 \
