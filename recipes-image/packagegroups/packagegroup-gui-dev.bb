@@ -33,6 +33,8 @@ RDEPENDS_${PN} = " \
     wireshark \
     nfs-utils-client \
     lmsensors-sensord lmsensors-sensorsdetect \
+    \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
 "
 
 #    qemu
