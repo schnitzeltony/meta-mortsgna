@@ -7,6 +7,7 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE} \
     update-alternatives-opkg \
     coreutils \
+    bash-completion \
     systemd-analyze \
     cpufrequtils \
     htop \
