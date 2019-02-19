@@ -5,6 +5,7 @@ NETWORKPACKS ?= " \
     avahi-autoipd \
     iputils \
     networkmanager \
+    networkmanager-bash-completion \
 "
 
 IMAGE_INSTALL += " \

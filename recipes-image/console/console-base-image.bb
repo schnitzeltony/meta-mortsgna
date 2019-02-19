@@ -8,6 +8,7 @@ IMAGE_INSTALL += " \
     update-alternatives-opkg \
     coreutils \
     bash-completion \
+    systemd-bash-completion \
     systemd-analyze \
     cpufrequtils \
     htop \
