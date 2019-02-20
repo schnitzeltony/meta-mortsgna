@@ -1,13 +1,5 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bashrc: executed by bash(1) for interactive non-login shells.
 
-PS1='\u@\h:\W\$ '
-
-# `ls' enhancements:
-export LS_OPTIONS='--color=auto'
-eval `dircolors`
-alias ls='ls $LS_OPTIONS'
-alias ll='ls $LS_OPTIONS -l'
-# REVISIT - do not change path
-alias su='su --login'
-
-umask 022
+if [ -f /etc/profile ]; then
+  . /etc/profile
+fi
