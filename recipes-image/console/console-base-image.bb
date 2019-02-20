@@ -7,6 +7,7 @@ IMAGE_INSTALL += " \
     ${ROOTFS_PKGMANAGE} \
     update-alternatives-opkg \
     coreutils \
+    bash \
     bash-completion \
     systemd-bash-completion \
     systemd-analyze \
