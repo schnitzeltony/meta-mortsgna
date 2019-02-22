@@ -13,6 +13,8 @@ RDEPENDS_${PN} = " \
     geany-plugins \
     gtk-demo gtk+3-demo \
     \
+    weston weston-xwayland  \
+    \
     unzip xz tar bzip2 \
     make cmake \
     automake autoconf libtool m4 \
