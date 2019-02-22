@@ -30,7 +30,16 @@ eval `dircolors`
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 
+# colorize all grep variants
 alias grep='grep --color'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias xzegrep='xzegrep --color=auto'
+alias xzfgrep='xzfgrep --color=auto'
+alias xzgrep='xzgrep --color=auto'
+alias zegrep='zegrep --color=auto'
+alias zfgrep='zfgrep --color=auto'
+alias zgrep='zgrep --color=auto'
 
 # Turn on parallel history
 shopt -s histappend
