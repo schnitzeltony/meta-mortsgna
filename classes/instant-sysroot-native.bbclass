@@ -1,5 +1,7 @@
 #------------------------------------------------------------------------------
 # class for instant native sysroot
+#
+# Hardlink recipe sysroot and generated sysroot to instant native sysroot
 #------------------------------------------------------------------------------
 
 inherit utils instant-paths
