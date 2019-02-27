@@ -6,6 +6,7 @@ inherit packagegroup
 
 RDEPENDS_${PN} = " \
     qt5-creator \
+    qtquickcontrols2-examples qtwayland-examples \
     hexedit \
     glade3 \
     umbrello \
