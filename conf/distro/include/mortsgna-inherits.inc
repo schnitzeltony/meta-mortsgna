@@ -20,7 +20,7 @@ INHERIT += "insane"
 INHERIT += "sstate"
 
 # drop buildinfo to /etc/build
-INHERIT += "image-buildinfo"
+INHERIT += "image-buildinfo-mortsgna"
 
 # Prelink images
 INHERIT += "image-prelink"
