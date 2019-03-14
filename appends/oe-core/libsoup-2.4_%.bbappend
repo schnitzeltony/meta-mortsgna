@@ -1,1 +1,1 @@
-PACKAGECONFIG ?= "gnome"
+PACKAGECONFIG_append = " gnome"
