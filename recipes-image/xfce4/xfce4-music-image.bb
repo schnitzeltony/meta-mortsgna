@@ -8,7 +8,7 @@ XFCE_DM = "sddm sddm-morona-autologin"
 IMAGE_FEATURES += "volatile-log"
 
 IMAGE_INSTALL += " \
-    packagegroup-gui-music \
+    packagegroup-gui-musicians \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \

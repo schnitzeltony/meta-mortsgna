@@ -145,6 +145,10 @@ URI: git://github.com/schnitzeltony/meta-qt5-extra.git
 branch: master
 revision: HEAD
 
+URI: git://github.com/schnitzeltony/meta-musician.git
+branch: master
+revision: HEAD
+
 URI: git://github.com/schnitzeltony/meta-office.git
 branch: master
 revision: HEAD

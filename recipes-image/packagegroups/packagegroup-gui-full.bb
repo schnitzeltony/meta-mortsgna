@@ -8,8 +8,6 @@ MACHINE_SPECIFICS_FULL = ""
 MACHINE_SPECIFICS_FULL_mx6 = "gstreamer1.0-plugins-imx"
 
 RDEPENDS_${PN} = " \
-    packagegroup-gui-music \
-    \
     source-han-sans-cn-fonts \
     source-han-sans-kr-fonts \
     source-han-sans-jp-fonts \
@@ -52,8 +50,10 @@ RDEPENDS_${PN} = " \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'mame dosbox z80 vice stella opentyrian d1x-rebirth', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'games-layer', 'pingus supertux2 freeciv wesnoth-all astromenace chromium-bsu maelstrom', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-musicians', 'packagegroup-gui-musicians', '', d)} \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'sdr-layer', 'packagegroup-sdr-python-extended packagegroup-sdr-gnuradio-base packagegroup-sdr-gnuradio-extended packagegroup-sdr-rtlsdr packagegroup-sdr-uhd', '', d)} \
+    \
 "
 
 #    firefox 
