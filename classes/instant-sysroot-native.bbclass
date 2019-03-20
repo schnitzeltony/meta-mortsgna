@@ -22,9 +22,9 @@ INSTANTPOPULATE_class-native = "instant_populate_sysroot"
 INSTANTPOPULATE_class-cross = "instant_populate_sysroot"
 
 instant_populate_sysroot () {
-    for file in `find ${SYSROOT_DESTDIR}${STAGING_DIR_NATIVE} -type f -o -type l`; do
+    find "${SYSROOT_DESTDIR}${STAGING_DIR_NATIVE}" -type f -o -type l | while read file; do
         alignedpath=`echo "$file" | sed 's:${SYSROOT_DESTDIR}${STAGING_DIR_NATIVE}::'`
-        targetdir=`dirname ${INSTANT_NATIVE_PATH}/${alignedpath}`
+        targetdir=`dirname "${INSTANT_NATIVE_PATH}/${alignedpath}"`
         mkdir -p "$targetdir"
         cp -fld "${file}" "${targetdir}"
     done
