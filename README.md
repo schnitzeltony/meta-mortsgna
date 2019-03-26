@@ -148,12 +148,6 @@ branch: master
 revision: HEAD
 ```
 
-```
-URI: git://github.com/OSSystems/meta-browser.git
-branch: master
-revision: HEAD
-```
-
 #### To add plymouth to GUI-images:
 
 ```
@@ -165,6 +159,13 @@ revision: HEAD
 
 #### To surf the internet:
 
+```
+URI: git://github.com/OSSystems/meta-browser.git
+branch: master
+revision: HEAD
+```
+
+#### To pretend work:
 ```
 URI: git://github.com/schnitzeltony/meta-office.git
 branch: master
