@@ -41,9 +41,9 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
 ### This layer contains the following folders:
 
 [appends](appends):
-  All bbappends are stored in this folder. For each layer a sub-folder exists
-  and the appends are dynamic: If a layer is not in bblayers.conf the folder
-  for the layer is ignored (see conf/layer.conf).
+  * All bbappends are stored in this folder. For each layer a sub-folder exists
+    and the appends are dynamic: If a layer is not in bblayers.conf the folder
+    for the layer is ignored (see conf/layer.conf).
 
 [classes](classes):
   * [instant-sysroot-target.bbclass](classes/instant-sysroot-target.bbclass): Create a sysroot for target remote
@@ -57,7 +57,7 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
     home at image creation time.
 
 [conf](conf):
-  layer.conf / and distro configurations
+  * layer.conf / and distro configurations
 
 [recipes-defaultconfig](recipes-defaultconfig):
   * default configurations for lxqt and xfce to get a preconfigured
@@ -67,8 +67,8 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
     form /etc/skel.
 
 [recipes-image](recipes-image):
-  All images for console / kde / lxqt / xfce ar found. allgui-images build
-  images for all graphical environments.
+  * All images for console / kde / lxqt / xfce ar found. allgui-images build
+    images for all graphical environments.
 
 [recipes-utlis](recipes-utlis):
   * udev-rules-udisks-hide-bootpart: Hide boot partition from udisks
