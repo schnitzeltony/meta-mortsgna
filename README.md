@@ -87,7 +87,7 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
 
 ```
 URI: git://git.openembedded.org/openembedded-core
-branch: master
+branch: thud
 revision: HEAD
 ```
 
@@ -95,14 +95,14 @@ revision: HEAD
 ```
 URI: git://git.openembedded.org/meta-openembedded
 Layer: meta-oe
-branch: master
+branch: thud
 revision: HEAD
 ```
 
 ```
 URI: git://git.openembedded.org/meta-openembedded
 Layer: meta-networking
-branch: master
+branch: thud
 revision: HEAD
 ```
 
@@ -111,52 +111,40 @@ revision: HEAD
 ```
 URI: git://git.openembedded.org/meta-openembedded
 Layer: meta-gnome
-branch: master
+branch: thud
 revision: HEAD
 ```
 
 ```
 URI: git://git.openembedded.org/meta-openembedded
 Layer: meta-multimedia
-branch: master
+branch: thud
 revision: HEAD
 ```
 
 ```
 URI: git://git.openembedded.org/meta-openembedded
 Layer: meta-python
-branch: master
+branch: thud
 revision: HEAD
 ```
 
 ```
 URI: git://git.openembedded.org/meta-openembedded
 Layer: meta-xfce
-branch: master
+branch: thud
 revision: HEAD
 ```
 
 ```
 URI: git://github.com/meta-qt5/meta-qt5.git
-branch: master
+branch: thud
 revision: HEAD
 ```
 
 ```
 URI: git://github.com/schnitzeltony/meta-qt5-extra.git
-branch: master
-revision: HEAD
-```
-
-```
-URI: git://github.com/schnitzeltony/meta-office.git
-branch: master
-revision: HEAD
-```
-
-```
-URI: git://github.com/OSSystems/meta-browser.git
-branch: master
+branch: thud
 revision: HEAD
 ```
 
@@ -165,15 +153,21 @@ revision: HEAD
 ```
 URI: git://git.openembedded.org/meta-openembedded
 Layer: meta-initramfs
+branch: thud
+revision: HEAD
+```
+
+#### To surf the internet:
+
+```
+URI: git://github.com/OSSystems/meta-browser.git
 branch: master
 revision: HEAD
 ```
 
-
-#### To produce music:
-
+#### To pretend work:
 ```
-URI: git://github.com/schnitzeltony/meta-musicians.git
+URI: git://github.com/schnitzeltony/meta-office.git
 branch: master
 revision: HEAD
 ```
@@ -220,3 +214,4 @@ Maintainers
 -----------
 
 Layer maintainer: Andreas Müller <schnitzeltony@gmail.com>
+
