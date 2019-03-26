@@ -21,7 +21,7 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
     Set MORTSGNA_ARMV7_TUNE="1"
   * If you are looking for best optimization for your machine and/or you have
     a fast build host with lots of disk-space: don't!
-  see conf/distro/include/mortsgna-armv7-tune.inc for more information
+  see [mortsgna-armv7-tune.inc](conf/distro/include/mortsgna-armv7-tune.inc) for more information
 
 ------------------------------------------------
 ### The following image-features are (re-)added:
@@ -34,7 +34,7 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
     which is volatile. NOTE: We change OE-Core's default here: In bitbake.conf
     VOLATILE_LOG_DIR is enabled so that all images are build for volatile log. 
     Since this is far off what others do change the default. See
-    conf/distro/include/mortsgna-image-logfile-volatile.inc for more
+    [mortsgna-image-logfile-volatile.inc](conf/distro/include/mortsgna-image-logfile-volatile.inc) for more
     information.
 
 ----------------------------------------------
