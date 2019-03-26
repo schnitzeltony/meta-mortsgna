@@ -149,18 +149,6 @@ revision: HEAD
 ```
 
 ```
-URI: git://github.com/schnitzeltony/meta-musician.git
-branch: master
-revision: HEAD
-```
-
-```
-URI: git://github.com/schnitzeltony/meta-office.git
-branch: master
-revision: HEAD
-```
-
-```
 URI: git://github.com/OSSystems/meta-browser.git
 branch: master
 revision: HEAD
@@ -175,6 +163,13 @@ branch: master
 revision: HEAD
 ```
 
+#### To surf the internet:
+
+```
+URI: git://github.com/schnitzeltony/meta-office.git
+branch: master
+revision: HEAD
+```
 
 #### To produce music:
 
