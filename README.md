@@ -193,7 +193,7 @@ revision: HEAD
 ------------
 Contributing
 ------------
-* Submit any patches against the `meta-musicians` layer by using the GitHub pull-request feature.
+* Submit any patches against the `meta-mortsgna` layer by using the GitHub pull-request feature.
 
 
 --------
