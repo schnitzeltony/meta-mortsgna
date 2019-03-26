@@ -166,18 +166,6 @@ branch: master
 revision: HEAD
 ```
 
-```
-URI: git://github.com/cazfi/meta-games.git
-branch: master
-revision: HEAD
-```
-
-```
-URI: git://github.com/schnitzeltony/meta-retro
-branch: master
-revision: HEAD
-```
-
 #### To add plymouth to GUI-images:
 
 ```
@@ -192,7 +180,6 @@ revision: HEAD
 
 ```
 URI: git://github.com/schnitzeltony/meta-musicians.git
-Layer: meta-initramfs
 branch: master
 revision: HEAD
 ```
@@ -201,7 +188,20 @@ revision: HEAD
 
 ```
 URI: git://github.com/balister/meta-sdr.git
-Layer: meta-initramfs
+branch: master
+revision: HEAD
+```
+
+#### To happily waste time:
+
+```
+URI: git://github.com/cazfi/meta-games.git
+branch: master
+revision: HEAD
+```
+
+```
+URI: git://github.com/schnitzeltony/meta-retro
 branch: master
 revision: HEAD
 ```
