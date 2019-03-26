@@ -1,12 +1,11 @@
-meta-mortsgna: (more than) yet another distro layer
--------------------------------------------------
+# meta-mortsgna: (more than) yet another distro layer
 
 The target of this layer is to build images with the best out-of-the-box experience and to support developers with helpers for common tasks.
 It has its origin Ångström distribution  - check https://github.com/Angstrom-distribution/meta-angstrom.
 
-------------------------------------------
-Additional global variable for local.conf:
-------------------------------------------
+----------------------------------------------
+### Additional global variable for local.conf:
+
 * MORTSGNA_ARMV7_TUNE:
   
   If this variable is set to "1", all armv7a / cortex variants are build as
@@ -24,9 +23,9 @@ Additional global variable for local.conf:
     a fast build host with lots of disk-space: don't!
   see conf/distro/include/mortsgna-armv7-tune.inc for more information
 
---------------------------------------------
-The following image-features are (re-)added:
---------------------------------------------
+------------------------------------------------
+### The following image-features are (re-)added:
+
   * x11-base:
     Let systemd boot into grahical target
 
@@ -38,9 +37,9 @@ The following image-features are (re-)added:
     conf/distro/include/mortsgna-image-logfile-volatile.inc for more
     information.
 
-------------------------------------------
-This layer contains the following folders:
-------------------------------------------
+----------------------------------------------
+### This layer contains the following folders:
+
 [appends](appends):
   All bbappends are stored in this folder. For each layer a sub-folder exists
   and the appends are dynamic: If a layer is not in bblayers.conf the folder
@@ -83,16 +82,16 @@ This layer contains the following folders:
   * for changing recipe checksums automatically after version bump -> [update-recipe-checksums.sh](scripts/update-recipe-checksums.sh)
 
 
-----------------------
-This layer depends on:
-----------------------
+--------------------------
+### This layer depends on:
+
 ```
 URI: git://git.openembedded.org/openembedded-core
 branch: master
 revision: HEAD
 ```
 
-### For building console-images:
+#### For building console-images:
 ```
 URI: git://git.openembedded.org/meta-openembedded
 Layer: meta-oe
@@ -107,7 +106,7 @@ branch: master
 revision: HEAD
 ```
 
-### For building GUI-images:
+#### For building GUI-images:
 
 ```
 URI: git://git.openembedded.org/meta-openembedded
@@ -179,7 +178,7 @@ branch: master
 revision: HEAD
 ```
 
-### To add plymouth to GUI-images:
+#### To add plymouth to GUI-images:
 
 ```
 URI: git://git.openembedded.org/meta-openembedded
@@ -189,7 +188,7 @@ revision: HEAD
 ```
 
 
-### To produce music:
+#### To produce music:
 
 ```
 URI: git://github.com/schnitzeltony/meta-musicians.git
@@ -198,7 +197,7 @@ branch: master
 revision: HEAD
 ```
 
-### To hear radio:
+#### To hear radio:
 
 ```
 URI: git://github.com/balister/meta-sdr.git
@@ -207,11 +206,13 @@ branch: master
 revision: HEAD
 ```
 
+------------
 Contributing
 ------------
 * Submit any patches against the `meta-musicians` layer by using the GitHub pull-request feature.
 
 
+--------
 Policies
 --------
 * Please do not send private emails to maintainers. For questions/suggestions.. use GitHub issues.
@@ -220,6 +221,7 @@ Policies
   * For splitting of long list values use four-space indentation on sucessive lines set the closing quote as the first character ([OE-Styleguide](https://www.openembedded.org/wiki/Styleguide) - second example)
 
 
+-----------
 Maintainers
 -----------
 
