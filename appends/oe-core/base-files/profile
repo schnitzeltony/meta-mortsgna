@@ -18,8 +18,17 @@ if [ -d /etc/profile.d ]; then
 	unset i
 fi
 
+# Note on LANG: On the way thud -> warrior something started to set
+# LANG="C.UTF-8". Could not find which package to blame but it is not a good
+# idea:
+# * german Umlaute cannot be displayed anymore
+# * at least menulibre does not start anymore and complains with
+#   | File "/usr/lib/python3.7/site-packages/menulibre/MenulibreApplication.py", line 390, in configure_application_actions
+#   |    label=_('Add _Launcher���'),
+#   | UnicodeDecodeError: 'locale' codec can't decode byte 0xe2 in position 13: decoding error
+#
 # locale fallback for UTF8
-if [ -z "$LANG" ]; then
+if [ -z "$LANG" -o "$LANG"='C.UTF-8' ]; then
     LANG="en_US.utf8"
     export LANG
 fi
