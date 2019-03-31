@@ -7,3 +7,7 @@ DISTRO_FEATURES += "${@['', ' nls'][d.getVar('ENABLE_BINARY_LOCALE_GENERATION') 
 USE_NLS_glib-2.0 = "yes"
 USE_NLS_glib-2.0-native = "yes"
 USE_NLS_gcc-cross = "no"
+
+# musl does not like gobject-introspection - right?
+# see oe-core / goblcect-introspection-data.bbclass
+GI_DATA_ENABLED_libc-musl = "False"
