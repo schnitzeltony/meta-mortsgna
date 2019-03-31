@@ -1,5 +1,29 @@
 # We want images supporting the following features (for packagegroup(-core)-base)
-DISTRO_FEATURES = "alsa argp bluetooth ext2 ipv4 ipv6 irda largefile nfs pam pci pcmcia ppp smbfs systemd usbgadget usbhost vfat wifi xattr zeroconf gobject-introspection-data"
+
+DISTRO_FEATURES = " \
+    alsa \
+    argp \
+    bluetooth \
+    ext2 \
+    ipv4 \
+    ipv6 \
+    irda \
+    largefile \
+    nfs \
+    pam \
+    pci \
+    pcmcia \
+    ppp \
+    smbfs \
+    systemd \
+    usbgadget \
+    usbhost \
+    vfat \
+    wifi \
+    xattr \
+    zeroconf \
+    gobject-introspection-data \
+"
 
 # Disable sysvinit for recipes with systemd support
 DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
