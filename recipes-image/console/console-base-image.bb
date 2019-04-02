@@ -14,7 +14,6 @@ IMAGE_INSTALL += " \
     cpufrequtils \
     htop \
     fixmac \
-    glibc-utils \
     util-linux-lsblk \
     nano \
 "
