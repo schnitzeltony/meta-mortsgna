@@ -29,7 +29,7 @@ RDEPENDS_${PN} = " \
     gnome-system-monitor \
     \
     mpd \
-    parole \
+    parole gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-libav \
     dragon \
     gstreamer1.0-plugins-base-meta gstreamer1.0-plugins-good-meta \
     pulseaudio-misc \
