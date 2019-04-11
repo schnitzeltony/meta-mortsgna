@@ -18,6 +18,7 @@ RDEPENDS_${PN} = " \
     bind \
     devilspie2 \
     \
+    gnome-system-monitor \
     dconf-editor \
     \
     glmark2 mesa-demos eglinfo-x11 \

@@ -28,7 +28,6 @@ RDEPENDS_${PN} = " \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
     \
     gparted \
-    gnome-system-monitor \
     \
     mpd \
     parole gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-libav \
