@@ -24,22 +24,30 @@
 #   'gdbserver :5000 /usr/bin/thunar'
 #
 # ON BUILD HOST (suggested IDE: QtCreator)
-# * build gdb-target-<TARGET_ARCH> (done automatically on images if this class
-#   enabled - see EXTRA_IMAGEDEPENDS below)
+# * 'bitbake gdb-cross-<TARGET_ARCH>' (done automatically on images if this class
+#   is enabled - see EXTRA_IMAGEDEPENDS below)
+# * 'bitbake qtcreator-sdk-prepare' once to create a valid qt.conf for qmake
 # * in QtCreator select Menu Debug/Start Debugging/Attach to Running Debug Server
 #   -> Dialog 'Start Debugger' opens
 # * At the first session a so called 'Kit' has to be set up (1st line -> 'Manage').
-#   The settings are kept so 1.-6. have to be done once only.
+#   The settings are kept so 1.- 8. have to be done once only.
 #   1. Create a Kit by 'Add' -> further dialog opens
 #   2. Select an name for the Kit e.g 'OE'
-#   3. Set sysroot (see INSTANT_TARGET_PATH in instant-path.bbclass):
+#   3. On recent QtCreators select 'Generic Linux Device' for 'Device type' -
+#      otherwise QtCreator won't let you select the kit later
+#   4. Set sysroot (see INSTANT_TARGET_PATH in instant-path.bbclass):
 #      ${TMPDIR}/sysroot-instant-target-${MACHINE_ARCH}
-#   4. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
+#   5. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
 #      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
 #      C++: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
-#   5. Select debugger e.g:
+#   6. Select debugger e.g:
 #      GDB: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gdb'
-#   6. Select 'OK' in Options dialog -> 'Start Debugger' should be back on top
+#   7. To avoid qtcreator stopping on certain signals Select 'Debugger' in left list and in
+#      * 'GDB'-tab unselect 'Show a message box when reciving a signal'
+#      * 'Locals & Expressions' add in 'Debugging Helper Customization' lines as
+#         'handle SIG32 pass nostop noprint' to pass SIG32 to application without
+#         running int breaks
+#   8. Select 'OK' in Options dialog -> 'Start Debugger' should be back on top
 # * Make sure 'OE' Kit is selected
 # * Browse for executable e.g '<TMDIR>/sysroot-instant-target/usr/bin/thunar'
 # * Set IP:Port of target machine e.g '192.168.2.108:5000'
