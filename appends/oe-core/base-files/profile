@@ -18,6 +18,12 @@ if [ -d /etc/profile.d ]; then
 	unset i
 fi
 
+# set locale fallback - all our images contain en_US
+if [ -z "$LANG" ]; then
+    LANG="en_US.utf8"
+    export LANG
+fi
+
 # `ls' enhancements:
 export LS_OPTIONS='--color=auto'
 eval `dircolors`
