@@ -15,4 +15,4 @@ IMAGE_INSTALL += " \
     xfce4-orageclock-plugin \
 "
 
-IMAGE_LINGUAS = "${IMAGE_LINGUAS_FULL}"
+IMAGE_LINGUAS_libc-glibc = "${IMAGE_LINGUAS_FULL}"
