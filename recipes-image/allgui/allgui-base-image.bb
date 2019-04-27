@@ -16,6 +16,7 @@ IMAGE_INSTALL += " \
     packagegroup-xfce-base \
     network-manager-applet \
     xfce4-default-config \
+    vte \
     \
     packagegroup-lxqt-base \
     lxqt-default-config \

@@ -9,8 +9,9 @@ IMAGE_INSTALL += " \
     ${X11_BASE_INSTALL} \
     ${XFCE_DM} \
     \
-    packagegroup-xfce-base \
     packagegroup-gui-base \
+    packagegroup-xfce-base \
+    vte \
     \
     network-manager-applet \
     xfce4-default-config \
