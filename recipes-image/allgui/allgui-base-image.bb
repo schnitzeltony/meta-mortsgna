@@ -22,7 +22,7 @@ IMAGE_INSTALL += " \
     \
     liri-world \
     \
-    lumina \
+    lumina-world \
     \
     weston weston-xwayland \
 "
