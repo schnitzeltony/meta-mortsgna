@@ -172,6 +172,13 @@ branch: master
 revision: HEAD
 ```
 
+#### To produce music:
+```
+URI: git://github.com/schnitzeltony/meta-qt5-extra.git
+branch: thud
+revision: HEAD
+```
+
 #### To hear radio:
 
 ```
