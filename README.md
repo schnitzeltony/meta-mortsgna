@@ -174,7 +174,7 @@ revision: HEAD
 #### To pretend work:
 ```
 URI: git://github.com/schnitzeltony/meta-office.git
-branch: master
+branch: thud
 revision: HEAD
 ```
 
