@@ -15,7 +15,6 @@ RDEPENDS_${PN} = " \
     ntp ntp-utils \
     tzdata \
     dnsmasq \
-    bind \
     devilspie2 \
     \
     gnome-system-monitor \
