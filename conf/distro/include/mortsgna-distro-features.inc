@@ -38,6 +38,7 @@ DISTRO_FEATURES += "3g"
 DISTRO_FEATURES += "pulseaudio"
 DISTRO_FEATURES += "ldconfig"
 DISTRO_FEATURES += "polkit"
+DISTRO_FEATURES += "helpfiles"
 
 # OpenGL support
 DISTRO_FEATURES += "opengl"
