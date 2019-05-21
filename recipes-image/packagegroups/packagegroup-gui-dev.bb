@@ -8,7 +8,7 @@ RDEPENDS_${PN} = " \
     qt5-creator \
     qtquickcontrols2-examples qtwayland-examples \
     hexedit \
-    glade3 \
+    glade3 glade \
     umbrello \
     lokalize \
     geany-plugins \
