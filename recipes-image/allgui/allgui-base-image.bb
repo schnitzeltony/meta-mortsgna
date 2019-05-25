@@ -17,6 +17,8 @@ IMAGE_INSTALL += " \
     network-manager-applet \
     xfce4-default-config \
     \
+    packagegroup-gnome-desktop \
+    \
     packagegroup-lxqt-base \
     lxqt-default-config \
     \

@@ -13,5 +13,7 @@ IMAGE_INSTALL += " \
     \
     packagegroup-kde-apps-tiny \
     \
+    packagegroup-gnome-apps \
+    \
     weston-examples \
 "
