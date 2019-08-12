@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " datetime-setter sound-setter notify"
+PACKAGECONFIG_append = " sound-setter notify"
