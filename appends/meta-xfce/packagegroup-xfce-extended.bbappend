@@ -1,0 +1,3 @@
+RRECOMMENDS_${PN} += " \
+    imsettings \
+"
