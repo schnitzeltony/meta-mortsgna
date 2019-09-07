@@ -20,5 +20,5 @@ RDEPENDS_${PN} = " \
     gnome-system-monitor \
     dconf-editor \
     \
-    glmark2 mesa-demos eglinfo-x11 \
+    glmark2 mesa-demos \
 "
