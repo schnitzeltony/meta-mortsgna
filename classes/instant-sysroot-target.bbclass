@@ -38,10 +38,10 @@
 #   4. Set sysroot (see INSTANT_TARGET_PATH in instant-path.bbclass):
 #      ${TMPDIR}/sysroot-instant-target-${MACHINE_ARCH}
 #   5. Select compilers (it is not necessary for debug but without QTCreator won't enable Kit) for C and C++ e.g:
-#      C:   '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
-#      C++: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
+#      C:   '${TMPDIR}/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gcc'
+#      C++: '${TMPDIR}/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-g++'
 #   6. Select debugger e.g:
-#      GDB: '<TMDIR>/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gdb'
+#      GDB: '${TMPDIR}/sysroot-instant-native/usr/bin/arm-mortsgna-linux-gnueabi/arm-mortsgna-linux-gnueabi-gdb'
 #   7. To avoid qtcreator stopping on certain signals Select 'Debugger' in left list and in
 #      * 'GDB'-tab unselect 'Show a message box when reciving a signal'
 #      * 'Locals & Expressions' add in 'Debugging Helper Customization' lines as
@@ -49,7 +49,7 @@
 #         running int breaks
 #   8. Select 'OK' in Options dialog -> 'Start Debugger' should be back on top
 # * Make sure 'OE' Kit is selected
-# * Browse for executable e.g '<TMDIR>/sysroot-instant-target/usr/bin/thunar'
+# * Browse for executable e.g '${TMPDIR}/sysroot-instant-target-${MACHINE_ARCH}/usr/bin/thunar'
 # * Set IP:Port of target machine e.g '192.168.2.108:5000'
 # * Select 'OK'
 #
