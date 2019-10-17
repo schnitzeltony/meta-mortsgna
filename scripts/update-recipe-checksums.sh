@@ -7,20 +7,28 @@
 # This script updates checksums in recipes after version bump. It is supposed
 # to run run in same environment as bitbake:
 #
-# update-recipe-checksums.sh <recipe>
+# update-recipe-checksums.sh [-d <recipedir> <recipes>
 #
 # where <recipe> can be a single recipe, a packagegroup an image or...
 
 # Includes
 . `dirname $0`/include/common-helpers.inc
 
+echo
+if [ "$1" = "-d" ]; then
+    shift
+    _TOPDIR="$1"
+    echo -e "${style_bold}Use $1 as recipe directory...${style_normal}"
+    shift
+else
+    echo -e "${style_bold}Ask bitbake for recipe directory...${style_normal}"
+    GetBitbakeEnvVar "TOPDIR"
+    _TOPDIR="$BitbakeEnvVar"
+fi
+
 if [ -z "$1" ]; then
     ErrorOut "No fetch target set in first parameter!"
 fi
-
-# Ask bitbake for recipe directory
-GetBitbakeEnvVar "TOPDIR"
-_TOPDIR="$BitbakeEnvVar"
 
 echo
 echo -e "${style_bold}Run bitbake -k --runall=fetch $@...${style_normal}"
