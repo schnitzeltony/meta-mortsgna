@@ -70,7 +70,7 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
   * All images for console / kde / lxqt / xfce ar found. allgui-images build
     images for all graphical environments.
 
-[recipes-utlis](recipes-utlis):
+[recipes-utils](recipes-utils):
   * udev-rules-udisks-hide-bootpart: Hide boot partition from udisks
   * Some tools (these are the only left from angstrom). Honestly: Have never
     used them but kept them if users come from angstrom and might miss
