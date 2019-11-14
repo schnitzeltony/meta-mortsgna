@@ -54,6 +54,7 @@ RDEPENDS_${PN} = " \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'sdr-layer', 'packagegroup-sdr-python-extended packagegroup-sdr-gnuradio-base packagegroup-sdr-gnuradio-extended packagegroup-sdr-rtlsdr packagegroup-sdr-uhd', '', d)} \
     \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-qt5-extra', 'qmlarkdown', '', d)} \
 "
 
 #    firefox 

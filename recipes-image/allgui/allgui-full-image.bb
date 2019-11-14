@@ -13,6 +13,13 @@ IMAGE_INSTALL += " \
     \
     orage \
     xfce4-orageclock-plugin \
+    \
+    pkgconfig binutils-symlinks elfutils gnu-config \
+    cmake meson \
+    gdbserver \
+    git git-bash-completion \
+    qt5-creator \
+    qwt-qt5 \
 "
 
 IMAGE_LINGUAS_libc-glibc = "${IMAGE_LINGUAS_FULL}"
