@@ -20,6 +20,8 @@ IMAGE_INSTALL += " \
     git git-bash-completion \
     qt5-creator \
     qwt-qt5 \
+    \
+    nodejs \
 "
 
 IMAGE_LINGUAS_libc-glibc = "${IMAGE_LINGUAS_FULL}"
