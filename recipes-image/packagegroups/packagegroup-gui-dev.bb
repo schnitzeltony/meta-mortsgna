@@ -32,7 +32,7 @@ RDEPENDS_${PN} = " \
     man man-pages \
     gawk \
     chrpath \
-    nodejs \
+    nodejs nodejs-npm nodejs-systemtap \
     \
     wireshark \
     nfs-utils-client \

@@ -21,7 +21,7 @@ IMAGE_INSTALL += " \
     qt5-creator \
     qwt-qt5 \
     \
-    nodejs \
+    nodejs nodejs-npm nodejs-systemtap \
 "
 
 IMAGE_LINGUAS_libc-glibc = "${IMAGE_LINGUAS_FULL}"
