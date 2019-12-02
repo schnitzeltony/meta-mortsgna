@@ -3,8 +3,7 @@ require recipes-image/include/x11-base.inc
 
 export IMAGE_BASENAME = "gnome-base-image"
 
-# TBD: move to gdm
-GNOME_DM ?= "sddm"
+GNOME_DM ?= "gdm"
 
 IMAGE_INSTALL += " \
     ${X11_BASE_INSTALL} \
