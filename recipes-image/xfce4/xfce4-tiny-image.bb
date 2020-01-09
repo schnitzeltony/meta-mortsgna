@@ -8,5 +8,6 @@ IMAGE_INSTALL += " \
     rodent-icon-theme \
     \
     packagegroup-gui-tiny \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-musicians', 'xfce4-mixer', '', d)} \
 "
 
