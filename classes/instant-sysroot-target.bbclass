@@ -173,7 +173,7 @@ do_copy_to_target_sysroot() {
     fi
 }
 
-addtask copy_to_target_sysroot after do_package before do_build
+addtask copy_to_target_sysroot after bb.utils.contains('PACKAGE_CLASSES', 'package_deb', 'do_package_write_deb', '', d) bb.utils.contains('PACKAGE_CLASSES', 'package_ipk', 'do_package_write_ipk', '', d) bb.utils.contains('PACKAGE_CLASSES', 'package_rpm', 'do_package_write_rpm', '', d) before do_build
 
 # same as do package
 do_copy_to_target_sysroot[vardeps] = "${PACKAGEBUILDPKGD} ${PACKAGESPLITFUNCS} ${PACKAGEFUNCS} ${@gen_packagevar(d)}"
