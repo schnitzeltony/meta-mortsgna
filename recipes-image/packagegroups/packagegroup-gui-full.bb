@@ -17,43 +17,36 @@ RDEPENDS_${PN} = " \
     tzdata-americas tzdata-antarctica tzdata-arctic tzdata-asia \
     tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice', '', d)} \
-    abiword-meta \
     gimp \
     fontforge \
     menulibre \
-    \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
     \
     gparted \
     \
     mpd \
     vlc \
     parole gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-libav \
-    dragon \
     gstreamer1.0-plugins-base-meta gstreamer1.0-plugins-good-meta \
     pulseaudio-misc \
-    ${MACHINE_SPECIFICS_FULL} \
-    \
-    ark \
-    filelight \
-    konsole \
-    spectacle \
-    \
-    kde-apps-world \
-    \
-    gottcode-world \
     \
     qwt-qt5-examples \
     gnuplot gnuplot-x11 \
     \
+    ${MACHINE_SPECIFICS_FULL} \
+    \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
+    \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'mame dosbox z80 vice stella opentyrian d1x-rebirth', '', d)} \
+    \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice abiword-meta', '', d)} \
+    \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'games-layer', 'pingus supertux2 freeciv wesnoth-all astromenace chromium-bsu maelstrom', '', d)} \
+    \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-musicians', 'packagegroup-gui-musicians', '', d)} \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'sdr-layer', 'packagegroup-sdr-python-extended packagegroup-sdr-gnuradio-base packagegroup-sdr-gnuradio-extended packagegroup-sdr-rtlsdr packagegroup-sdr-uhd', '', d)} \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-qt5-extra', 'qmlarkdown', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-qt5-extra', 'gottcode-world kde-apps-world qmlarkdown', '', d)} \
 "
 
 #    firefox 
