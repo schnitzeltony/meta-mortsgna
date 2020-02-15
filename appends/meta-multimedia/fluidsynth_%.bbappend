@@ -1,6 +1,6 @@
 PACKAGECONFIG ?= " \
-    sndfile \
     jack \
-    pulseaudio \
     portaudio \
+    readline \
+    sndfile \
 "
