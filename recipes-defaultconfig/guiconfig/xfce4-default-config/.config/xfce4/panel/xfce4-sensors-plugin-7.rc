@@ -1,0 +1,22 @@
+[General]
+Show_Title=false
+Show_Labels=false
+str_fontsize=small
+val_fontsize=1
+Font=Sans 11
+Show_Units=true
+Small_Spacings=false
+Command_Name=xfce4-sensors
+
+[Chip0]
+Name=ACPI
+Number=0
+
+[Chip0_Feature0]
+Address=0
+Name=thermal_zone0
+Color=#008000
+Show=true
+Min=0.00
+Max=70.00
+

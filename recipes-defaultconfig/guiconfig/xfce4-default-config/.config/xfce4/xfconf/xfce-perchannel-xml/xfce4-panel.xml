@@ -21,6 +21,7 @@
         <value type="int" value="2"/>
         <value type="int" value="4"/>
         <value type="int" value="11"/>
+        <value type="int" value="7"/>
         <value type="int" value="12"/>
         <value type="int" value="1"/>
       </property>
@@ -85,5 +86,6 @@
     <property name="plugin-1" type="string" value="cpugraph"/>
     <property name="plugin-11" type="string" value="cpufreq"/>
     <property name="plugin-12" type="string" value="systemload"/>
+    <property name="plugin-7" type="string" value="xfce4-sensors-plugin"/>
   </property>
 </channel>
