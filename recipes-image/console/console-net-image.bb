@@ -5,6 +5,7 @@ NETWORKPACKS ?= " \
     avahi-autoipd \
     iputils \
     networkmanager \
+    networkmanager-openvpn \
     networkmanager-bash-completion \
 "
 
