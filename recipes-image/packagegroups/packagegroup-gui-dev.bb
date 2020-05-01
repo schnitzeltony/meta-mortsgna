@@ -17,7 +17,7 @@ RDEPENDS_${PN} = " \
     weston weston-xwayland  \
     \
     unzip xz tar bzip2 \
-    make cmake \
+    make cmake meson \
     automake autoconf libtool m4 \
     gcc-symlinks g++-symlinks cpp-symlinks \
     dtc \
