@@ -11,7 +11,6 @@ RDEPENDS_${PN} = " \
     evince \
     geany \
     \
-    ntp ntp-utils \
     tzdata \
     dnsmasq \
     devilspie2 \
