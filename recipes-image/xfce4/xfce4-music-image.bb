@@ -4,9 +4,6 @@ export IMAGE_BASENAME = "xfce4-music-image"
 
 XFCE_DM = "sddm sddm-morona-autologin"
 
-# Saving to SDCard creates delays/underruns
-IMAGE_FEATURES += "volatile-log"
-
 IMAGE_INSTALL += " \
     packagegroup-gui-musicians \
     \
