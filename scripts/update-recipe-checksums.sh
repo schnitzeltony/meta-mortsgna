@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # raspberrypi-card-write.sh
-# (c) Copyright 2018 Andreas Müller <schnitzeltony@gmail.com>
+# (c) Copyright 2020 Andreas Müller <schnitzeltony@gmail.com>
 # Licensed under terms of GPLv2
 #
 # This script updates checksums in recipes after version bump. It is supposed
@@ -20,14 +20,16 @@ if [ "$1" = "-d" ]; then
     _TOPDIR="$1"
     echo -e "${style_bold}Use $1 as recipe directory...${style_normal}"
     shift
-else
-    echo -e "${style_bold}Ask bitbake for recipe directory...${style_normal}"
-    GetBitbakeEnvVar "TOPDIR"
-    _TOPDIR="$BitbakeEnvVar"
 fi
 
 if [ -z "$1" ]; then
     ErrorOut "No fetch target set in first parameter!"
+fi
+
+if [ "x$_TOPDIR" = "x" ]; then
+    echo -e "${style_bold}Ask bitbake for recipe directory...${style_normal}"
+    GetBitbakeEnvVar "TOPDIR"
+    _TOPDIR="$BitbakeEnvVar"
 fi
 
 echo
