@@ -13,7 +13,6 @@ IMAGE_INSTALL += " \
     systemd-analyze \
     cpufrequtils \
     htop \
-    fixmac \
     util-linux-lsblk \
     nano \
 "
