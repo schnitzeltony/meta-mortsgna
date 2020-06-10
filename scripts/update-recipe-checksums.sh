@@ -35,18 +35,26 @@ fi
 echo
 echo -e "${style_bold}Run bitbake -k --runall=fetch $@...${style_normal}"
 
-bitbake -k --runall=fetch "$@" 2>&1 | while read line; do
-   if echo "$line" | grep -q "was expected"; then
-       # Shorten line to ensure not being confused by filenames containing spaces
-       line=`echo "$line" | sed 's:.*checksum ::'`
-       # Extract checksums
-       newchecksum=`echo "$line" | awk '{print $1}'`
-       oldchecksum=`echo "$line" | awk '{print $3}'`
-       # Lazy way: just grep for old checksums to find recipes
-       for recipe in `grep -rl "$oldchecksum" "${_TOPDIR}"`; do
-           if [ -f "$recipe" ]; then
-               EvalExAuto "sed -i '"s:$oldchecksum:$newchecksum:"' "$recipe"" "Change checksum in $recipe to $newchecksum"
-           fi
-       done
-   fi
+while true; do
+    replaced=""
+    bitbake -k --runall=fetch "$@" 2>&1 | while read line; do
+        if echo "$line" | grep -q "was expected"; then
+            # Shorten line to ensure not being confused by filenames containing spaces
+            line=`echo "$line" | sed 's:.*checksum ::'`
+            # Extract checksums
+            newchecksum=`echo "$line" | awk '{print $1}'`
+            oldchecksum=`echo "$line" | awk '{print $3}'`
+            # Lazy way: just grep for old checksums to find recipes
+            for recipe in `grep -rl "$oldchecksum" "${_TOPDIR}"`; do
+                if [ -f "$recipe" ]; then
+                    replaced="1"
+                    EvalExAuto "sed -i '"s:$oldchecksum:$newchecksum:"' "$recipe"" "Change checksum in $recipe to $newchecksum"
+                fi
+            done
+        fi
+    done
+    if [ $replaced != "1" ]
+        break
+    fi
 done
+    
