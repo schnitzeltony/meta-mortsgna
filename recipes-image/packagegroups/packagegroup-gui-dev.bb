@@ -23,7 +23,7 @@ RDEPENDS_${PN} = " \
     dtc \
     pkgconfig binutils-symlinks elfutils gnu-config \
     gdb gdbserver \
-    git git-bash-completion subversion \
+    git git-bash-completion git-perltools subversion \
     python python-shell python-subprocess \
     python3 \
     perl php vala lua php json-glib \
