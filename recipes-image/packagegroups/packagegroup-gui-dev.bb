@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 inherit packagegroup
 
 RDEPENDS_${PN} = " \
-    qt5-creator \
+    qt5-creator qtwebengine-dev \
     qtquickcontrols2-examples qtwayland-examples \
     hexedit \
     glade \
@@ -17,7 +17,7 @@ RDEPENDS_${PN} = " \
     weston weston-xwayland  \
     \
     unzip xz tar bzip2 \
-    make cmake meson \
+    make cmake extra-cmake-modules meson \
     automake autoconf libtool m4 \
     gcc-symlinks g++-symlinks cpp-symlinks \
     dtc \
