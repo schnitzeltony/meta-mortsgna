@@ -7,6 +7,11 @@ PACKAGECONFIG_DISTRO += " \
 
 inherit instant-paths
 
+do_install_append() {
+    # at least KDE's extra-cmake-modules expect qmake-qt5
+    ln -s qmake ${D}/${bindir}/qmake-qt5
+}
+
 do_copy_to_target_sysroot_append() {
     # ---------- qt.conf ----------
     # create
