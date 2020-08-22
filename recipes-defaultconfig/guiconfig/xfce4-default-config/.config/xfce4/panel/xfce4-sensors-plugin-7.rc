@@ -4,6 +4,7 @@ Show_Labels=false
 str_fontsize=small
 val_fontsize=1
 Font=Sans 11
+Update_Interval=1
 Show_Units=true
 Small_Spacings=false
 Command_Name=xfce4-sensors
