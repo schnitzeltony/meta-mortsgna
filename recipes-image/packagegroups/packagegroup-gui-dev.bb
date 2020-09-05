@@ -23,6 +23,7 @@ RDEPENDS_${PN} = " \
     dtc \
     pkgconfig binutils-symlinks elfutils gnu-config \
     gdb gdbserver \
+    valgrind \
     git git-bash-completion git-perltools subversion \
     python python-shell python-subprocess \
     python3 \
@@ -47,5 +48,5 @@ RDEPENDS_${PN}_append_libc-glibc = " \
 "
 
 #    qemu
-#    valgrind
+#    
 
