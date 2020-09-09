@@ -11,7 +11,6 @@ RDEPENDS_${PN} = " \
     etr \
     gnome-chess \
     gnome-robots \
-    supertuxkart \
     \
     gnome-games \
     mog \
