@@ -16,7 +16,7 @@ instant_sysroot_copy () {
     hardlinkdir ${RECIPE_SYSROOT_NATIVE} ${INSTANT_NATIVE_PATH}
 }
 
-do_populate_sysroot[postfuncs] += "${INSTANTPOPULATE}"
+do_populate_sysroot[postfuncs] += "${INSTANTPOPULATE} "
 INSTANTPOPULATE = ""
 INSTANTPOPULATE_class-native = "instant_populate_sysroot"
 INSTANTPOPULATE_class-cross = "instant_populate_sysroot"
