@@ -12,6 +12,8 @@ RDEPENDS_${PN} = " \
     source-han-sans-kr-fonts \
     source-han-sans-jp-fonts \
     source-han-sans-tw-fonts \
+    ttf-noto-emoji-color \
+    ttf-noto-emoji-regular \
     \
     tzdata-misc tzdata-africa \
     tzdata-americas tzdata-antarctica tzdata-arctic tzdata-asia \
