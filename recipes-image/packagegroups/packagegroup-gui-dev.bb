@@ -40,7 +40,7 @@ RDEPENDS_${PN} = " \
     lmsensors-sensord lmsensors-sensorsdetect \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-microcontroller', 'packagegroup-avr', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-microcontroller', 'packagegroup-avr kicad', '', d)} \
 "
 
 RDEPENDS_${PN}_append_libc-glibc = " \
