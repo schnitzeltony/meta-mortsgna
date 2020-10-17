@@ -38,7 +38,7 @@ RDEPENDS_${PN} = " \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'mame dosbox cass80 z80 vice stella opentyrian d1x-rebirth', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'mame dosbox dosbox-x cass80 z80 vice stella opentyrian d1x-rebirth', '', d)} \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice abiword-meta', '', d)} \
     \
