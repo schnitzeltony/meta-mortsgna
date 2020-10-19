@@ -1,0 +1,66 @@
+Setup new image:
+
+* BACKUP CURRENT HOME
+* REMOVE NETWORK PLUG
+
+* 1st login xfce
+* copy this file to /home/morona / open with gedit / setup colour theme
+
+As root:
+* systemctl disable systemd-networkd-wait-online.service
+* TODO systemctl disable brcm43438
+* systemctl disable serial-getty@ttyS0
+* systemctl disable serial-getty@ttyAMA0
+* create /home/<user>/.asoundrc with (soundcards can be sndrpihifiberry/audioinjectorpi...)
+    pcm.!default {
+        type hw
+        card sndrpihifiberry
+    }
+    ctl.!default {
+        type hw
+        card sndrpihifiberry
+    }
+* audioinjector: enable mixer control "Output Mixer HiFi"
+* passwd
+
+As user:
+* passwd
+* check session autostart (evt. disable blueman/baloo/tracker/scrensaver..)
+* datetime: timezone
+* optionally for a tiny better performance: reduce screen resolution (yes really tested: 1280x1024 / 1280x720 are fine)
+* check /var/log/postinstall.log
+* restart
+* network plug
+* check journalctl output
+* check systemd-analyze: Can be 8-9s
+* glmark2-es2: On Pi3 (no B+) ~145 / On Pi 4 ~269
+* chromium unselect 'Allow Chromium-sign-in / add ad-blocker / check youtube music-video
+* libreoffice: open documents to set libreoffice default
+* jack setup
+* qtractor midiimport / open reference-project and check all instruments
+* ardour5/6
+* qmmp/projectm
+* mixxx
+* vlc
+* supercollider
+* krita/kdenlive/kalzium
+* set-up git (.gitconfig) / ssh-keygen -> github
+* qt-creator 
+    standard build directory:
+      /home/morona/tmp/qtbuilds/build-%{CurrentProject:Name}-%{CurrentKit:FileSystemName}-%{CurrentBuild:Name}
+    help/about plugins
+      disable ClangCodeModel
+    kit/compiler:
+      set gcc explicitly - clang causes trouble on qml-register functions
+    kit/cmake:
+      CMAKE_INSTALL_PREFIX:STRING=/home/morona/tmp/qtinstalls/usr
+      CMAKE_PREFIX_PATH:STRING=/home/morona/tmp/qtinstalls/usr;%{Qt:QT_INSTALL_PREFIX}
+      OE_QMAKE_PATH_EXTERNAL_HOST_BINS:STRING=/usr/bin
+* clone avr projects & build them
+* kicad: open example / check 3d preview
+* mame: set video opengl / test some ROMs
+* vice: select cairo
+* dosbox / dosbox-x / stella
+* supertux(kart??)
+* open all gnome- / all kde-plasma- / lxqt- / liri- / lumina-sessions
+
