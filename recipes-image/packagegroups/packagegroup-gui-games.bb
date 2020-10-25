@@ -7,7 +7,6 @@ inherit packagegroup
 # Those listed here are either ugly or nonworking
 RDEPENDS_${PN} = " \
     atanks \
-    scummvm \
     etr \
     gnome-chess \
     gnome-robots \
