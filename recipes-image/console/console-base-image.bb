@@ -12,6 +12,7 @@ IMAGE_INSTALL += " \
     systemd-bash-completion \
     systemd-analyze \
     cpufrequtils \
+    findutils \
     htop \
     util-linux-lsblk \
     nano \
