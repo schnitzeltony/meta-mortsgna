@@ -1,4 +1,4 @@
-favorites=exo-terminal-emulator.desktop,exo-file-manager.desktop,exo-web-browser.desktop,qjackctl.desktop,ardour5.desktop,lmms.desktop,muse.desktop,qtractor.desktop,rosegarden.desktop,mixxx.desktop,cgenie.desktop,vice_64.desktop
+favorites=exo-terminal-emulator.desktop,exo-file-manager.desktop,exo-web-browser.desktop,qjackctl.desktop,ardour5.desktop,ardour6.desktop,lmms.desktop,muse.desktop,qtractor.desktop,rosegarden.desktop,mixxx.desktop,cgenie.desktop,vice_64.desktop
 recent=
 button-title=Anwendungen
 button-icon=xfce4-whiskermenu
