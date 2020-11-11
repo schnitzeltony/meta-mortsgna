@@ -24,6 +24,7 @@ RDEPENDS_${PN} = " \
     menulibre \
     \
     gparted \
+    gnome-disk-utility \
     \
     mpd \
     vlc \
