@@ -1,8 +1,5 @@
 These are tasks are planned:
 
-OE:
-* Introduce security_flags.inc
-
 Scripts:
 * get rid of bashisms
 * dialog -> ncurses?
