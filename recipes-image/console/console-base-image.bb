@@ -16,6 +16,8 @@ IMAGE_INSTALL += " \
     htop \
     util-linux-lsblk \
     nano \
+    rsync \
+    wget \
 "
 
 IMAGE_DEV_MANAGER   = "udev"
