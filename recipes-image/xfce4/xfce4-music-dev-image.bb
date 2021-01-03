@@ -7,7 +7,6 @@ XFCE_DM = "sddm sddm-morona-autologin"
 IMAGE_INSTALL += " \
     packagegroup-gui-dev \
     \
-    exo-csource \
     xfce4-dev-tools \
     libxfce4ui-glade \
     \
