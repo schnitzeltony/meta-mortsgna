@@ -12,7 +12,7 @@ RDEPENDS_${PN} = " \
     umbrello \
     lokalize \
     geany-plugins \
-    gtk-demo gtk+3-demo \
+    gtk+3-demo \
     \
     weston weston-xwayland  \
     \
@@ -25,8 +25,7 @@ RDEPENDS_${PN} = " \
     gdb gdbserver \
     valgrind \
     git git-bash-completion git-perltools subversion \
-    python python-shell python-subprocess \
-    python3 \
+    python3-core \
     perl php vala lua php json-glib \
     texinfo gettext \
     patch quilt ncurses dialog \
