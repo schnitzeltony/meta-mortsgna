@@ -19,7 +19,7 @@ RDEPENDS_${PN} = " \
     unzip xz tar bzip2 \
     make cmake extra-cmake-modules meson \
     automake autoconf libtool m4 \
-    gcc-symlinks g++-symlinks cpp-symlinks \
+    gcc-symlinks g++-symlinks cpp-symlinks libgomp-dev \
     dtc \
     pkgconfig binutils-symlinks elfutils gnu-config \
     gdb gdbserver \
@@ -33,6 +33,8 @@ RDEPENDS_${PN} = " \
     gawk \
     chrpath \
     nodejs nodejs-npm nodejs-systemtap \
+    \
+    libeigen-dev \
     \
     wireshark \
     nfs-utils-client \
