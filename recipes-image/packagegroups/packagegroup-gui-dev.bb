@@ -40,6 +40,8 @@ RDEPENDS_${PN} = " \
     nfs-utils-client \
     lmsensors-sensord lmsensors-sensorsdetect \
     \
+    pulseview qtiohelper \
+    \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-microcontroller', 'meta-microcontroller-world', '', d)} \
 "
