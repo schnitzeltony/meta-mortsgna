@@ -1,10 +1,12 @@
 timeout=1
-show_cpu=0
+show_cpu=-3
 show_icon=false
 show_label_freq=true
 show_label_governor=true
 show_warning=true
 keep_compact=false
 one_line=false
-fontname=Sans 8
+fontname=Sans 7
+icon_color_freq=false
+freq_unit=0
 
