@@ -37,7 +37,7 @@ RDEPENDS_${PN} = " \
     \
     ${MACHINE_SPECIFICS_FULL} \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'browser-layer', 'chromium-x11', '', d)} \
+    ${@bb.utils.contains_any('BBFILE_COLLECTIONS', 'browser-layer chromium-browser-layer', 'chromium-x11', '', d)} \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'mame dosbox dosbox-x cage cass80 z80 vice stella opentyrian d1x-rebirth', '', d)} \
     \
