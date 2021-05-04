@@ -7,8 +7,6 @@ Setup new image:
 * copy this file to /home/morona / open with gedit / setup colour theme
 
 As root:
-* systemctl disable systemd-networkd-wait-online.service
-* TODO systemctl disable brcm43438
 * systemctl disable serial-getty@ttyS0
 * systemctl disable serial-getty@ttyAMA0
 * create /home/<user>/.asoundrc with (soundcards can be sndrpihifiberry/audioinjectorpi...)
