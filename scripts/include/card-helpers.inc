@@ -104,7 +104,13 @@ SelectDeployedFile() {
         if [ -z "$_TMPDIR" ]; then
             ErrorOut "Bitbake environment variable TMPDIR not found!"
         fi
-        for FilePath in `find ${_TMPDIR}/deploy/images/${Machine} $FindString | sort` ; do
+        DeployPath=${_TMPDIR}/deploy/images/${Machine}
+        if [ ! -e ${DeployPath} ]; then
+            echo "${style_yellow}${style_bold}DeployPath: ${DeployPath}${style_normal}"
+            ErrorOut "Deploy path for ${Machine} not found! Wrong script started?"
+        fi
+        
+        for FilePath in `find ${DeployPath} $FindString | sort` ; do
             iCount=`expr $iCount + 1`
             RootFileNameArr[${iCount}]="$FilePath"
             FileSize=`du -Dh "$FilePath" | cut -f1`
