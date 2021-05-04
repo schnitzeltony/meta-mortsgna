@@ -12,7 +12,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 # Feel free to add more...
 
 BOOTPARTSPEC = "boot,vfat BOOT,vfat"
-BOOTPARTSPEC_rpi = "raspberrypi,vfat"
+BOOTPARTSPEC_rpi = "rpi*,vfat"
 
 do_install () {
 	install -d ${D}${nonarch_base_libdir}/udev/rules.d
