@@ -34,6 +34,8 @@ RDEPENDS_${PN} = " \
     chrpath \
     nodejs nodejs-npm nodejs-systemtap \
     \
+    ruby ruby-dev \
+    \
     libeigen-dev \
     \
     wireshark \
