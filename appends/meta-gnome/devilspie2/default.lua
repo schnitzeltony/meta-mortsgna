@@ -18,7 +18,6 @@ if(wnd_type == "WINDOW_TYPE_NORMAL") then
 		"xarchiver",
 		"Thunar",
 		"geany",
-		"gedit",
 	}
 
 	app_name = get_application_name()
