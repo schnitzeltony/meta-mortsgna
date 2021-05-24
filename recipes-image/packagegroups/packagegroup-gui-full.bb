@@ -27,6 +27,7 @@ RDEPENDS_${PN} = " \
     gnome-disk-utility \
     \
     mpd \
+    mpv \
     vlc \
     parole gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-omx gstreamer1.0-libav \
     gstreamer1.0-plugins-base-meta gstreamer1.0-plugins-good-meta \
@@ -55,5 +56,4 @@ RDEPENDS_${PN} = " \
 #    firefox 
 #    gursormaker
 #    kodi 
-#    mpv 
 
