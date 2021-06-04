@@ -9,6 +9,8 @@ Setup new image:
 As root:
 * systemctl disable serial-getty@ttyS0
 * systemctl disable serial-getty@ttyAMA0
+* systemctl enable dbus-broker.service
+* systemctl --global enable dbus-broker.service
 * create /home/<user>/.asoundrc with (soundcards can be sndrpihifiberry/audioinjectorpi...)
     pcm.!default {
         type hw

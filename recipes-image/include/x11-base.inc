@@ -4,7 +4,6 @@ X11_BASE_INSTALL += " \
     ${DISTRO_GUI_USER} \
     packagegroup-core-x11-xserver \
     \
-    dbus \
     iso-codes \
     mime-support \
     xauth \

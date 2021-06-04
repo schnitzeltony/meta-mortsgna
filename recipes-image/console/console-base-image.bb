@@ -18,6 +18,7 @@ IMAGE_INSTALL += " \
     nano \
     rsync \
     wget \
+    dbus-broker \
 "
 
 IMAGE_DEV_MANAGER   = "udev"
