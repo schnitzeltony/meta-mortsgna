@@ -1,1 +1,1 @@
-PACKAGECONFIG = "impl-side-painting proprietary-codecs"
+PACKAGECONFIG = "proprietary-codecs"
