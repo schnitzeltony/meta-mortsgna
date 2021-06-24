@@ -19,7 +19,11 @@ IMAGE_INSTALL += " \
     rsync \
     wget \
     dbus-broker \
+    ${LIBC_SPECIFIC_PACKS} \
 "
+
+LIBC_SPECIFIC_PACKS = ""
+LIBC_SPECIFIC_PACKS_libc-glibc = "glibc-gconv glibc-gconvs glibc-utils"
 
 IMAGE_DEV_MANAGER   = "udev"
 IMAGE_INIT_MANAGER  = "systemd"
