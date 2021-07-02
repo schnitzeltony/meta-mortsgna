@@ -6,7 +6,7 @@ inherit useradd user-with-full-skel
 
 USERNAME = "morona"
 # groups user shall be member of (NO WHITESPACES ALLOWED)
-USERGROUPS = "audio,video,${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'datetime,network,', '', d)}systemd-journal"
+USERGROUPS = "audio,video,dialout,${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'datetime,network,', '', d)}systemd-journal"
 
 # all those we are member of
 USER_DEPS ?= " \
