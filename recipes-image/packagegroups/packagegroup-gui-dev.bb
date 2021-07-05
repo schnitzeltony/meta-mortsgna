@@ -42,7 +42,8 @@ RDEPENDS_${PN} = " \
     nfs-utils-client \
     lmsensors-sensord lmsensors-sensorsdetect \
     \
-    pulseview qtiohelper minicom \
+    pulseview qtiohelper minicom i2c-tools \
+    python3-pyserial python3-smbus python3-smbus2 python3-spidev \
     \
     ${@bb.utils.contains_any('BBFILE_COLLECTIONS', 'browser-layer chromium-browser-layer', 'chromium-x11', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-microcontroller', 'meta-microcontroller-world', '', d)} \
