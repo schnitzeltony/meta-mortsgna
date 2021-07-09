@@ -50,7 +50,7 @@ RDEPENDS_${PN} = " \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'rubygems', 'rubygems-jekyll', '', d)} \
 "
 
-RDEPENDS_${PN}_append_rpi = "rpi-gpio rpio"
+RDEPENDS_${PN}_append_rpi = "rpi-gpio"
 
 #    qemu
 #    
