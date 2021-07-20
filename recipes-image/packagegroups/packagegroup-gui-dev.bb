@@ -28,7 +28,7 @@ RDEPENDS_${PN} = " \
     python3-core \
     perl php vala lua php json-glib \
     texinfo gettext \
-    patch quilt ncurses dialog \
+    patch quilt ncurses dialog kdialog \
     man man-pages \
     gawk \
     chrpath \
