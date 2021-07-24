@@ -15,7 +15,6 @@ category-icon-size=1
 load-hierarchy=false
 recent-items-max=10
 favorites-in-recent=true
-display-recent-default=false
 position-search-alternate=false
 position-commands-alternate=false
 position-categories-alternate=false
