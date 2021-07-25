@@ -19,6 +19,7 @@ IMAGE_INSTALL += " \
     rsync \
     wget \
     dbus-broker \
+    sudo \
     ${LIBC_SPECIFIC_PACKS} \
 "
 
