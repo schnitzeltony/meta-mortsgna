@@ -8,7 +8,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 do_compile[postfuncs] += "${COMPILE_POST_TARGET}"
 COMPILE_POST_TARGET = ""
-COMPILE_POST_TARGET_class-target = "instant_compile_target"
+COMPILE_POST_TARGET:class-target = "instant_compile_target"
 
 INSTANTPOPULATE_TOOLCHAIN_VARS = " \
     CC \

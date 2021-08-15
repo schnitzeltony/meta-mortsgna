@@ -1,4 +1,4 @@
-PACKAGECONFIG_append = " \
+PACKAGECONFIG:append = " \
     hls \
     libmms \
     faad \

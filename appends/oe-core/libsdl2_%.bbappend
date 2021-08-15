@@ -1,1 +1,1 @@
-PACKAGECONFIG_append_class-target = " jack"
+PACKAGECONFIG:append:class-target = " jack"

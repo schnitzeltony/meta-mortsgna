@@ -21,11 +21,11 @@ do_install() {
     cp $sourcepath/$qtconf $targetpath/
 }
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"
 
 # An image installing this requires the following packages at least for working
 # instant sdk support
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     qtbase \
     gdbserver \
     ${TASK_BASIC_SSHDAEMON} \

@@ -6,4 +6,4 @@ IMAGE_INSTALL += " \
     packagegroup-gui-full \
 "
 
-IMAGE_LINGUAS_libc-glibc = "${IMAGE_LINGUAS_FULL}"
+IMAGE_LINGUAS:libc-glibc = "${IMAGE_LINGUAS_FULL}"

@@ -15,7 +15,7 @@
 SKEL_INIT_MARKER = "force-skel-full-init"
 
 # user recipe part
-pkg_postinst_${PN}_prepend() {
+pkg_postinst:${PN}:prepend() {
     if [ -n "$D" -a -n "${USERNAME}" ]; then
         touch $D/home/${USERNAME}/${SKEL_INIT_MARKER}
     fi

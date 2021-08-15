@@ -1,4 +1,4 @@
-do_install_append() {
+do_install:append() {
     # Since we
     # * do not have angstroms's DISTRO_TYPE
     # * do not want to set all debug-tweaks

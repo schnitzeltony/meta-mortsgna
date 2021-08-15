@@ -24,4 +24,4 @@ IMAGE_INSTALL += " \
     nodejs nodejs-npm nodejs-systemtap \
 "
 
-IMAGE_LINGUAS_libc-glibc = "${IMAGE_LINGUAS_FULL}"
+IMAGE_LINGUAS:libc-glibc = "${IMAGE_LINGUAS_FULL}"

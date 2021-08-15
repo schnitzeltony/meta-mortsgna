@@ -173,10 +173,7 @@ do_copy_to_target_sysroot() {
     fi
 }
 
-addtask copy_to_target_sysroot after do_package_write_deb do_package_write_ipk do_package_write_rpm before do_build
-
-# same as do package
-do_copy_to_target_sysroot[vardeps] = "${PACKAGEBUILDPKGD} ${PACKAGESPLITFUNCS} ${PACKAGEFUNCS} ${@gen_packagevar(d)}"
+addtask copy_to_target_sysroot after do_packagedata do_package
 
 do_copy_to_target_sysroot[stamp-extra-info] = "${MACHINE_ARCH}"
 

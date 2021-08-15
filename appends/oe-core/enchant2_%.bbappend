@@ -1,3 +1,3 @@
 PACKAGECONFIG = "hunspell"
 
-RRECOMMENDS_${PN} += "hunspell-dictionaries"
+RRECOMMENDS:${PN} += "hunspell-dictionaries"

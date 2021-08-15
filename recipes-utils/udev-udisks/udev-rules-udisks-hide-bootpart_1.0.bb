@@ -60,4 +60,4 @@ do_install () {
     done
 }
 
-FILES_${PN} = "${nonarch_base_libdir}/udev/rules.d"
+FILES:${PN} = "${nonarch_base_libdir}/udev/rules.d"

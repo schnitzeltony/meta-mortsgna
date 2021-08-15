@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " examples"
+PACKAGECONFIG:append = " examples"

@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " pam-wheel"
+PACKAGECONFIG:append = " pam-wheel"

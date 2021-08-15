@@ -18,4 +18,4 @@ do_install() {
 
 }
 
-RDEPENDS_${PN} = "ranpwd"
+RDEPENDS:${PN} = "ranpwd"

@@ -1,3 +1,3 @@
-RRECOMMENDS_${PN} += " \
+RRECOMMENDS:${PN} += " \
     imsettings \
 "

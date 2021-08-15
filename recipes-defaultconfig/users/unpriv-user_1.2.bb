@@ -17,17 +17,17 @@ USER_DEPS ?= " \
 "
 
 DEPENDS += "${USER_DEPS}"
-RDEPENDS_${PN} = "${USER_DEPS} bash"
+RDEPENDS:${PN} = "${USER_DEPS} bash"
 
 USERADD_PACKAGES = "${PN}"
 
-USERADD_PARAM_${PN} = "-m -c Morona -d /home/${USERNAME} -s /bin/bash -k /etc/skel -g ${USERNAME} --groups ${USERGROUPS} ${USERNAME}"
+USERADD_PARAM:${PN} = "-m -c Morona -d /home/${USERNAME} -s /bin/bash -k /etc/skel -g ${USERNAME} --groups ${USERGROUPS} ${USERNAME}"
 
-GROUPADD_PARAM_${PN} = "${USERNAME}"
+GROUPADD_PARAM:${PN} = "${USERNAME}"
 
-pkg_postinst_ontarget_${PN}() {
+pkg_postinst_ontarget:${PN}() {
 # empty password
 passwd -d ${USERNAME}
 }
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"

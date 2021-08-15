@@ -1,1 +1,1 @@
-RRECOMMENDS_${PN} += "udev-rules-udisks-hide-bootpart"
+RRECOMMENDS:${PN} += "udev-rules-udisks-hide-bootpart"

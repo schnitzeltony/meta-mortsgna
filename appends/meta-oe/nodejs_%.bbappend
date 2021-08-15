@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " shared"
+PACKAGECONFIG:append = " shared"

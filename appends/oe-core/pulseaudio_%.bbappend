@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " jack"
+PACKAGECONFIG:append = " jack"

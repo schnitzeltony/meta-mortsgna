@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " sound-setter notify"
+PACKAGECONFIG:append = " sound-setter notify"

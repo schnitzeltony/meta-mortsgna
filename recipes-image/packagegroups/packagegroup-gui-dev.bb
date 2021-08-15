@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit packagegroup
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     qt5-creator qtwebengine-dev \
     qtquickcontrols2-examples qtwayland-examples \
     hexedit \
@@ -50,7 +50,7 @@ RDEPENDS_${PN} = " \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'rubygems', 'rubygems-jekyll', '', d)} \
 "
 
-RDEPENDS_${PN}_append_rpi = "rpi-gpio"
+RDEPENDS:${PN}:append:rpi = "rpi-gpio"
 
 #    qemu
 #    

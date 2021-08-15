@@ -1,4 +1,4 @@
-kernel_do_deploy_append() {
+kernel_do_deploy:append() {
     # deploy an extra link containing abiversion - used by our
     # card-kernel-write scripts
     for imageType in ${KERNEL_IMAGETYPES} ; do

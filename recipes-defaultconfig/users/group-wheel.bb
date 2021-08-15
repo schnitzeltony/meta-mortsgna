@@ -6,6 +6,6 @@ inherit useradd
 
 USERADD_PACKAGES = "${PN}"
 #USERADD_PARAM = ""
-GROUPADD_PARAM_${PN} = "--system wheel"
+GROUPADD_PARAM:${PN} = "--system wheel"
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"

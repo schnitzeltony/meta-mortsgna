@@ -24,9 +24,9 @@ do_install() {
     install -m 0644 ${WORKDIR}/sunrise-sky-blue-sunlight-67832.jpeg ${D}${datadir}/backgrounds/ 
 }
 
-FILES_${PN} += "${datadir}/backgrounds"
+FILES:${PN} += "${datadir}/backgrounds"
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     adwaita-icon-theme-cursors \
     adwaita-icon-theme-symbolic \
     adwaita-icon-theme-symbolic-hires \

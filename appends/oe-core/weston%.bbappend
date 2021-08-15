@@ -1,2 +1,2 @@
 # A root session without password activated by just two keys - honestly..
-RRECOMMENDS_${PN}_remove = "weston-init"
+RRECOMMENDS:${PN}:remove = "weston-init"

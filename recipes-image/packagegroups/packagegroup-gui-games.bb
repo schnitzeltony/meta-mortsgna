@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 inherit packagegroup
 
 # Those listed here are either ugly or nonworking
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     atanks \
     etr \
     gnome-chess \

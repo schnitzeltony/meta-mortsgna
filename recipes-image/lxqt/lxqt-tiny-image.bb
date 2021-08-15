@@ -7,4 +7,4 @@ IMAGE_INSTALL += " \
     qpdfview \
 "
 
-IMAGE_INSTALL_remove = "evince"
+IMAGE_INSTALL:remove = "evince"

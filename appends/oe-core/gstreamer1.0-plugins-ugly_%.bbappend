@@ -1,3 +1,3 @@
-PACKAGECONFIG_append = " \
+PACKAGECONFIG:append = " \
     x264 \
 "
