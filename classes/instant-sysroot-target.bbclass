@@ -173,7 +173,7 @@ do_copy_to_target_sysroot() {
     fi
 }
 
-addtask copy_to_target_sysroot after do_package_write_deb do_package_write_ipk do_package_write_rpm
+addtask copy_to_target_sysroot after do_package_write_deb do_package_write_ipk do_package_write_rpm do_package_write_tar
 
 do_copy_to_target_sysroot[stamp-extra-info] = "${MACHINE_ARCH}"
 
