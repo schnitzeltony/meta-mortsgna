@@ -38,7 +38,7 @@ echo -e "${style_bold}Run bitbake -k --runall=fetch $@...${style_normal}"
 bitbake -k --runall=fetch "$@" 2>&1 | while read line; do
    if echo "$line" | grep -q "was expected"; then
        # Shorten line to ensure not being confused by filenames containing spaces
-       line=`echo "$line" | sed 's:.*checksum ::'`
+       line=`echo "$line" | sed 's:.*checksum ::' | sed "s:'::g"`
        # Extract checksums
        newchecksum=`echo "$line" | awk '{print $1}'`
        oldchecksum=`echo "$line" | awk '{print $3}'`
