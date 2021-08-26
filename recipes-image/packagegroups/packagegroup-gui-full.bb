@@ -42,7 +42,7 @@ RDEPENDS:${PN} = " \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'meta-retro-world', '', d)} \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice abiword-meta', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice inkscape abiword-meta', '', d)} \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'games-layer', 'pingus supertuxkart supertux2 freeciv wesnoth-all astromenace chromium-bsu maelstrom scummvm', '', d)} \
     \
