@@ -13,7 +13,6 @@ RDEPENDS:${PN} = " \
     \
     gnome-games \
     mog \
-    openastromenace \
 "
 
 
