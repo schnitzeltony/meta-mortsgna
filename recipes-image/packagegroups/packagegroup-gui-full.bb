@@ -44,7 +44,7 @@ RDEPENDS:${PN} = " \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice inkscape abiword-meta', '', d)} \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'games-layer', 'pingus supertuxkart supertux2 freeciv wesnoth-all astromenace chromium-bsu maelstrom scummvm', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'games-layer', 'pingus supertuxkart supertux2 freeciv wesnoth-all astromenace chromium-bsu maelstrom scummvm pinball pinball-table-gnu pinball-table-hurd', '', d)} \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-musicians', 'packagegroup-gui-musicians', '', d)} \
     \
