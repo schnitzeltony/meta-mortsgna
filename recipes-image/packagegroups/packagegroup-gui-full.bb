@@ -38,7 +38,7 @@ RDEPENDS:${PN} = " \
     \
     ${MACHINE_SPECIFICS_FULL} \
     \
-    ${@bb.utils.contains_any('BBFILE_COLLECTIONS', 'browser-layer chromium-browser-layer', 'chromium-x11', '', d)} \
+    epiphany ${@bb.utils.contains_any('BBFILE_COLLECTIONS', 'browser-layer chromium-browser-layer', 'chromium-x11', '', d)} \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'meta-retro-world', '', d)} \
     \
