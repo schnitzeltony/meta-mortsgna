@@ -42,7 +42,7 @@ RDEPENDS:${PN} = " \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-retro', 'meta-retro-world', '', d)} \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice inkscape abiword-meta', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'office-layer', 'libreoffice inkscape scribus abiword-meta', '', d)} \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'games-layer', 'pingus supertuxkart supertux2 freeciv wesnoth-all astromenace chromium-bsu maelstrom scummvm pinball pinball-table-gnu pinball-table-hurd', '', d)} \
     \
@@ -50,7 +50,7 @@ RDEPENDS:${PN} = " \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'sdr-layer', 'packagegroup-sdr-python-extended packagegroup-sdr-gnuradio-base packagegroup-sdr-gnuradio-extended packagegroup-sdr-rtlsdr packagegroup-sdr-uhd', '', d)} \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-qt5-extra', 'gottcode-world kde-apps-world qmlarkdown quaternion spectral scribus', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-qt5-extra', 'gottcode-world kde-apps-world qmlarkdown quaternion spectral', '', d)} \
 "
 
 #    firefox 
