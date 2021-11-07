@@ -7,7 +7,7 @@ PV = "1.2+git${SRCPV}"
 
 inherit autotools
 
-SRC_URI = "git://github.com/koenkooi/ranpwd.git;protocol=https \
+SRC_URI = "git://github.com/koenkooi/ranpwd.git;protocol=https;branch=master \
            file://ranpwd_confgure.patch \
           "
 
