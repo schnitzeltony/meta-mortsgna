@@ -51,6 +51,12 @@ DISTRO_WAYLAND:mx8 = ""
 DISTRO_WAYLAND:use-mainline-bsp = "wayland"
 DISTRO_FEATURES += "${DISTRO_WAYLAND}"
 
+# vulkan
+DISTRO_VULKAN = ""
+DISTRO_VULKAN:raspberrypi4 = "vulkan"
+DISTRO_VULKAN:raspberrypi4-64 = "vulkan"
+DISTRO_FEATURES += "${DISTRO_VULKAN}"
+
 # Uncomment for tests on gold-trouble only
 #DISTRO_FEATURES += 'ld-is-gold'
 
