@@ -44,13 +44,11 @@ DISTRO_FEATURES += "opengl"
 
 # wayland...
 DISTRO_WAYLAND = "wayland"
-
 # No wayland for vivante blobs
-DISTRO_WAYLAND_mx6 = ""
-DISTRO_WAYLAND_mx7 = ""
-DISTRO_WAYLAND_mx8 = ""
-DISTRO_WAYLAND_use-mainline-bsp = "wayland"
-
+DISTRO_WAYLAND:mx6 = ""
+DISTRO_WAYLAND:mx7 = ""
+DISTRO_WAYLAND:mx8 = ""
+DISTRO_WAYLAND:use-mainline-bsp = "wayland"
 DISTRO_FEATURES += "${DISTRO_WAYLAND}"
 
 # Inherit the default LIBC features superset from OE-core
