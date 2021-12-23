@@ -51,9 +51,6 @@ DISTRO_WAYLAND:mx8 = ""
 DISTRO_WAYLAND:use-mainline-bsp = "wayland"
 DISTRO_FEATURES += "${DISTRO_WAYLAND}"
 
-# Inherit the default LIBC features superset from OE-core
-DISTRO_FEATURES += "${DISTRO_FEATURES_LIBC}"
-
 # Uncomment for tests on gold-trouble only
 #DISTRO_FEATURES += 'ld-is-gold'
 
