@@ -1,14 +1,14 @@
 #! /bin/bash
 
 # machine-raspberrypi.inc
-# (c) Copyright 2018 Andreas Müller <schnitzeltony@gmail.com>
+# (c) Copyright 2021 Andreas Müller <schnitzeltony@gmail.com>
 # Licensed under terms of GPLv2
 #
 # This script contains settings and callbacks fir raspberrypi boards
 
 # default settings
 DEFAULT_MACHINE_FAMILY='raspberrypi*'
-DEFAULT_FIND_ROOTFS='-name *.rpi-sdimg -type l'
+DEFAULT_FIND_ROOTFS='-name *.rpi-sdimg -o -name *.wic -o -name *.wic.bz2 -type l'
 DEFAULT_KERNEL_IMAGE_TYPE='Image'
 
 # callback for card-write
@@ -18,7 +18,12 @@ RootCardWriteCallback() {
         # evt. write partition table
         CheckPartitionTable "$DevicePath"
         # write
-        EvalExAuto "dd of=$DevicePath oflag=nocache if=$DeployedFile bs=1024K" "\nWrite $DeployedFile to $DevicePath..."
+        StartMessage="\nWrite $DeployedFile to $DevicePath..."
+        if echo $DeployedFile | grep -q '.wic.bz2'; then
+            EvalExAuto "bunzip2 -c $DeployedFile | dd of=$DevicePath oflag=nocache bs=1024K" "$StartMessage"
+        else
+            EvalExAuto "dd of=$DevicePath oflag=nocache if=$DeployedFile bs=1024K" "$StartMessage"
+        fi
         # resize I
         EvalExAuto "parted -s $DevicePath -- resizepart 2 -0" "\nResize I ${DevicePath}2..."
         # resize II
