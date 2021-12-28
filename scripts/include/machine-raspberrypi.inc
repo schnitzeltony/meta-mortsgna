@@ -8,7 +8,7 @@
 
 # default settings
 DEFAULT_MACHINE_FAMILY='raspberrypi*'
-DEFAULT_FIND_ROOTFS='-name *.rpi-sdimg -o -name *.wic -o -name *.wic.bz2 -type l'
+DEFAULT_FIND_ROOTFS='-name *.rpi-sdimg -type l -o -name *.wic -type l -o -name *.wic.bz2 -type l'
 DEFAULT_KERNEL_IMAGE_TYPE='Image'
 
 # callback for card-write
