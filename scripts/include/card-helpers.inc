@@ -113,7 +113,7 @@ SelectDeployedFile() {
         for FilePath in `find ${DeployPath} $FindString | sort` ; do
             iCount=`expr $iCount + 1`
             RootFileNameArr[${iCount}]="$FilePath"
-            FileSize=`du -Dh "$FilePath" | cut -f1`
+            FileSize=`du -Dbh "$FilePath" | cut -f1`
             menuitems+=( "$iCount" "`basename $FilePath` / size: $FileSize" )
         done
 
