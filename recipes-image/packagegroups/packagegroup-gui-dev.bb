@@ -48,7 +48,7 @@ RDEPENDS:${PN} = " \
     pulseview qtiohelper minicom i2c-tools \
     python3-pyserial python3-smbus python3-smbus2 python3-spidev \
     \
-    epiphany ${@bb.utils.contains_any('BBFILE_COLLECTIONS', 'browser-layer chromium-browser-layer', 'chromium-x11', '', d)} \
+    epiphany ${@bb.utils.contains_any('BBFILE_COLLECTIONS', 'browser-layer chromium-browser-layer', 'chromium-ozone-wayland chromium-x11', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-microcontroller', 'meta-microcontroller-world', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'rubygems', 'rubygems-jekyll', '', d)} \
 "
