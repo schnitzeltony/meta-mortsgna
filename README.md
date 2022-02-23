@@ -165,12 +165,6 @@ branch: master
 revision: HEAD
 ```
 
-```
-URI: git://github.com/meta-rust/meta-rust.git
-branch: master
-revision: HEAD
-```
-
 #### To pretend work:
 ```
 URI: git://github.com/schnitzeltony/meta-office.git
