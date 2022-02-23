@@ -4,9 +4,6 @@ INHERIT += "debian"
 # activate config checker
 INHERIT += "sanity"
 
-# activate the blacklister
-INHERIT += "blacklist"
-
 # make devshell available as task
 INHERIT += "devshell"
 
@@ -22,5 +19,3 @@ INHERIT += "sstate"
 # drop buildinfo to /etc/build
 INHERIT += "image-buildinfo-mortsgna"
 
-# Prelink images
-INHERIT += "image-prelink"

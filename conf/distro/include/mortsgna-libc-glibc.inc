@@ -1,2 +1,2 @@
 # glibc:
-PNBLACKLIST[libiconv] = "the glibc provided iconv library is used"
+SKIP_RECIPE[libiconv] = "the glibc provided iconv library is used"
