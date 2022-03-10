@@ -1,5 +1,5 @@
 DESCRIPTION = "Random password generator"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://ranpwd.c;beginline=1;endline=11;md5=0e8585e19117526efedfaeb50c345d7a"
 SECTION = "console/utils"
 
