@@ -51,6 +51,8 @@ RDEPENDS:${PN} = " \
     epiphany ${@bb.utils.contains_any('BBFILE_COLLECTIONS', 'browser-layer chromium-browser-layer', 'chromium-x11', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-microcontroller', 'meta-microcontroller-world', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'rubygems', 'rubygems-jekyll', '', d)} \
+    \
+    fftw-dev fftwf-wisdom fftw-wisdom fftwl-wisdom \
 "
 
 RDEPENDS:${PN}:append:rpi = "rpi-gpio"
