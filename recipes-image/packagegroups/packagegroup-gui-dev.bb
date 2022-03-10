@@ -36,6 +36,7 @@ RDEPENDS:${PN} = " \
     gawk \
     chrpath \
     nodejs nodejs-npm nodejs-systemtap \
+    googletest-dev \
     \
     ruby ruby-dev \
     \
