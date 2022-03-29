@@ -99,12 +99,12 @@ SelectCardDevice() {
 SelectDeployedFile() {
     if [ -z "$DeployedFile" ]; then
         GetBitbakeEnvVar "TMPDIR"
-        _TMPDIR="$BitbakeEnvVar"
+        BITBAKE_TMPDIR="$BitbakeEnvVar"
         # bitbake environment found?
-        if [ -z "$_TMPDIR" ]; then
+        if [ -z "$BITBAKE_TMPDIR" ]; then
             ErrorOut "Bitbake environment variable TMPDIR not found!"
         fi
-        DeployPath=${_TMPDIR}/deploy/images/${Machine}
+        DeployPath=${BITBAKE_TMPDIR}/deploy/images/${Machine}
         if [ ! -e ${DeployPath} ]; then
             echo "${style_yellow}${style_bold}DeployPath: ${DeployPath}${style_normal}"
             ErrorOut "Deploy path for ${Machine} not found! Wrong script started?"
