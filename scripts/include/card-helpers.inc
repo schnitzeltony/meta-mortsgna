@@ -83,7 +83,8 @@ SelectCardDevice() {
             ErrorOut 'Cancel selected at SelectCardDevice().'
         fi
         DevicePath=${DevicePathArr[$menuitem]}
-        DeviceSize=`lsblk --nodeps --raw --noheadings --output SIZE --bytes $dev`
+        DeviceSize=`lsblk --nodeps --raw --noheadings --output SIZE --bytes $DevicePath`
+
         unset menuitem
         unset menuitems
     fi
