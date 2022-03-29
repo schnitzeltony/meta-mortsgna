@@ -98,8 +98,10 @@ SelectCardDevice() {
 # DeployFileDir: Path of the file selected
 SelectDeployedFile() {
     if [ -z "$DeployedFile" ]; then
-        GetBitbakeEnvVar "TMPDIR"
-        BITBAKE_TMPDIR="$BitbakeEnvVar"
+        if [ -z "$BITBAKE_TMPDIR" ]; then
+            GetBitbakeEnvVar "TMPDIR"
+            BITBAKE_TMPDIR="$BitbakeEnvVar"
+        fi
         # bitbake environment found?
         if [ -z "$BITBAKE_TMPDIR" ]; then
             ErrorOut "Bitbake environment variable TMPDIR not found!"
