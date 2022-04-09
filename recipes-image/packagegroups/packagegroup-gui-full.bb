@@ -37,7 +37,7 @@ RDEPENDS:${PN} = " \
     pulseaudio-misc \
     \
     qwt-qt5-examples \
-    gnuplot gnuplot-x11 \
+    gnuplot gnuplot-x11 octave \
     \
     ${MACHINE_SPECIFICS_FULL} \
     \
