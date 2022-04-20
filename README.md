@@ -67,8 +67,8 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
     form /etc/skel.
 
 [recipes-image](recipes-image):
-  * All images for console / kde / lxqt / xfce ar found. allgui-images build
-    images for all graphical environments.
+  * All images for cinnamon / console / gnome / kde / liri / lxqt / weston / xfce are found in this folder.
+    allgui-images build images for all desktop environments.
 
 [recipes-utils](recipes-utils):
   * udev-rules-udisks-hide-bootpart: Hide boot partition from udisks
@@ -144,6 +144,11 @@ revision: HEAD
 
 ```
 URI: git://github.com/schnitzeltony/meta-qt5-extra.git
+branch: master
+revision: HEAD
+```
+
+URI: git://github.com/schnitzeltony/meta-gnome-forks.git
 branch: master
 revision: HEAD
 ```

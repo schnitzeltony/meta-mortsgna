@@ -19,6 +19,8 @@ IMAGE_INSTALL += " \
     \
     packagegroup-gnome-desktop \
     \
+    cinnamon-base \
+    \
     packagegroup-lxqt-base \
     lxqt-default-config \
     \
