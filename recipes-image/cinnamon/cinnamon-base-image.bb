@@ -12,6 +12,7 @@ IMAGE_INSTALL += " \
     cinnamon-base \
     packagegroup-gui-base \
     \
+    xfce4-terminal \
 "
 
 # reenable graphical target
