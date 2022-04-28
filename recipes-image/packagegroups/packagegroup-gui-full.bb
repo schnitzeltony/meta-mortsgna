@@ -18,10 +18,6 @@ RDEPENDS:${PN} = " \
     ttf-noto-emoji-color \
     ttf-noto-emoji-regular \
     \
-    tzdata-misc tzdata-africa \
-    tzdata-americas tzdata-antarctica tzdata-arctic tzdata-asia \
-    tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific \
-    \
     gimp \
     fontforge \
     menulibre \
