@@ -1,4 +1,4 @@
-DESCRIPTION = "This recipe presets xfce user default configuration"
+SUMMARY = "LXQT default user configuration"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
