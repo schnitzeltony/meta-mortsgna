@@ -243,7 +243,7 @@ RunUserStartRoot() {
         done
         # dialog's gui is done here
         clear
-        echo "${style_bold}${style_red}IMPORTANT: THIS is YOUR LAST EXIT...${style_normal}"
+        echo "${style_bold}${style_red}IMPORTANT: THIS is YOUR LAST EXIT!!!${style_normal}"
         if [ "x$1" = "x" ] ; then
             # No message text passed: use standard
             if [ -n "$DeployedFile" ]; then
