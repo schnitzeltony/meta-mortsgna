@@ -10,7 +10,6 @@ IMAGE_INSTALL += " \
     ${CINNAMON_DM} \
     \
     cinnamon-base \
-    cinnamon-default-config \
     packagegroup-gui-base \
     \
     xfce4-terminal \
