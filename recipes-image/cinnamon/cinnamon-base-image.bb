@@ -9,7 +9,7 @@ IMAGE_INSTALL += " \
     ${X11_BASE_INSTALL} \
     ${CINNAMON_DM} \
     \
-    cinnamon-base \
+    packagegroup-cinnamon-base \
     packagegroup-gui-base \
     \
     xfce4-terminal \
