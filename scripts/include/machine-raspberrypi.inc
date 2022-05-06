@@ -18,7 +18,7 @@ RootCardWriteCallback() {
         # evt. write partition table
         CheckPartitionTable "$DevicePath"
         # write
-        EvalExAuto "dd of=$DevicePath oflag=nocache if=$DeployedFile bs=1024K" "\nWrite $DeployedFile to $DevicePath..."
+        EvalExAuto "dd of=$DevicePath status=progress oflag=nocache if=$DeployedFile bs=1024K" "\nWrite $DeployedFile to $DevicePath..."
         # resize I
         EvalExAuto "parted -s $DevicePath -- resizepart 2 -0" "\nResize I ${DevicePath}2..."
         # resize II

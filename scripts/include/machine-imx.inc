@@ -20,9 +20,9 @@ RootCardWriteCallback() {
         # write
         StartMessage="\nWrite $DeployedFile to $DevicePath..."
         if echo $DeployedFile | grep -q '.wic.gz'; then
-            EvalExAuto "gunzip -c $DeployedFile | dd of=$DevicePath oflag=nocache bs=1024K" "$StartMessage"
+            EvalExAuto "gunzip -c $DeployedFile | dd of=$DevicePath status=progress oflag=nocache bs=1024K" "$StartMessage"
         else
-            EvalExAuto "dd of=$DevicePath oflag=nocache if=$DeployedFile bs=1024K" "$StartMessage"
+            EvalExAuto "dd of=$DevicePath status=progress oflag=nocache if=$DeployedFile bs=1024K" "$StartMessage"
         fi
         # resize I
         EvalExAuto "parted -s $DevicePath -- resizepart 2 -0" "\nResize I ${DevicePath}2..."
