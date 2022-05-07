@@ -67,7 +67,7 @@ It has its origin Ångström distribution  - check https://github.com/Angstrom-d
     form /etc/skel.
 
 [recipes-image](recipes-image):
-  * All images for cinnamon / console / gnome / kde / liri / lxqt / weston / xfce are found in this folder.
+  * All images for cinnamon / console / gnome / kde / lxqt / weston / xfce are found in this folder.
     allgui-images build images for all desktop environments.
 
 [recipes-utils](recipes-utils):
