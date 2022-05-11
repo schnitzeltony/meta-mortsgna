@@ -38,7 +38,7 @@ RDEPENDS:${PN} = " \
     nodejs nodejs-npm nodejs-systemtap \
     googletest-dev \
     protobuf protobuf-compiler protobuf-dev \
-    flatbuffers flatbuffers-compiler flatbuffers-dev flatbuffers-python3 \
+    flatbuffers flatbuffers-compiler flatbuffers-dev flatbuffers-staticdev flatbuffers-python3 \
     \
     ruby ruby-dev \
     \
