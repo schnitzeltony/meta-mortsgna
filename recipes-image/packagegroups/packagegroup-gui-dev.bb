@@ -39,6 +39,10 @@ RDEPENDS:${PN} = " \
     googletest-dev \
     protobuf protobuf-compiler protobuf-dev \
     flatbuffers flatbuffers-compiler flatbuffers-dev flatbuffers-staticdev flatbuffers-python3 \
+    modemmanager-dev modemmanager-qt-dev \
+    networkmanager-dev networkmanager-qt-dev libnma-dev \
+    qtvirtualkeyboard-dev qwt-qt5-dev \
+    syntax-highlighting-dev \
     \
     ruby ruby-dev \
     \
@@ -56,6 +60,8 @@ RDEPENDS:${PN} = " \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'rubygems', 'rubygems-jekyll', '', d)} \
     \
     fftw-dev fftwf-wisdom fftw-wisdom fftwl-wisdom \
+    libxerces-c libxerces-c-dev \
+    libxml2-utils \
 "
 
 RDEPENDS:${PN}:append:rpi = "rpi-gpio"
