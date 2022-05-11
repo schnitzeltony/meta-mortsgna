@@ -22,7 +22,7 @@ RDEPENDS:${PN} = " \
     unzip xz tar bzip2 \
     make cmake extra-cmake-modules meson \
     automake autoconf libtool m4 \
-    gcc-symlinks g++-symlinks cpp-symlinks libgomp-dev \
+    ccache gcc-symlinks g++-symlinks cpp-symlinks libgomp-dev \
     dtc \
     pkgconfig binutils-symlinks elfutils gnu-config util-linux \
     gdb gdbserver \
