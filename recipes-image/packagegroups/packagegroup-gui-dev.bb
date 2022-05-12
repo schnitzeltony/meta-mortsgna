@@ -60,8 +60,7 @@ RDEPENDS:${PN} = " \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'rubygems', 'rubygems-jekyll', '', d)} \
     \
     fftw-dev fftwf-wisdom fftw-wisdom fftwl-wisdom \
-    libxerces-c libxerces-c-dev \
-    libxml2-utils \
+    libxml2-utils libxerces-c libxerces-c-dev xsd-dev \
 "
 
 RDEPENDS:${PN}:append:rpi = "rpi-gpio"
