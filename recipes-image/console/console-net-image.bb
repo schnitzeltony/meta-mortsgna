@@ -6,7 +6,8 @@ NETWORKPACKS ?= " \
     iputils \
     networkmanager \
     networkmanager-openvpn \
-    networkmanager-bash-completion \
+    networkmanager-nmcli \
+    networkmanager-nmcli-bash-completion \
 "
 
 IMAGE_INSTALL += " \
