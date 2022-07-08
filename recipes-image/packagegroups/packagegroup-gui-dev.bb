@@ -38,7 +38,7 @@ RDEPENDS:${PN} = " \
     nodejs nodejs-npm nodejs-systemtap \
     googletest-dev \
     protobuf protobuf-compiler protobuf-dev \
-    flatbuffers flatbuffers-compiler flatbuffers-dev flatbuffers-staticdev flatbuffers-python3 \
+    flatbuffers flatbuffers-compiler flatbuffers-dev flatbuffers-staticdev python3-flatbuffers \
     modemmanager-dev modemmanager-qt-dev \
     networkmanager-dev networkmanager-qt-dev libnma-dev \
     qtvirtualkeyboard-dev qwt-qt5-dev \
