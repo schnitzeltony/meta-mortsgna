@@ -4,7 +4,7 @@
 # Hardlink recipe sysroot and generated sysroot to instant native sysroot
 #------------------------------------------------------------------------------
 
-inherit utils instant-paths
+inherit instant-paths
 
 do_prepare_recipe_sysroot[postfuncs] += "${INSTANTSYSROOTFUNC}"
 INSTANTSYSROOTFUNC = ""
