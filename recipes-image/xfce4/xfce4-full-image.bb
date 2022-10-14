@@ -7,8 +7,6 @@ export IMAGE_BASENAME = "xfce4-full-image"
 IMAGE_INSTALL += " \
     packagegroup-gui-full \
     \
-    onboard \
-    \
     faenza-icon-theme \
     openzone \
     \

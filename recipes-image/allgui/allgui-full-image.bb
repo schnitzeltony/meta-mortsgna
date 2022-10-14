@@ -6,8 +6,6 @@ IMAGE_INSTALL += " \
     packagegroup-gui-full \
     kde-world \
     \
-    onboard \
-    \
     faenza-icon-theme \
     openzone \
     \
