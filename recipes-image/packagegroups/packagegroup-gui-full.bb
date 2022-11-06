@@ -49,7 +49,7 @@ RDEPENDS:${PN} = " \
     \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'sdr-layer', 'packagegroup-sdr-python-extended packagegroup-sdr-gnuradio-base packagegroup-sdr-gnuradio-extended packagegroup-sdr-rtlsdr packagegroup-sdr-uhd', '', d)} \
     \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-qt5-extra', 'gottcode-world kde-apps-world qmlarkdown quaternion spectral', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-qt5-extra', 'gottcode-world kde-apps-world qmlarkdown quaternion spectral kdreports', '', d)} \
 "
 
 #    firefox 
