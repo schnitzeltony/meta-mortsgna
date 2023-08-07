@@ -148,6 +148,7 @@ branch: master
 revision: HEAD
 ```
 
+```
 URI: git://github.com/schnitzeltony/meta-gnome-forks.git
 branch: master
 revision: HEAD
